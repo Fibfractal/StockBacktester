@@ -60,16 +60,26 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="GraphTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GraphTable.Designer.cs">
+      <DependentUpon>GraphTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OnlyGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OnlyGraph.Designer.cs">
+      <DependentUpon>OnlyGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Revenue.cs" />
+    <EmbeddedResource Include="GraphTable.resx">
+      <DependentUpon>GraphTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OnlyGraph.resx">
+      <DependentUpon>OnlyGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

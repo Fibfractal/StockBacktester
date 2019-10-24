@@ -13,9 +13,9 @@ using LiveCharts.Wpf;
 
 namespace GraphProject
 {
-    public partial class Form1 : Form
+    public partial class OnlyGraph : Form
     {
-        public Form1()
+        public OnlyGraph()
         {
             InitializeComponent();
             cartesianChart1.Series = new SeriesCollection

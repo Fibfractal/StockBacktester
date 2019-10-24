@@ -11,9 +11,9 @@ C:\Users\Erik\source\repos\GraphProject\GraphProject\bin\Debug\LiveCharts.WinFor
 C:\Users\Erik\source\repos\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.pdb
 C:\Users\Erik\source\repos\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.xml
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.csprojAssemblyReference.cache
-C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.Form1.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.Properties.Resources.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.GenerateResource.cache
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.CopyComplete
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.exe
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
+C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.OnlyGraph.resources
