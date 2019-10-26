@@ -60,12 +60,16 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DailyDataPoint.cs" />
+    <Compile Include="IDataPoint.cs" />
     <Compile Include="GraphTable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GraphTable.Designer.cs">
       <DependentUpon>GraphTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="IImportData.cs" />
+    <Compile Include="ImportFromTextFile.cs" />
     <Compile Include="OnlyGraph.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +79,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Revenue.cs" />
+    <Compile Include="Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="GraphTable.resx">
       <DependentUpon>GraphTable.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +100,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Revenue.datasource" />
     <None Include="Properties\Settings.settings">

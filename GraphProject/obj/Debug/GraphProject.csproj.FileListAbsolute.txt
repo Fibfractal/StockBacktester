@@ -18,3 +18,4 @@ C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.exe
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.OnlyGraph.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphTable.resources
+C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.Test.resources
