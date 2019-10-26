@@ -23,7 +23,7 @@ namespace GraphProject
 
         private void InitializeGUI()
         {
-            lbx_TestList.Items.AddRange(_textfile.ImporteraData().ConvertAll(x => x.ToString()).ToArray());
+            lbx_TestList.Items.AddRange(_textfile.ImportData().ConvertAll(x => x.ToString()).ToArray());
         }
 
 

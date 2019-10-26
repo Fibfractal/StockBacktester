@@ -8,6 +8,6 @@ namespace GraphProject
 {
     public interface IImportData
     {
-        List<IDataPoint> ImporteraData();
+        List<IDataPoint> ImportData();
     }
 }

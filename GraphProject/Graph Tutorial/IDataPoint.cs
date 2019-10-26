@@ -12,7 +12,7 @@ namespace GraphProject
         double High { get; set; }
         double Low { get; set; }
         double Close { get; set; }
-        int MilliSeconds { get; set; }
+        double MilliSeconds { get; set; }
 
     }
 }

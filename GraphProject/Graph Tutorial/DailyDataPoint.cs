@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraphProject
 {
-    public class DailyDataPoint //: IDataPoint
+    public class DailyDataPoint : IDataPoint
     {
         
         public double Open { get; set; }
