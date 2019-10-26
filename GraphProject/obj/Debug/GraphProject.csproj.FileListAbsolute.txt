@@ -19,3 +19,5 @@ C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.OnlyGraph.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphTable.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.Test.resources
+C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphTextFile.resources
+C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphFromTextFile2.resources
