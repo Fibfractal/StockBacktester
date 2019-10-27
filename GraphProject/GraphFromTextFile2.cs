@@ -7,9 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GraphProject.Graph_Textfile;
 using LiveCharts;
+using LiveCharts.Configurations;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace GraphProject
 {
@@ -26,73 +29,60 @@ namespace GraphProject
 
         private void UpdateGUI(ImportFromTextFile dataTextFile)
         {
-            /*
-            cartesianChart1.AxisX.Add(new LiveCharts.Wpf.Axis
+            var dayConfig = Mappers.Xy<DateModel>()
+              .X(dateModel => dateModel.DateTime.Ticks / (TimeSpan.FromDays(1).Ticks * 365.2425))
+              .Y(dateModel => dateModel.Value);
+
+            cartesianChart1.AxisX.Add(new Axis
             {
                 Title = "Years",
-                Labels = new[]
-                   { "1970","1971","1972","1973","1974","1975","1976","1977","1978","1979",
-                  "1980","1981","1982","1983","1984","1985","1986","1987","1988","1989",
-                  "1990","1991","1992","1993","1994","1995","1996","1997","1998","1999",
-                  "2000","2001","2002","2003","2004","2005","2006","2007","2008","2009",
-                  "2010","2011","2012","2013","2014","2015","2016","2017","2018","2019",
-                }
-
+                LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks * 365.2425)).ToString("yyyy")
             });
 
             cartesianChart1.AxisY.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Price",
-                LabelFormatter = value => value.ToString("C")
+                LabelFormatter = value => value.ToString()
             });
 
             cartesianChart1.LegendLocation = LiveCharts.LegendLocation.Right;
-            */
 
             var listOfData = dataTextFile.ImportData();
-
-
-            // Init data
-            //cartesianChart1.Series.Clear();
-
-            var seriesCollection = new SeriesCollection();
+            var seriesCollection = new SeriesCollection(dayConfig);
             var lineSeries = new LineSeries();
-            var chartValues = new ChartValues<ObservablePoint>();// { new ObservablePoint(1, 10), new ObservablePoint(2, 20), new ObservablePoint(3, 5) };
+            //var chartValues = new ChartValues<ObservablePoint>();
+            var chartValues = new ChartValues<DateModel>();
+
+            for (int i = 0; i < listOfData.Count; i++)
+            {
+                chartValues.Add(new DateModel());
+                chartValues[i].DateTime = TimeTranslation(listOfData[i].MilliSeconds);
+                chartValues[i].Value = listOfData[i].Close;
+            }
 
             /*
-            foreach (var item in listOfData)
-            {
-                chartValues.Add(new ObservablePoint(TimeTranslation(item.MilliSeconds), item.Close));
-            }*/
-
-            for (int i = 0; i < 2000; i++)
+            for (int i = 0; i < listOfData.Count; i++)
             {
                 chartValues.Add(new ObservablePoint(TimeTranslation(listOfData[i].MilliSeconds), listOfData[i].Close));
             }
-            
-
-            /*
-            chartValues.Add(new ObservablePoint(1, 10));
-            chartValues.Add(new ObservablePoint(2, 15));
-            chartValues.Add(new ObservablePoint(3, 5));
             */
 
             lineSeries.PointGeometrySize = 1;
-            
+            lineSeries.Fill = Brushes.Transparent;
             lineSeries.Values = chartValues;
             seriesCollection.Add(lineSeries);
 
             cartesianChart1.Series = seriesCollection;
         }
 
-        private double TimeTranslation(double ticks)
+        private DateTime TimeTranslation(double ticks)
         {
             //double ticks = double.Parse(timeMs);
             TimeSpan time = TimeSpan.FromMilliseconds(ticks);
-            double time2 = time.TotalDays - 14442;
+            //double time2 = time.TotalDays - 14442;
             DateTime date = new DateTime(1970, 1, 1) + time;
-            //double nbrDays = date.Total
-            return time2;
+            //double year = date.;
+            return date;
         }
     }
 }

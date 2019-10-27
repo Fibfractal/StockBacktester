@@ -61,12 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graph Textfile\DailyDataPoint.cs" />
-    <Compile Include="Graph Textfile\GraphTextFile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Graph Textfile\GraphTextFile.Designer.cs">
-      <DependentUpon>GraphTextFile.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Graph Textfile\DateModel.cs" />
     <Compile Include="Graph Textfile\IDataPoint.cs" />
     <Compile Include="Graph Table Tutorial\GraphTable.cs">
       <SubType>Form</SubType>
@@ -99,9 +94,6 @@
     </Compile>
     <EmbeddedResource Include="Graph Table Tutorial\GraphTable.resx">
       <DependentUpon>GraphTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Graph Textfile\GraphTextFile.resx">
-      <DependentUpon>GraphTextFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graph Tutorial\OnlyGraph.resx">
       <DependentUpon>OnlyGraph.cs</DependentUpon>
