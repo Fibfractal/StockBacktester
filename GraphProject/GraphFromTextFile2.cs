@@ -19,26 +19,23 @@ namespace GraphProject
     public partial class GraphFromTextFile2 : Form
     {
         private ImportFromTextFile _dataTextFile;
+        private TimeFrame _timeFrame;
 
         public GraphFromTextFile2()
         {
             InitializeComponent();
             _dataTextFile = new ImportFromTextFile();
+            _timeFrame = new TimeFrame();
             UpdateGUI(_dataTextFile);
         }
 
         private void UpdateGUI(ImportFromTextFile dataTextFile)
         {
             var dayConfig = Mappers.Xy<DateModel>()
-              .X(dateModel => dateModel.DateTime.Ticks / (TimeSpan.FromDays(1).Ticks * 365.2425))
+              .X(dateModel => dateModel.DateTime.Ticks / (_timeFrame.Years()))
               .Y(dateModel => dateModel.Value);
 
-            cartesianChart1.AxisX.Add(new Axis
-            {
-                Title = "Years",
-                LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks * 365.2425)).ToString("yyyy")
-            });
-
+            cartesianChart1.AxisX.Add(_timeFrame.YearFormatter());
             cartesianChart1.AxisY.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Price",
@@ -50,7 +47,6 @@ namespace GraphProject
             var listOfData = dataTextFile.ImportData();
             var seriesCollection = new SeriesCollection(dayConfig);
             var lineSeries = new LineSeries();
-            //var chartValues = new ChartValues<ObservablePoint>();
             var chartValues = new ChartValues<DateModel>();
 
             for (int i = 0; i < listOfData.Count; i++)
@@ -59,13 +55,6 @@ namespace GraphProject
                 chartValues[i].DateTime = TimeTranslation(listOfData[i].MilliSeconds);
                 chartValues[i].Value = listOfData[i].Close;
             }
-
-            /*
-            for (int i = 0; i < listOfData.Count; i++)
-            {
-                chartValues.Add(new ObservablePoint(TimeTranslation(listOfData[i].MilliSeconds), listOfData[i].Close));
-            }
-            */
 
             lineSeries.PointGeometrySize = 1;
             lineSeries.Fill = Brushes.Transparent;
@@ -77,11 +66,8 @@ namespace GraphProject
 
         private DateTime TimeTranslation(double ticks)
         {
-            //double ticks = double.Parse(timeMs);
             TimeSpan time = TimeSpan.FromMilliseconds(ticks);
-            //double time2 = time.TotalDays - 14442;
             DateTime date = new DateTime(1970, 1, 1) + time;
-            //double year = date.;
             return date;
         }
     }

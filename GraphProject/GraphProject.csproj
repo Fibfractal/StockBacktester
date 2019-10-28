@@ -92,6 +92,7 @@
     <Compile Include="Graph Textfile\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeFrame.cs" />
     <EmbeddedResource Include="Graph Table Tutorial\GraphTable.resx">
       <DependentUpon>GraphTable.cs</DependentUpon>
     </EmbeddedResource>
