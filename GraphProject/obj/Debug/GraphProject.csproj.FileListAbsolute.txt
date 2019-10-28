@@ -19,4 +19,7 @@ C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.OnlyGraph.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphTable.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.Test.resources
-C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphFromTextFile2.resources
+C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphFromTextFile.resources
+C:\Users\Erik\source\repos\GraphProject\GraphProject\bin\Debug\Dapper.dll
+C:\Users\Erik\source\repos\GraphProject\GraphProject\bin\Debug\Dapper.xml
+C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphFromSql.resources

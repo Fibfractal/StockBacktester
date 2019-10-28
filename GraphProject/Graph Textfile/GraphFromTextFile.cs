@@ -16,12 +16,12 @@ using Brushes = System.Windows.Media.Brushes;
 
 namespace GraphProject
 {
-    public partial class GraphFromTextFile2 : Form
+    public partial class GraphFromTextFile : Form
     {
         private ImportFromTextFile _dataTextFile;
         private TimeFrame _timeFrame;
 
-        public GraphFromTextFile2()
+        public GraphFromTextFile()
         {
             InitializeComponent();
             _dataTextFile = new ImportFromTextFile();

@@ -1,6 +1,6 @@
 ﻿namespace GraphProject
 {
-    partial class GraphFromTextFile2
+    partial class GraphFromSql
     {
         /// <summary>
         /// Required designer variable.
@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
+            this.btn_ExportData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // cartesianChart1
+            // btn_ExportData
             // 
-            this.cartesianChart1.Location = new System.Drawing.Point(22, 12);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1301, 559);
-            this.cartesianChart1.TabIndex = 0;
-            this.cartesianChart1.Text = "cartesianChart1";
+            this.btn_ExportData.Location = new System.Drawing.Point(100, 72);
+            this.btn_ExportData.Name = "btn_ExportData";
+            this.btn_ExportData.Size = new System.Drawing.Size(170, 58);
+            this.btn_ExportData.TabIndex = 0;
+            this.btn_ExportData.Text = "Export Data";
+            this.btn_ExportData.UseVisualStyleBackColor = true;
+            this.btn_ExportData.Click += new System.EventHandler(this.btn_ExportData_Click);
             // 
-            // GraphFromTextFile2
+            // GraphFromSql
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 609);
-            this.Controls.Add(this.cartesianChart1);
-            this.Name = "GraphFromTextFile2";
-            this.Text = "GraphFromTextFile";
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_ExportData);
+            this.Name = "GraphFromSql";
+            this.Text = "GraphFromSql";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private LiveCharts.WinForms.CartesianChart cartesianChart1;
+        private System.Windows.Forms.Button btn_ExportData;
     }
 }

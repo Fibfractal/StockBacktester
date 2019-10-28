@@ -16,7 +16,7 @@ namespace GraphProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GraphFromTextFile2());
+            Application.Run(new GraphFromSql());
         }
     }
 }
