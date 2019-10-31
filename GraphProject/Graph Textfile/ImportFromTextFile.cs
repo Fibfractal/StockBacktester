@@ -10,14 +10,14 @@ namespace GraphProject
 {
     public class ImportFromTextFile : IImportData 
     {
-        private List<IDataPoint> _dataPoints;
+        private List<DailyDataPoint> _dataPoints;
         
         public ImportFromTextFile()
         {
-            _dataPoints = new List<IDataPoint>();
+            _dataPoints = new List<DailyDataPoint>();
         }
 
-        public List<IDataPoint> ImportData()                                                                         
+        public List<DailyDataPoint> ImportData()                                                                         
         {                                                                                                              
             List<string> TextRows = new List<string>();                                                                               
 
@@ -58,11 +58,11 @@ namespace GraphProject
             {
                 _dataPoints.Add(new DailyDataPoint
                 {
-                    Open = TestValue(days, 7, 8, i),
-                    High = TestValue(days, 23, 8, i),
-                    Low = TestValue(days, 38, 8, i),
-                    Close = TestValue(days, 54, 8, i),
-                    MilliSeconds = TestValue(days, 81, 13, i)
+                    _Open = TestValue(days, 7, 8, i),
+                    _High = TestValue(days, 23, 8, i),
+                    _Low = TestValue(days, 38, 8, i),
+                    _Close = TestValue(days, 54, 8, i),
+                    _MilliSeconds = TestValue(days, 81, 13, i)
                 }); 
             }
         }

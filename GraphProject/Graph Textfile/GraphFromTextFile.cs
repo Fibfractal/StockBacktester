@@ -52,8 +52,8 @@ namespace GraphProject
             for (int i = 0; i < listOfData.Count; i++)
             {
                 chartValues.Add(new DateModel());
-                chartValues[i].DateTime = TimeTranslation(listOfData[i].MilliSeconds);
-                chartValues[i].Value = listOfData[i].Close;
+                chartValues[i].DateTime = TimeTranslation(listOfData[i]._MilliSeconds);
+                chartValues[i].Value = listOfData[i]._Close;
             }
 
             lineSeries.PointGeometrySize = 1;
