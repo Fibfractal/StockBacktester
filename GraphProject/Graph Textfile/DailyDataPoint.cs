@@ -14,12 +14,22 @@ namespace GraphProject
         public double _Low { get; set; }
         public double _Close { get; set; }
         public double _MilliSeconds { get; set; }
+        public double RSI { get; set; }
 
+        /*
         public override string ToString()
         {
             string strOut = string.Format("{0,-18} {1,-11} {2,-19} {3,-12} {4}",
                 _Open, _High, _Low, _Close, _MilliSeconds);
             return strOut;
         }
+        */
+
+        public override string ToString()
+        {
+            return string.Format("{0}",RSI);
+        }
+
+
     }
 }

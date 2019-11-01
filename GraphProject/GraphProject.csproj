@@ -95,6 +95,14 @@
     </Compile>
     <Compile Include="Graph SQL\Helper.cs" />
     <Compile Include="Graph SQL\ImportFromSql.cs" />
+    <Compile Include="GraphRsi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphRsi.Designer.cs">
+      <DependentUpon>GraphRsi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RSI.cs" />
+    <Compile Include="RsiManager.cs" />
     <Compile Include="Test\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graph SQL\GraphFromSql.resx">
       <DependentUpon>GraphFromSql.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphRsi.resx">
+      <DependentUpon>GraphRsi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -22,6 +22,7 @@ namespace GraphProject
                 }
                 // Dapper cant Query Interfaces!! Throws argument exception.
                 return connection.Query<DailyDataPoint>("select _Open,_High,_Low,_Close,_MilliSeconds from DataPointDaily").ToList();
+                //return connection.Query<DailyDataPoint>("select _Close from RSI").ToList();
             }
             
         }
