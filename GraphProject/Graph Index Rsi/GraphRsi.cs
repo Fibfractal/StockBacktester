@@ -85,7 +85,9 @@ namespace GraphProject
             }
 
             lineSeries.PointGeometrySize = 1;
+            //((LineSeries)ABValuesSC[0]).Fill = Brushes.Aqua; //change fill of first series
             lineSeries.Fill = Brushes.Transparent;
+            lineSeries.Stroke = Brushes.Red;
             lineSeries.Values = chartValues;
             seriesCollection.Add(lineSeries);
 

@@ -27,7 +27,7 @@ namespace GraphProject
         {
             if (_points.Count >= 15)
             {
-                double nbr = 0;
+                double nbr = 50;
 
                 if (_index > 14)
                 {
@@ -56,7 +56,7 @@ namespace GraphProject
                 {
                     _advance.Add(diff);
                 }
-                if (diff < 0)
+                else if (diff < 0)
                 {
                     _decline.Add(diff);
                 }
