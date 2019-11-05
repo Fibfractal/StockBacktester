@@ -25,4 +25,3 @@ C:\Users\Erik\source\repos\GraphProject\GraphProject\bin\Debug\Dapper.xml
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphFromSql.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphRsi.resources
 C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.GraphChartRsi.resources
-C:\Users\Erik\source\repos\GraphProject\GraphProject\obj\Debug\GraphProject.Test2.resources

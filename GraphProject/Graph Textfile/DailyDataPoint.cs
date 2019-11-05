@@ -14,7 +14,8 @@ namespace GraphProject
         public double _Low { get; set; }
         public double _Close { get; set; }
         public double _MilliSeconds { get; set; }
-        public double RSI { get; set; }
+        public double _RSI { get; set; }
+        public double _MA { get; set; }
 
         /*
         public override string ToString()
@@ -27,7 +28,7 @@ namespace GraphProject
 
         public override string ToString()
         {
-            return string.Format("{0}",RSI);
+            return string.Format("{0}",_RSI);
         }
 
 

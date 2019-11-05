@@ -30,6 +30,9 @@
         {
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
+            this.lbl_OMX = new System.Windows.Forms.Label();
+            this.lbl_MA200 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cartesianChart1
@@ -48,16 +51,54 @@
             this.cartesianChart2.TabIndex = 1;
             this.cartesianChart2.Text = "cartesianChart2";
             // 
+            // lbl_OMX
+            // 
+            this.lbl_OMX.AutoSize = true;
+            this.lbl_OMX.Font = new System.Drawing.Font("Franklin Gothic Medium", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_OMX.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_OMX.Location = new System.Drawing.Point(102, 21);
+            this.lbl_OMX.Name = "lbl_OMX";
+            this.lbl_OMX.Size = new System.Drawing.Size(169, 50);
+            this.lbl_OMX.TabIndex = 2;
+            this.lbl_OMX.Text = "OMX 30";
+            // 
+            // lbl_MA200
+            // 
+            this.lbl_MA200.AutoSize = true;
+            this.lbl_MA200.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_MA200.ForeColor = System.Drawing.Color.Red;
+            this.lbl_MA200.Location = new System.Drawing.Point(107, 81);
+            this.lbl_MA200.Name = "lbl_MA200";
+            this.lbl_MA200.Size = new System.Drawing.Size(72, 21);
+            this.lbl_MA200.TabIndex = 3;
+            this.lbl_MA200.Text = "- MA 200";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(107, 111);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 21);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "* RSI 14 <  30";
+            // 
             // GraphChartRsi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1354, 733);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbl_MA200);
+            this.Controls.Add(this.lbl_OMX);
             this.Controls.Add(this.cartesianChart2);
             this.Controls.Add(this.cartesianChart1);
             this.Name = "GraphChartRsi";
             this.Text = "GraphChartRsi";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -65,5 +106,8 @@
 
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
+        private System.Windows.Forms.Label lbl_OMX;
+        private System.Windows.Forms.Label lbl_MA200;
+        private System.Windows.Forms.Label label1;
     }
 }

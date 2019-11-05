@@ -65,7 +65,7 @@ namespace GraphProject
 
             for ( int i = 0; i < listOfData.Count; i++)
             {
-                listOfData[i].RSI = (new RSI(listOfData, i, _lastAverage)).CalculateRsi();
+                listOfData[i]._RSI = (new RSI(listOfData, i, _lastAverage)).CalculateRsi();
             }
 
             //lbx_RSI.Items.AddRange(listOfData.ConvertAll(x => x.ToString()).ToArray()); 
@@ -81,7 +81,7 @@ namespace GraphProject
             {
                 chartValues.Add(new DateModel());
                 chartValues[i].DateTime = TimeTranslation(listOfData[i]._MilliSeconds);
-                chartValues[i].Value = listOfData[i].RSI;
+                chartValues[i].Value = listOfData[i]._RSI;
             }
 
             lineSeries.PointGeometrySize = 1;

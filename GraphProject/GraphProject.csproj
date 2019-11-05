@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Graph Index Rsi\RSI.cs" />
     <Compile Include="Graph Index Rsi\RsiManager.cs" />
+    <Compile Include="MovingAverage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graph Table Tutorial\Revenue.cs" />
