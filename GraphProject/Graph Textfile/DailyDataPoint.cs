@@ -17,20 +17,10 @@ namespace GraphProject
         public double _RSI { get; set; }
         public double _MA { get; set; }
 
-        /*
-        public override string ToString()
-        {
-            string strOut = string.Format("{0,-18} {1,-11} {2,-19} {3,-12} {4}",
-                _Open, _High, _Low, _Close, _MilliSeconds);
-            return strOut;
-        }
-        */
-
+        // Used to visualize that the calculated RSI values in GraphRsi matches dummy RSI values from data in website 
         public override string ToString()
         {
             return string.Format("{0}",_RSI);
         }
-
-
     }
 }

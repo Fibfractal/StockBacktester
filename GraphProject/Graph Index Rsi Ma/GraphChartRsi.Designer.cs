@@ -33,6 +33,7 @@
             this.lbl_OMX = new System.Windows.Forms.Label();
             this.lbl_MA200 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cartesianChart1
@@ -66,7 +67,7 @@
             // 
             this.lbl_MA200.AutoSize = true;
             this.lbl_MA200.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_MA200.ForeColor = System.Drawing.Color.Red;
+            this.lbl_MA200.ForeColor = System.Drawing.Color.Yellow;
             this.lbl_MA200.Location = new System.Drawing.Point(107, 81);
             this.lbl_MA200.Name = "lbl_MA200";
             this.lbl_MA200.Size = new System.Drawing.Size(72, 21);
@@ -84,12 +85,24 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "* RSI 14 <  30";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(107, 132);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 21);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "* RSI 14 >  70";
+            // 
             // GraphChartRsi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1354, 733);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_MA200);
             this.Controls.Add(this.lbl_OMX);
@@ -109,5 +122,6 @@
         private System.Windows.Forms.Label lbl_OMX;
         private System.Windows.Forms.Label lbl_MA200;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

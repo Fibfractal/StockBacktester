@@ -104,6 +104,5 @@ namespace GraphProject
         {
             return (100 - (100 / (1 + rsValue)));
         }
-
     }
 }

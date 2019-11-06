@@ -95,28 +95,28 @@
     </Compile>
     <Compile Include="Graph SQL\Helper.cs" />
     <Compile Include="Graph SQL\ImportFromSql.cs" />
-    <Compile Include="Graph Index Rsi\GraphChartRsi.cs">
+    <Compile Include="Graph Index Rsi Ma\GraphChartRsi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graph Index Rsi\GraphChartRsi.Designer.cs">
+    <Compile Include="Graph Index Rsi Ma\GraphChartRsi.Designer.cs">
       <DependentUpon>GraphChartRsi.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graph Index Rsi\GraphRsi.cs">
+    <Compile Include="Graph Index Rsi Ma\GraphRsi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graph Index Rsi\GraphRsi.Designer.cs">
+    <Compile Include="Graph Index Rsi Ma\GraphRsi.Designer.cs">
       <DependentUpon>GraphRsi.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graph Index Rsi\RSI.cs" />
-    <Compile Include="Graph Index Rsi\RsiManager.cs" />
-    <Compile Include="MovingAverage.cs" />
+    <Compile Include="Graph Index Rsi Ma\RSI.cs" />
+    <Compile Include="Graph Index Rsi Ma\RsiManager.cs" />
+    <Compile Include="Graph Index Rsi Ma\MovingAverage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graph Table Tutorial\Revenue.cs" />
-    <Compile Include="Graph Index Rsi\Test.cs">
+    <Compile Include="Graph Index Rsi Ma\Test.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graph Index Rsi\Test.Designer.cs">
+    <Compile Include="Graph Index Rsi Ma\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
     <Compile Include="TimeFrame.cs" />
@@ -132,10 +132,10 @@
     <EmbeddedResource Include="Graph SQL\GraphFromSql.resx">
       <DependentUpon>GraphFromSql.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graph Index Rsi\GraphChartRsi.resx">
+    <EmbeddedResource Include="Graph Index Rsi Ma\GraphChartRsi.resx">
       <DependentUpon>GraphChartRsi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graph Index Rsi\GraphRsi.resx">
+    <EmbeddedResource Include="Graph Index Rsi Ma\GraphRsi.resx">
       <DependentUpon>GraphRsi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -147,7 +147,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Graph Index Rsi\Test.resx">
+    <EmbeddedResource Include="Graph Index Rsi Ma\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

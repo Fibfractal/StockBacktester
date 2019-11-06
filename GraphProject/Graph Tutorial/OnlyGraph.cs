@@ -64,6 +64,9 @@ namespace GraphProject
             lineSeries.Values = chartValues;
             lineSeries2.Values = chartValues2;
 
+            lineSeries.PointForeground = Brushes.Black;
+            lineSeries2.PointForeground = Brushes.Red;
+
             seriesCollection.Add(lineSeries);
             seriesCollection.Add(lineSeries2);
 

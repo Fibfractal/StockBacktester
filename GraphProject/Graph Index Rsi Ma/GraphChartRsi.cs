@@ -50,23 +50,29 @@ namespace GraphProject
             GuiRsi();
         }
 
-       
-
         private void GuiIndex()
         {
-            _dataList = _import.ImportData();
+            try
+            {
+                _dataList = _import.ImportData();
+                _import.VerifyData(_dataList);
+
+                if (!_import.VerifyData(_dataList))
+                    MessageBox.Show("Import of sql stock data is not complete!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Import of sql stock data failed!");
+            }
             
             for (int i = 0; i < _dataList.Count; i++)
             {
                 _dataList[i]._RSI = (new RSI(_dataList, i, _lastAverage)).CalculateRsi();
             }
 
-
-
             _dayConfig = Mappers.Xy<DateModel>()
                         .X(dateModel => dateModel.DateTime.Ticks / (_timeFrame.Years()))
                         .Y(dateModel => dateModel.Value);
-                                           
 
             // YearFormatter doesnt seem to work, spaces between years is not consistent
             // Works without it, and start year 1971
@@ -104,7 +110,6 @@ namespace GraphProject
             cartesianChart2.AxisY[0].Separator.StrokeThickness = 0;
         }
 
-
         private void ImportChartData()
         {
             ImportIndexAndMa(_dataList);
@@ -124,10 +129,12 @@ namespace GraphProject
             var lineSeries = new LineSeries();
             var lineSeries5 = new LineSeries();
             var lineSeries6 = new LineSeries();
+            var lineSeries7 = new LineSeries();
 
             var chartValues = new ChartValues<DateModel>();
             var chartValues5 = new ChartValues<DateModel>();
             var chartValues6 = new ChartValues<DateModel>();
+            var chartValues7 = new ChartValues<DateModel>();
 
             for (int i = 0; i < listOfData.Count; i++)
             {
@@ -150,28 +157,46 @@ namespace GraphProject
                     chartValues6[length - 1].Value = listOfData[i]._Close;
                 }
 
+                if (listOfData[i]._RSI > 70)
+                {
+                    chartValues7.Add(new DateModel());
+                    var length = chartValues7.Count();
+                    chartValues7[length - 1].DateTime = TimeTranslation(listOfData[i]._MilliSeconds);
+                    chartValues7[length - 1].Value = listOfData[i]._Close;
+                }
             }
 
+            // OMX 30
             lineSeries.PointGeometrySize = 1;
             lineSeries.Fill = Brushes.Transparent;
             lineSeries.Stroke = Brushes.Blue;
             lineSeries.Values = chartValues;
 
+            // Ma 200
             lineSeries5.PointGeometrySize = 1;
             lineSeries5.Fill = Brushes.Transparent;
-            lineSeries5.Stroke = Brushes.Red;
+            lineSeries5.Stroke = Brushes.Yellow;
             lineSeries5.Values = chartValues5;
-            cartesianChart1.Background = Brushes.Black;//new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(34, 46, 49));
+            cartesianChart1.Background = Brushes.Black;
 
+            // Rsi < 30
             lineSeries6.PointGeometrySize = 3;
             lineSeries6.Fill = Brushes.Transparent;
-            lineSeries6.Stroke = Brushes.GreenYellow;
+            lineSeries6.PointForeground = Brushes.White;
             lineSeries6.Values = chartValues6;
             lineSeries6.StrokeThickness = 0;
+
+            // Rsi > 70
+            lineSeries7.PointGeometrySize = 3;
+            lineSeries7.Fill = Brushes.Transparent;
+            lineSeries7.PointForeground = Brushes.Red;
+            lineSeries7.Values = chartValues7;
+            lineSeries7.StrokeThickness = 0;
 
             seriesCollection.Add(lineSeries5);
             seriesCollection.Add(lineSeries);
             seriesCollection.Add(lineSeries6);
+            seriesCollection.Add(lineSeries7);
 
             cartesianChart1.Series = seriesCollection;
         }
@@ -179,13 +204,6 @@ namespace GraphProject
         private void ImportRsi(List<DailyDataPoint> listOfData)
         {
             cartesianChart2.LegendLocation = LiveCharts.LegendLocation.None;
-
-            /*
-            for (int i = 0; i < listOfData.Count; i++)
-            {
-                listOfData[i]._RSI = (new RSI(listOfData, i, _lastAverage)).CalculateRsi();
-            }
-            */
 
             var seriesCollection2 = new SeriesCollection(_dayConfig2);
             var lineSeries2 = new LineSeries();
@@ -216,7 +234,7 @@ namespace GraphProject
 
             lineSeries2.PointGeometrySize = 1;
             lineSeries2.Fill = Brushes.Transparent;
-            lineSeries2.Stroke = Brushes.Red;
+            lineSeries2.Stroke = Brushes.Yellow;
             lineSeries2.Values = chartValues2;
             lineSeries2.LineSmoothness = 0;
 
@@ -225,16 +243,12 @@ namespace GraphProject
             lineSeries3.Stroke = Brushes.Blue;
             lineSeries3.LineSmoothness = 0;
             lineSeries3.Values = chartValues3;
-            //lineSeries3.StrokeDashArray = new System.Windows.Media.DoubleCollection(20);
-            //lineSeries3.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(107, 185, 69));
 
             lineSeries4.PointGeometrySize = 1;
             lineSeries4.Fill = Brushes.Transparent;
             lineSeries4.Stroke = Brushes.Blue;
             lineSeries4.Values = chartValues4;
             lineSeries4.LineSmoothness = 0;
-            //lineSeries4.StrokeDashArray = new System.Windows.Media.DoubleCollection(20);
-            //lineSeries4.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(107, 185, 69));
 
             seriesCollection2.Add(lineSeries2);
             seriesCollection2.Add(lineSeries3);
