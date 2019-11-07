@@ -59,9 +59,9 @@
             this.lbl_OMX.ForeColor = System.Drawing.Color.Blue;
             this.lbl_OMX.Location = new System.Drawing.Point(102, 21);
             this.lbl_OMX.Name = "lbl_OMX";
-            this.lbl_OMX.Size = new System.Drawing.Size(169, 50);
+            this.lbl_OMX.Size = new System.Drawing.Size(170, 50);
             this.lbl_OMX.TabIndex = 2;
-            this.lbl_OMX.Text = "OMX 30";
+            this.lbl_OMX.Text = "OMXSPI";
             // 
             // lbl_MA200
             // 

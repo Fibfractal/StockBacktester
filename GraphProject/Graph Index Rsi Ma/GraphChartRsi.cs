@@ -72,7 +72,7 @@ namespace GraphProject
 
             _dayConfig = Mappers.Xy<DateModel>()
                         .X(dateModel => dateModel.DateTime.Ticks / (_timeFrame.Years()))
-                        .Y(dateModel => dateModel.Value);
+                        .Y(dateModel => Math.Log(dateModel.Value, 10));
 
             // YearFormatter doesnt seem to work, spaces between years is not consistent
             // Works without it, and start year 1971
@@ -80,7 +80,7 @@ namespace GraphProject
             cartesianChart1.AxisY.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Price",
-                LabelFormatter = value => value.ToString()
+                LabelFormatter = value => Math.Pow(10, value).ToString("N")
             });
 
             cartesianChart1.AxisX[0].Separator.StrokeThickness = 0;

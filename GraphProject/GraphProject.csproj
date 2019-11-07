@@ -64,6 +64,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAlgos.cs" />
     <Compile Include="Graph SQL\ExportToSql.cs" />
     <Compile Include="Graph Textfile\DailyDataPoint.cs" />
     <Compile Include="Graph Textfile\DateModel.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Graph Index Rsi Ma\RSI.cs" />
     <Compile Include="Graph Index Rsi Ma\RsiManager.cs" />
     <Compile Include="Graph Index Rsi Ma\MovingAverage.cs" />
+    <Compile Include="OneTrade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graph Table Tutorial\Revenue.cs" />
@@ -119,7 +121,10 @@
     <Compile Include="Graph Index Rsi Ma\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="RsiDummyAlgo.cs" />
     <Compile Include="TimeFrame.cs" />
+    <Compile Include="TradeManager.cs" />
+    <Compile Include="TradeSignals.cs" />
     <EmbeddedResource Include="Graph Table Tutorial\GraphTable.resx">
       <DependentUpon>GraphTable.cs</DependentUpon>
     </EmbeddedResource>
