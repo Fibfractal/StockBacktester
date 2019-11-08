@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GraphProject
 {
-    public class TradeSignals
+    public class TradeSignal
     {
         private readonly IAlgos _algo;
         private readonly List<DailyDataPoint> _dataList;
         private readonly int _index;
         private bool _tradeOn = false;
 
-        public TradeSignals(IAlgos algo, List<DailyDataPoint> dataList, int index)
+        public TradeSignal(IAlgos algo, List<DailyDataPoint> dataList, int index)
         {
             _algo = algo;
             _dataList = dataList;

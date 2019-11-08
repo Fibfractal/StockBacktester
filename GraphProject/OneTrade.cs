@@ -11,6 +11,9 @@ namespace GraphProject
         private double _buy = -1;
         private double _sell = -1;
 
+        public DateTime BuyDate { get; set; }
+        public DateTime SellDate { get; set; }
+
         public double Buy
         {
             get { return _buy; }
@@ -31,8 +34,10 @@ namespace GraphProject
             }
         }
 
+        // See if trade is active or done
         public bool Bought => _buy >= 0;
         public bool Sold => _sell >= 0;
-        public double ProfitTrade => _buy - _sell;
+        public bool Finished => Bought && Sold;
+        public double ProfitTrade => _sell -_buy;
     }
 }

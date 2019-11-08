@@ -15,6 +15,38 @@ namespace GraphProject
             _tradeList = new List<OneTrade>();
         }
 
+        public List<OneTrade> GetTradeList
+        {
+            get
+            {
+                return _tradeList;
+            }
+        }
+
+        // True to add if previos OK or if list count is 0
+
+        public bool AddNewTradeOk()
+        {
+            if (_tradeList.Count > 0 )
+            {
+                if (_tradeList[_tradeList.Count - 1].Finished)
+                {
+                    return true;
+                }
+            }
+            else if(_tradeList.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool FinishTrade()
+        {
+            return (_tradeList.Count > 0 && _tradeList[_tradeList.Count - 1].Bought && (_tradeList[_tradeList.Count - 1].Sold == false)) ? true : false;
+        }
+
         public void AddTrade(OneTrade oneTrade)
         {
             if (oneTrade != null)
