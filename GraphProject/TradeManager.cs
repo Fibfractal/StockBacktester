@@ -69,7 +69,7 @@ namespace GraphProject
             double sum = 0;
             foreach (var item in _tradeList)
             {
-                sum += item.ProfitTrade;
+                sum += item.ProfitTrade();
             }
             return sum;
         }

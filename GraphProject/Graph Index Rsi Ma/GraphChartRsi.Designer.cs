@@ -45,6 +45,8 @@
             this.lbl_Value_Return_Sek = new System.Windows.Forms.Label();
             this.lbl_Value_Portfolio_End = new System.Windows.Forms.Label();
             this.lbl_ValuePortfolio_Start = new System.Windows.Forms.Label();
+            this.lbl_NumberOfTrades = new System.Windows.Forms.Label();
+            this.lbl_Value_Nbr_Trades = new System.Windows.Forms.Label();
             this.gbx_Backtest.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -157,7 +159,7 @@
             this.lbl_WinnerProcent.AutoSize = true;
             this.lbl_WinnerProcent.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_WinnerProcent.ForeColor = System.Drawing.Color.White;
-            this.lbl_WinnerProcent.Location = new System.Drawing.Point(18, 231);
+            this.lbl_WinnerProcent.Location = new System.Drawing.Point(18, 293);
             this.lbl_WinnerProcent.Name = "lbl_WinnerProcent";
             this.lbl_WinnerProcent.Size = new System.Drawing.Size(80, 17);
             this.lbl_WinnerProcent.TabIndex = 11;
@@ -166,6 +168,8 @@
             // gbx_Backtest
             // 
             this.gbx_Backtest.BackColor = System.Drawing.Color.Transparent;
+            this.gbx_Backtest.Controls.Add(this.lbl_Value_Nbr_Trades);
+            this.gbx_Backtest.Controls.Add(this.lbl_NumberOfTrades);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Winners_Procent);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Return_Procent);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Return_Sek);
@@ -190,11 +194,11 @@
             this.lbl_Value_Winners_Procent.AutoSize = true;
             this.lbl_Value_Winners_Procent.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Value_Winners_Procent.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Winners_Procent.Location = new System.Drawing.Point(18, 257);
+            this.lbl_Value_Winners_Procent.Location = new System.Drawing.Point(18, 323);
             this.lbl_Value_Winners_Procent.Name = "lbl_Value_Winners_Procent";
             this.lbl_Value_Winners_Procent.Size = new System.Drawing.Size(43, 17);
             this.lbl_Value_Winners_Procent.TabIndex = 16;
-            this.lbl_Value_Winners_Procent.Text = "label7";
+            this.lbl_Value_Winners_Procent.Text = "label8";
             // 
             // lbl_Value_Return_Procent
             // 
@@ -240,6 +244,28 @@
             this.lbl_ValuePortfolio_Start.TabIndex = 12;
             this.lbl_ValuePortfolio_Start.Text = "label4";
             // 
+            // lbl_NumberOfTrades
+            // 
+            this.lbl_NumberOfTrades.AutoSize = true;
+            this.lbl_NumberOfTrades.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_NumberOfTrades.ForeColor = System.Drawing.Color.White;
+            this.lbl_NumberOfTrades.Location = new System.Drawing.Point(18, 229);
+            this.lbl_NumberOfTrades.Name = "lbl_NumberOfTrades";
+            this.lbl_NumberOfTrades.Size = new System.Drawing.Size(71, 17);
+            this.lbl_NumberOfTrades.TabIndex = 17;
+            this.lbl_NumberOfTrades.Text = "Nbr trades :";
+            // 
+            // lbl_Value_Nbr_Trades
+            // 
+            this.lbl_Value_Nbr_Trades.AutoSize = true;
+            this.lbl_Value_Nbr_Trades.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Nbr_Trades.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Nbr_Trades.Location = new System.Drawing.Point(18, 256);
+            this.lbl_Value_Nbr_Trades.Name = "lbl_Value_Nbr_Trades";
+            this.lbl_Value_Nbr_Trades.Size = new System.Drawing.Size(43, 17);
+            this.lbl_Value_Nbr_Trades.TabIndex = 18;
+            this.lbl_Value_Nbr_Trades.Text = "label7";
+            // 
             // GraphChartRsi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,5 +307,7 @@
         private System.Windows.Forms.Label lbl_Value_Return_Sek;
         private System.Windows.Forms.Label lbl_Value_Portfolio_End;
         private System.Windows.Forms.Label lbl_ValuePortfolio_Start;
+        private System.Windows.Forms.Label lbl_Value_Nbr_Trades;
+        private System.Windows.Forms.Label lbl_NumberOfTrades;
     }
 }

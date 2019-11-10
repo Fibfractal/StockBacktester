@@ -10,12 +10,12 @@ namespace GraphProject
     {
         public bool AlgoBuy(List<DailyDataPoint> dataList, int index)
         {
-            return (dataList[index]._RSI < 30) ? true : false;
+            return (dataList[index]._RSI > 70) ? true : false;
         }
 
         public bool AlgoSell(List<DailyDataPoint> dataList, int index)
         {
-            return (dataList[index]._RSI > 50) ? true : false;
+            return (dataList[index]._RSI < 70) ? true : false;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace GraphProject
 
         public double ChangePortFolValue(TradeManager tradeList, int index)
         {
-            _portfolioValue += (tradeList.GetTradeList[index].ProfitTrade / tradeList.GetTradeList[index].Sell) * _valuePerPoint ;
+            _portfolioValue += (tradeList.GetTradeList[index].ProfitTrade() / tradeList.GetTradeList[index].Sell) * _valuePerPoint ;
             return _portfolioValue;
         }
 
@@ -54,14 +54,31 @@ namespace GraphProject
         public double Winners(TradeManager tradeList)
         {
             double nbrWinners = 0;
+            double nbrFinishedTrades = 0;
 
             foreach (var item in tradeList.GetTradeList)
             {
-                if (item.ProfitTrade > 0)
+                if (item.ProfitTrade() > 0 && item.Finished)
                     nbrWinners++;
+                if (item.Finished)
+                    nbrFinishedTrades++;
+
             }
 
-            return (nbrWinners / tradeList.GetTradeList.Count) * 100;
+            return (nbrWinners / nbrFinishedTrades) * 100;
+        }
+
+        public double NumberOfFinishedTrades(TradeManager tradeList)
+        {
+            double nbrFinishedTrades = 0;
+
+            foreach (var item in tradeList.GetTradeList)
+            {
+                if (item.Finished)
+                    nbrFinishedTrades++;
+            }
+
+            return nbrFinishedTrades;
         }
 
     }

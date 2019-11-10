@@ -38,6 +38,9 @@ namespace GraphProject
         public bool Bought => _buy >= 0;
         public bool Sold => _sell >= 0;
         public bool Finished => Bought && Sold;
-        public double ProfitTrade => _sell -_buy;
+        public double ProfitTrade()
+        {
+            return (Finished) ? (_sell - _buy - 0.0006 * _sell) : 0.00;
+        }
     }
 }
