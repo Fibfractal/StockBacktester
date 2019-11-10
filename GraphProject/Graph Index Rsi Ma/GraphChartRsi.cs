@@ -35,6 +35,7 @@ namespace GraphProject
         //private TradeSignal _tradeSignal;
         private TradeManager _tradeManager;
         private MoneyManager _moneyManager;
+        private RsiDummyAlgo _rsiDummyAlgo;
 
         public GraphChartRsi()
         {
@@ -143,7 +144,7 @@ namespace GraphProject
             var chartValues7 = new ChartValues<DateModel>();
 
             // Create algo for backtest signals
-            var rsiDummyAlgo = new RsiDummyAlgo();
+            _rsiDummyAlgo = new RsiDummyAlgo();
 
             // Go through index data from database
             for (int i = 0; i < listOfData.Count; i++)
@@ -166,31 +167,31 @@ namespace GraphProject
                 }
 
                 // Plot algo buy signals in graph and save trade
-                if (rsiDummyAlgo.AlgoBuy(listOfData,i))
+                if (_rsiDummyAlgo.AlgoBuy(listOfData,i))
                 {
                     if (_tradeManager.AddNewTradeOk())
                     {
-                        _tradeManager.AddTrade(new OneTrade { Buy = listOfData[i]._Open, BuyDate = TimeTranslation(listOfData[i]._MilliSeconds) });
+                        _tradeManager.AddTrade(new OneTrade { Buy = listOfData[i+1]._Open, BuyDate = TimeTranslation(listOfData[i+1]._MilliSeconds) });
 
                         chartValues6.Add(new DateModel());
                         var length = chartValues6.Count();
-                        chartValues6[length - 1].DateTime = TimeTranslation(listOfData[i]._MilliSeconds);
-                        chartValues6[length - 1].Value = listOfData[i]._Open;
+                        chartValues6[length - 1].DateTime = TimeTranslation(listOfData[i+1]._MilliSeconds);
+                        chartValues6[length - 1].Value = listOfData[i+1]._Open;
                     }
                 }
 
                 // Plot algo sell signals in graph and save trade
-                if (rsiDummyAlgo.AlgoSell(listOfData, i))
+                if (_rsiDummyAlgo.AlgoSell(listOfData, i))
                 {
                     if (_tradeManager.FinishTrade())
                     {
-                        _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = listOfData[i]._Open;
-                        _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[i]._MilliSeconds);
+                        _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = listOfData[i+1]._Open;
+                        _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[i+1]._MilliSeconds);
 
                         chartValues7.Add(new DateModel());
                         var length = chartValues7.Count();
-                        chartValues7[length - 1].DateTime = TimeTranslation(listOfData[i]._MilliSeconds);
-                        chartValues7[length - 1].Value = listOfData[i]._Open;
+                        chartValues7[length - 1].DateTime = TimeTranslation(listOfData[i+1]._MilliSeconds);
+                        chartValues7[length - 1].Value = listOfData[i+1]._Open;
                     }
                 }
             }
@@ -282,12 +283,19 @@ namespace GraphProject
             lbl_Value_Return_Procent.Text = string.Format("{0:N0}", _moneyManager.ReturnProcent());
             lbl_Value_Nbr_Trades.Text = string.Format("{0:N0}", _moneyManager.NumberOfFinishedTrades(_tradeManager));
             lbl_Value_Winners_Procent.Text = string.Format("{0:N0}", _moneyManager.Winners(_tradeManager));
+            lbl_Value_Avg_Gain.Text = string.Format("{0:N0}", _moneyManager.AverageGain(_tradeManager));
+            lbl_Value_Avg_Loss.Text = string.Format("{0:N0}", _moneyManager.AverageLoss(_tradeManager));
+            lbl_Value_Profit_Factor.Text = string.Format("{0:N1}", _moneyManager.ProfitFactor(_tradeManager));
+            lbl_Value_CAGR.Text = string.Format("{0:N1}", _moneyManager.Cagr(_dataList));
+            lbl_Value_TimeSpan_Start.Text = _moneyManager.TimespanStart(_dataList);
+            lbl_Value_TimeSpan_Finish.Text = _moneyManager.TimespanFinish(_dataList);
+            lbl_Value_Name_Algo.Text = _rsiDummyAlgo.AlgoName;
         }
 
         private DateTime TimeTranslation(double ticks)
         {
             TimeSpan time = TimeSpan.FromMilliseconds(ticks);
-            DateTime date = new DateTime(1971, 1, 1) + time;
+            DateTime date = new DateTime(1970, 1, 1) + time;
             return date;
         }
 

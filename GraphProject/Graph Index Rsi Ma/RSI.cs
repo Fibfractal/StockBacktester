@@ -13,6 +13,7 @@ namespace GraphProject
         private List<double> _advance ;
         private List<double> _decline;
         private RsiManager _lastAverage;
+        private int _rsiLenght = 2;
 
         public RSI(List<DailyDataPoint> points, int index, RsiManager lastAverage)
         {
@@ -25,15 +26,15 @@ namespace GraphProject
 
         public double CalculateRsi()
         {
-            if (_points.Count >= 15)
+            if (_points.Count >= _rsiLenght + 1)
             {
                 double nbr = 50;
 
-                if (_index > 14)
+                if (_index > _rsiLenght)
                 {
                     nbr =  rsiFormula(SmoothedRS());
                 }
-                else if (_index == 14)
+                else if (_index == _rsiLenght)
                 {
                     CalcAdvanceOrDecline();
                     nbr =  rsiFormula(FirstRS());
@@ -48,7 +49,7 @@ namespace GraphProject
 
         private void CalcAdvanceOrDecline()
         {
-            for (int i = _index - 14; i < _index; i++)
+            for (int i = _index - _rsiLenght; i < _index; i++)
             {
                 double diff = _points[i + 1]._Close - _points[i]._Close;
 
@@ -81,8 +82,8 @@ namespace GraphProject
                 todaysLoss = Math.Abs(todaysDiff);
             }
 
-            var advanceAverageYesterDay = (_lastAverage.LastAverageGain * 13 + todaysGain) / 14;
-            var declineAverageYesterDay = (_lastAverage.LastAverageLoss * 13 + todaysLoss) / 14;
+            var advanceAverageYesterDay = (_lastAverage.LastAverageGain * (_rsiLenght-1) + todaysGain) / _rsiLenght;
+            var declineAverageYesterDay = (_lastAverage.LastAverageLoss * (_rsiLenght-1) + todaysLoss) / _rsiLenght;
 
             _lastAverage.LastAverageGain = advanceAverageYesterDay;
             _lastAverage.LastAverageLoss = declineAverageYesterDay;
@@ -97,7 +98,7 @@ namespace GraphProject
 
         private double Average(List<double> list)
         {
-            return Math.Abs(list.Sum() / 14);
+            return Math.Abs(list.Sum() / _rsiLenght);
         }
 
         private double rsiFormula(double rsValue)

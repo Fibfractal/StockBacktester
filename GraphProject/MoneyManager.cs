@@ -68,6 +68,38 @@ namespace GraphProject
             return (nbrWinners / nbrFinishedTrades) * 100;
         }
 
+        public double AverageGain(TradeManager tradeList)
+        {
+            double gainWinningTrades = 0;
+            double nbrWinners = 0;
+
+            foreach (var item in tradeList.GetTradeList)
+            {
+                if (item.ProfitTrade() > 0 && item.Finished)
+                {
+                    gainWinningTrades += item.ProfitTrade() / item.Sell * _valuePerPoint;
+                    nbrWinners++;
+                }
+            }
+            return gainWinningTrades / nbrWinners;
+        }
+
+        public double AverageLoss(TradeManager tradeList)
+        {
+            double lossLosingTrades = 0;
+            double nbrLosers = 0;
+
+            foreach (var item in tradeList.GetTradeList)
+            {
+                if (item.ProfitTrade() < 0 && item.Finished)
+                {
+                    lossLosingTrades += item.ProfitTrade() / item.Sell * _valuePerPoint;
+                    nbrLosers++;
+                }
+            }
+            return Math.Abs(lossLosingTrades / nbrLosers);
+        }
+
         public double NumberOfFinishedTrades(TradeManager tradeList)
         {
             double nbrFinishedTrades = 0;
@@ -81,5 +113,48 @@ namespace GraphProject
             return nbrFinishedTrades;
         }
 
+        public double ProfitFactor(TradeManager tradeList)
+        {
+            double lossLosingTrades = 0;
+            double gainWinningTrades = 0;
+
+            foreach (var item in tradeList.GetTradeList)
+            {
+                if (item.ProfitTrade() > 0 && item.Finished)
+                {
+                    gainWinningTrades += item.ProfitTrade() / item.Sell * _valuePerPoint;
+                }
+                else if (item.ProfitTrade() < 0 && item.Finished)
+                {
+                    lossLosingTrades += item.ProfitTrade() / item.Sell * _valuePerPoint;
+                }
+            }
+            return Math.Abs(gainWinningTrades / lossLosingTrades);
+        }
+
+        public double Cagr(List<DailyDataPoint> pointList)
+        {
+            double nbrYears;
+            nbrYears = (TimeTranslation(pointList[pointList.Count - 1]._MilliSeconds) - TimeTranslation(pointList[0]._MilliSeconds)).TotalDays / 365.2425;
+
+            return ( Math.Pow((1 + ReturnProcent() / 100), 1/nbrYears) - 1 ) * 100;
+        }
+
+        public String TimespanStart(List<DailyDataPoint> pointList)
+        {
+            return TimeTranslation(pointList[0]._MilliSeconds).ToShortDateString() + " - ";
+        }
+
+        public String TimespanFinish(List<DailyDataPoint> pointList)
+        {
+            return TimeTranslation(pointList[pointList.Count - 1]._MilliSeconds).ToShortDateString();
+        }
+
+        private DateTime TimeTranslation(double ticks)
+        {
+            TimeSpan time = TimeSpan.FromMilliseconds(ticks);
+            DateTime date = new DateTime(1970, 1, 1) + time;
+            return date;
+        }
     }
 }
