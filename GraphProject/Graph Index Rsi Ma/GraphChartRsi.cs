@@ -183,7 +183,7 @@ namespace GraphProject
                 // Plot algo sell signals in graph and save trade
                 if (_rsiDummyAlgo.AlgoSell(listOfData, i))
                 {
-                    if (_tradeManager.FinishTrade())
+                    if (_tradeManager.UnFinishedTrade())
                     {
                         _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = listOfData[i+1]._Open;
                         _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[i+1]._MilliSeconds);
@@ -286,16 +286,17 @@ namespace GraphProject
             lbl_Value_Avg_Gain.Text = string.Format("{0:N0}", _moneyManager.AverageGain(_tradeManager));
             lbl_Value_Avg_Loss.Text = string.Format("{0:N0}", _moneyManager.AverageLoss(_tradeManager));
             lbl_Value_Profit_Factor.Text = string.Format("{0:N1}", _moneyManager.ProfitFactor(_tradeManager));
-            lbl_Value_CAGR.Text = string.Format("{0:N1}", _moneyManager.Cagr(_dataList));
+            lbl_Value_CAGR.Text = string.Format("{0:N1}", _moneyManager.CagrAlternative(_dataList));
             lbl_Value_TimeSpan_Start.Text = _moneyManager.TimespanStart(_dataList);
             lbl_Value_TimeSpan_Finish.Text = _moneyManager.TimespanFinish(_dataList);
             lbl_Value_Name_Algo.Text = _rsiDummyAlgo.AlgoName;
+            lbl_Value_Sharp_Ratio.Text = string.Format("{0:N2}", _moneyManager.SharpRatio(_tradeManager, _dataList));
         }
 
         private DateTime TimeTranslation(double ticks)
         {
             TimeSpan time = TimeSpan.FromMilliseconds(ticks);
-            DateTime date = new DateTime(1970, 1, 1) + time;
+            DateTime date = new DateTime(1971, 1, 1) + time;
             return date;
         }
 

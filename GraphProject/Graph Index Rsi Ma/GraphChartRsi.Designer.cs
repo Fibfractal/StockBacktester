@@ -40,6 +40,18 @@
             this.lbl_ReturnProcent = new System.Windows.Forms.Label();
             this.lbl_WinnerProcent = new System.Windows.Forms.Label();
             this.gbx_Backtest = new System.Windows.Forms.GroupBox();
+            this.lbl_Value_TimeSpan_Finish = new System.Windows.Forms.Label();
+            this.lbl_Value_TimeSpan_Start = new System.Windows.Forms.Label();
+            this.lbl_TimeSpan = new System.Windows.Forms.Label();
+            this.lbl_Value_Name_Algo = new System.Windows.Forms.Label();
+            this.lbl_Value_CAGR = new System.Windows.Forms.Label();
+            this.lbl_Cagr = new System.Windows.Forms.Label();
+            this.lbl_Value_Profit_Factor = new System.Windows.Forms.Label();
+            this.lbl_ProfitFactor = new System.Windows.Forms.Label();
+            this.lbl_Value_Avg_Loss = new System.Windows.Forms.Label();
+            this.lbl_AverageLoss = new System.Windows.Forms.Label();
+            this.lbl_Value_Avg_Gain = new System.Windows.Forms.Label();
+            this.lbl_AverageGain = new System.Windows.Forms.Label();
             this.lbl_Value_Nbr_Trades = new System.Windows.Forms.Label();
             this.lbl_NumberOfTrades = new System.Windows.Forms.Label();
             this.lbl_Value_Winners_Procent = new System.Windows.Forms.Label();
@@ -47,18 +59,8 @@
             this.lbl_Value_Return_Sek = new System.Windows.Forms.Label();
             this.lbl_Value_Portfolio_End = new System.Windows.Forms.Label();
             this.lbl_ValuePortfolio_Start = new System.Windows.Forms.Label();
-            this.lbl_AverageGain = new System.Windows.Forms.Label();
-            this.lbl_Value_Avg_Gain = new System.Windows.Forms.Label();
-            this.lbl_AverageLoss = new System.Windows.Forms.Label();
-            this.lbl_Value_Avg_Loss = new System.Windows.Forms.Label();
-            this.lbl_ProfitFactor = new System.Windows.Forms.Label();
-            this.lbl_Value_Profit_Factor = new System.Windows.Forms.Label();
-            this.lbl_Cagr = new System.Windows.Forms.Label();
-            this.lbl_Value_CAGR = new System.Windows.Forms.Label();
-            this.lbl_Value_Name_Algo = new System.Windows.Forms.Label();
-            this.lbl_TimeSpan = new System.Windows.Forms.Label();
-            this.lbl_Value_TimeSpan_Start = new System.Windows.Forms.Label();
-            this.lbl_Value_TimeSpan_Finish = new System.Windows.Forms.Label();
+            this.lbl_SharpRatio = new System.Windows.Forms.Label();
+            this.lbl_Value_Sharp_Ratio = new System.Windows.Forms.Label();
             this.gbx_Backtest.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,7 +129,7 @@
             this.lbl_PortfolioStart.AutoSize = true;
             this.lbl_PortfolioStart.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_PortfolioStart.ForeColor = System.Drawing.Color.White;
-            this.lbl_PortfolioStart.Location = new System.Drawing.Point(18, 104);
+            this.lbl_PortfolioStart.Location = new System.Drawing.Point(18, 115);
             this.lbl_PortfolioStart.Name = "lbl_PortfolioStart";
             this.lbl_PortfolioStart.Size = new System.Drawing.Size(125, 17);
             this.lbl_PortfolioStart.TabIndex = 7;
@@ -138,7 +140,7 @@
             this.lbl_PortfolioEnd.AutoSize = true;
             this.lbl_PortfolioEnd.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_PortfolioEnd.ForeColor = System.Drawing.Color.White;
-            this.lbl_PortfolioEnd.Location = new System.Drawing.Point(18, 150);
+            this.lbl_PortfolioEnd.Location = new System.Drawing.Point(18, 161);
             this.lbl_PortfolioEnd.Name = "lbl_PortfolioEnd";
             this.lbl_PortfolioEnd.Size = new System.Drawing.Size(118, 17);
             this.lbl_PortfolioEnd.TabIndex = 8;
@@ -149,7 +151,7 @@
             this.lbl_ReturnSek.AutoSize = true;
             this.lbl_ReturnSek.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ReturnSek.ForeColor = System.Drawing.Color.White;
-            this.lbl_ReturnSek.Location = new System.Drawing.Point(18, 201);
+            this.lbl_ReturnSek.Location = new System.Drawing.Point(18, 208);
             this.lbl_ReturnSek.Name = "lbl_ReturnSek";
             this.lbl_ReturnSek.Size = new System.Drawing.Size(84, 17);
             this.lbl_ReturnSek.TabIndex = 9;
@@ -171,7 +173,7 @@
             this.lbl_WinnerProcent.AutoSize = true;
             this.lbl_WinnerProcent.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_WinnerProcent.ForeColor = System.Drawing.Color.White;
-            this.lbl_WinnerProcent.Location = new System.Drawing.Point(18, 362);
+            this.lbl_WinnerProcent.Location = new System.Drawing.Point(18, 350);
             this.lbl_WinnerProcent.Name = "lbl_WinnerProcent";
             this.lbl_WinnerProcent.Size = new System.Drawing.Size(80, 17);
             this.lbl_WinnerProcent.TabIndex = 11;
@@ -180,6 +182,8 @@
             // gbx_Backtest
             // 
             this.gbx_Backtest.BackColor = System.Drawing.Color.Transparent;
+            this.gbx_Backtest.Controls.Add(this.lbl_Value_Sharp_Ratio);
+            this.gbx_Backtest.Controls.Add(this.lbl_SharpRatio);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_TimeSpan_Finish);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_TimeSpan_Start);
             this.gbx_Backtest.Controls.Add(this.lbl_TimeSpan);
@@ -213,12 +217,144 @@
             this.gbx_Backtest.TabStop = false;
             this.gbx_Backtest.Text = "Backtest";
             // 
+            // lbl_Value_TimeSpan_Finish
+            // 
+            this.lbl_Value_TimeSpan_Finish.AutoSize = true;
+            this.lbl_Value_TimeSpan_Finish.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_TimeSpan_Finish.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_TimeSpan_Finish.Location = new System.Drawing.Point(20, 83);
+            this.lbl_Value_TimeSpan_Finish.Name = "lbl_Value_TimeSpan_Finish";
+            this.lbl_Value_TimeSpan_Finish.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_TimeSpan_Finish.TabIndex = 30;
+            this.lbl_Value_TimeSpan_Finish.Text = "label14";
+            // 
+            // lbl_Value_TimeSpan_Start
+            // 
+            this.lbl_Value_TimeSpan_Start.AutoSize = true;
+            this.lbl_Value_TimeSpan_Start.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_TimeSpan_Start.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_TimeSpan_Start.Location = new System.Drawing.Point(20, 68);
+            this.lbl_Value_TimeSpan_Start.Name = "lbl_Value_TimeSpan_Start";
+            this.lbl_Value_TimeSpan_Start.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_TimeSpan_Start.TabIndex = 29;
+            this.lbl_Value_TimeSpan_Start.Text = "label13";
+            // 
+            // lbl_TimeSpan
+            // 
+            this.lbl_TimeSpan.AutoSize = true;
+            this.lbl_TimeSpan.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_TimeSpan.ForeColor = System.Drawing.Color.White;
+            this.lbl_TimeSpan.Location = new System.Drawing.Point(20, 51);
+            this.lbl_TimeSpan.Name = "lbl_TimeSpan";
+            this.lbl_TimeSpan.Size = new System.Drawing.Size(74, 17);
+            this.lbl_TimeSpan.TabIndex = 28;
+            this.lbl_TimeSpan.Text = "Time span : ";
+            // 
+            // lbl_Value_Name_Algo
+            // 
+            this.lbl_Value_Name_Algo.AutoSize = true;
+            this.lbl_Value_Name_Algo.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Name_Algo.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Name_Algo.Location = new System.Drawing.Point(18, 27);
+            this.lbl_Value_Name_Algo.Name = "lbl_Value_Name_Algo";
+            this.lbl_Value_Name_Algo.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_Name_Algo.TabIndex = 27;
+            this.lbl_Value_Name_Algo.Text = "label12";
+            // 
+            // lbl_Value_CAGR
+            // 
+            this.lbl_Value_CAGR.AutoSize = true;
+            this.lbl_Value_CAGR.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_CAGR.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_CAGR.Location = new System.Drawing.Point(20, 559);
+            this.lbl_Value_CAGR.Name = "lbl_Value_CAGR";
+            this.lbl_Value_CAGR.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_CAGR.TabIndex = 26;
+            this.lbl_Value_CAGR.Text = "label12";
+            // 
+            // lbl_Cagr
+            // 
+            this.lbl_Cagr.AutoSize = true;
+            this.lbl_Cagr.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Cagr.ForeColor = System.Drawing.Color.White;
+            this.lbl_Cagr.Location = new System.Drawing.Point(20, 542);
+            this.lbl_Cagr.Name = "lbl_Cagr";
+            this.lbl_Cagr.Size = new System.Drawing.Size(64, 17);
+            this.lbl_Cagr.TabIndex = 25;
+            this.lbl_Cagr.Text = "CAGR (%):";
+            // 
+            // lbl_Value_Profit_Factor
+            // 
+            this.lbl_Value_Profit_Factor.AutoSize = true;
+            this.lbl_Value_Profit_Factor.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Profit_Factor.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Profit_Factor.Location = new System.Drawing.Point(20, 509);
+            this.lbl_Value_Profit_Factor.Name = "lbl_Value_Profit_Factor";
+            this.lbl_Value_Profit_Factor.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_Profit_Factor.TabIndex = 24;
+            this.lbl_Value_Profit_Factor.Text = "label11";
+            // 
+            // lbl_ProfitFactor
+            // 
+            this.lbl_ProfitFactor.AutoSize = true;
+            this.lbl_ProfitFactor.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ProfitFactor.ForeColor = System.Drawing.Color.White;
+            this.lbl_ProfitFactor.Location = new System.Drawing.Point(20, 492);
+            this.lbl_ProfitFactor.Name = "lbl_ProfitFactor";
+            this.lbl_ProfitFactor.Size = new System.Drawing.Size(79, 17);
+            this.lbl_ProfitFactor.TabIndex = 23;
+            this.lbl_ProfitFactor.Text = "Profit factor :";
+            // 
+            // lbl_Value_Avg_Loss
+            // 
+            this.lbl_Value_Avg_Loss.AutoSize = true;
+            this.lbl_Value_Avg_Loss.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Avg_Loss.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Avg_Loss.Location = new System.Drawing.Point(18, 462);
+            this.lbl_Value_Avg_Loss.Name = "lbl_Value_Avg_Loss";
+            this.lbl_Value_Avg_Loss.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_Avg_Loss.TabIndex = 22;
+            this.lbl_Value_Avg_Loss.Text = "label10";
+            // 
+            // lbl_AverageLoss
+            // 
+            this.lbl_AverageLoss.AutoSize = true;
+            this.lbl_AverageLoss.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_AverageLoss.ForeColor = System.Drawing.Color.White;
+            this.lbl_AverageLoss.Location = new System.Drawing.Point(18, 445);
+            this.lbl_AverageLoss.Name = "lbl_AverageLoss";
+            this.lbl_AverageLoss.Size = new System.Drawing.Size(93, 17);
+            this.lbl_AverageLoss.TabIndex = 21;
+            this.lbl_AverageLoss.Text = "Avg loss (SEK) :";
+            // 
+            // lbl_Value_Avg_Gain
+            // 
+            this.lbl_Value_Avg_Gain.AutoSize = true;
+            this.lbl_Value_Avg_Gain.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Avg_Gain.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Avg_Gain.Location = new System.Drawing.Point(18, 415);
+            this.lbl_Value_Avg_Gain.Name = "lbl_Value_Avg_Gain";
+            this.lbl_Value_Avg_Gain.Size = new System.Drawing.Size(43, 17);
+            this.lbl_Value_Avg_Gain.TabIndex = 20;
+            this.lbl_Value_Avg_Gain.Text = "label9";
+            // 
+            // lbl_AverageGain
+            // 
+            this.lbl_AverageGain.AutoSize = true;
+            this.lbl_AverageGain.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_AverageGain.ForeColor = System.Drawing.Color.White;
+            this.lbl_AverageGain.Location = new System.Drawing.Point(18, 398);
+            this.lbl_AverageGain.Name = "lbl_AverageGain";
+            this.lbl_AverageGain.Size = new System.Drawing.Size(95, 17);
+            this.lbl_AverageGain.TabIndex = 19;
+            this.lbl_AverageGain.Text = "Avg gain (SEK) :";
+            // 
             // lbl_Value_Nbr_Trades
             // 
             this.lbl_Value_Nbr_Trades.AutoSize = true;
             this.lbl_Value_Nbr_Trades.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Value_Nbr_Trades.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Nbr_Trades.Location = new System.Drawing.Point(18, 331);
+            this.lbl_Value_Nbr_Trades.Location = new System.Drawing.Point(18, 322);
             this.lbl_Value_Nbr_Trades.Name = "lbl_Value_Nbr_Trades";
             this.lbl_Value_Nbr_Trades.Size = new System.Drawing.Size(43, 17);
             this.lbl_Value_Nbr_Trades.TabIndex = 18;
@@ -240,7 +376,7 @@
             this.lbl_Value_Winners_Procent.AutoSize = true;
             this.lbl_Value_Winners_Procent.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Value_Winners_Procent.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Winners_Procent.Location = new System.Drawing.Point(18, 388);
+            this.lbl_Value_Winners_Procent.Location = new System.Drawing.Point(18, 367);
             this.lbl_Value_Winners_Procent.Name = "lbl_Value_Winners_Procent";
             this.lbl_Value_Winners_Procent.Size = new System.Drawing.Size(43, 17);
             this.lbl_Value_Winners_Procent.TabIndex = 16;
@@ -262,7 +398,7 @@
             this.lbl_Value_Return_Sek.AutoSize = true;
             this.lbl_Value_Return_Sek.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Value_Return_Sek.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Return_Sek.Location = new System.Drawing.Point(18, 221);
+            this.lbl_Value_Return_Sek.Location = new System.Drawing.Point(18, 228);
             this.lbl_Value_Return_Sek.Name = "lbl_Value_Return_Sek";
             this.lbl_Value_Return_Sek.Size = new System.Drawing.Size(43, 17);
             this.lbl_Value_Return_Sek.TabIndex = 14;
@@ -273,7 +409,7 @@
             this.lbl_Value_Portfolio_End.AutoSize = true;
             this.lbl_Value_Portfolio_End.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Value_Portfolio_End.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Portfolio_End.Location = new System.Drawing.Point(18, 170);
+            this.lbl_Value_Portfolio_End.Location = new System.Drawing.Point(18, 181);
             this.lbl_Value_Portfolio_End.Name = "lbl_Value_Portfolio_End";
             this.lbl_Value_Portfolio_End.Size = new System.Drawing.Size(43, 17);
             this.lbl_Value_Portfolio_End.TabIndex = 13;
@@ -284,143 +420,33 @@
             this.lbl_ValuePortfolio_Start.AutoSize = true;
             this.lbl_ValuePortfolio_Start.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ValuePortfolio_Start.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_ValuePortfolio_Start.Location = new System.Drawing.Point(18, 121);
+            this.lbl_ValuePortfolio_Start.Location = new System.Drawing.Point(18, 132);
             this.lbl_ValuePortfolio_Start.Name = "lbl_ValuePortfolio_Start";
             this.lbl_ValuePortfolio_Start.Size = new System.Drawing.Size(43, 17);
             this.lbl_ValuePortfolio_Start.TabIndex = 12;
             this.lbl_ValuePortfolio_Start.Text = "label4";
             // 
-            // lbl_AverageGain
+            // lbl_SharpRatio
             // 
-            this.lbl_AverageGain.AutoSize = true;
-            this.lbl_AverageGain.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_AverageGain.ForeColor = System.Drawing.Color.White;
-            this.lbl_AverageGain.Location = new System.Drawing.Point(18, 420);
-            this.lbl_AverageGain.Name = "lbl_AverageGain";
-            this.lbl_AverageGain.Size = new System.Drawing.Size(95, 17);
-            this.lbl_AverageGain.TabIndex = 19;
-            this.lbl_AverageGain.Text = "Avg gain (SEK) :";
+            this.lbl_SharpRatio.AutoSize = true;
+            this.lbl_SharpRatio.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_SharpRatio.ForeColor = System.Drawing.Color.White;
+            this.lbl_SharpRatio.Location = new System.Drawing.Point(20, 588);
+            this.lbl_SharpRatio.Name = "lbl_SharpRatio";
+            this.lbl_SharpRatio.Size = new System.Drawing.Size(74, 17);
+            this.lbl_SharpRatio.TabIndex = 31;
+            this.lbl_SharpRatio.Text = "Sharp ratio :";
             // 
-            // lbl_Value_Avg_Gain
+            // lbl_Value_Sharp_Ratio
             // 
-            this.lbl_Value_Avg_Gain.AutoSize = true;
-            this.lbl_Value_Avg_Gain.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_Avg_Gain.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Avg_Gain.Location = new System.Drawing.Point(18, 447);
-            this.lbl_Value_Avg_Gain.Name = "lbl_Value_Avg_Gain";
-            this.lbl_Value_Avg_Gain.Size = new System.Drawing.Size(43, 17);
-            this.lbl_Value_Avg_Gain.TabIndex = 20;
-            this.lbl_Value_Avg_Gain.Text = "label9";
-            // 
-            // lbl_AverageLoss
-            // 
-            this.lbl_AverageLoss.AutoSize = true;
-            this.lbl_AverageLoss.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_AverageLoss.ForeColor = System.Drawing.Color.White;
-            this.lbl_AverageLoss.Location = new System.Drawing.Point(18, 478);
-            this.lbl_AverageLoss.Name = "lbl_AverageLoss";
-            this.lbl_AverageLoss.Size = new System.Drawing.Size(93, 17);
-            this.lbl_AverageLoss.TabIndex = 21;
-            this.lbl_AverageLoss.Text = "Avg loss (SEK) :";
-            // 
-            // lbl_Value_Avg_Loss
-            // 
-            this.lbl_Value_Avg_Loss.AutoSize = true;
-            this.lbl_Value_Avg_Loss.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_Avg_Loss.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Avg_Loss.Location = new System.Drawing.Point(18, 504);
-            this.lbl_Value_Avg_Loss.Name = "lbl_Value_Avg_Loss";
-            this.lbl_Value_Avg_Loss.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_Avg_Loss.TabIndex = 22;
-            this.lbl_Value_Avg_Loss.Text = "label10";
-            // 
-            // lbl_ProfitFactor
-            // 
-            this.lbl_ProfitFactor.AutoSize = true;
-            this.lbl_ProfitFactor.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ProfitFactor.ForeColor = System.Drawing.Color.White;
-            this.lbl_ProfitFactor.Location = new System.Drawing.Point(20, 541);
-            this.lbl_ProfitFactor.Name = "lbl_ProfitFactor";
-            this.lbl_ProfitFactor.Size = new System.Drawing.Size(79, 17);
-            this.lbl_ProfitFactor.TabIndex = 23;
-            this.lbl_ProfitFactor.Text = "Profit factor :";
-            // 
-            // lbl_Value_Profit_Factor
-            // 
-            this.lbl_Value_Profit_Factor.AutoSize = true;
-            this.lbl_Value_Profit_Factor.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_Profit_Factor.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Profit_Factor.Location = new System.Drawing.Point(20, 568);
-            this.lbl_Value_Profit_Factor.Name = "lbl_Value_Profit_Factor";
-            this.lbl_Value_Profit_Factor.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_Profit_Factor.TabIndex = 24;
-            this.lbl_Value_Profit_Factor.Text = "label11";
-            // 
-            // lbl_Cagr
-            // 
-            this.lbl_Cagr.AutoSize = true;
-            this.lbl_Cagr.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Cagr.ForeColor = System.Drawing.Color.White;
-            this.lbl_Cagr.Location = new System.Drawing.Point(20, 600);
-            this.lbl_Cagr.Name = "lbl_Cagr";
-            this.lbl_Cagr.Size = new System.Drawing.Size(64, 17);
-            this.lbl_Cagr.TabIndex = 25;
-            this.lbl_Cagr.Text = "CAGR (%):";
-            // 
-            // lbl_Value_CAGR
-            // 
-            this.lbl_Value_CAGR.AutoSize = true;
-            this.lbl_Value_CAGR.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_CAGR.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_CAGR.Location = new System.Drawing.Point(20, 627);
-            this.lbl_Value_CAGR.Name = "lbl_Value_CAGR";
-            this.lbl_Value_CAGR.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_CAGR.TabIndex = 26;
-            this.lbl_Value_CAGR.Text = "label12";
-            // 
-            // lbl_Value_Name_Algo
-            // 
-            this.lbl_Value_Name_Algo.AutoSize = true;
-            this.lbl_Value_Name_Algo.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_Name_Algo.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Name_Algo.Location = new System.Drawing.Point(18, 27);
-            this.lbl_Value_Name_Algo.Name = "lbl_Value_Name_Algo";
-            this.lbl_Value_Name_Algo.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_Name_Algo.TabIndex = 27;
-            this.lbl_Value_Name_Algo.Text = "label12";
-            // 
-            // lbl_TimeSpan
-            // 
-            this.lbl_TimeSpan.AutoSize = true;
-            this.lbl_TimeSpan.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_TimeSpan.ForeColor = System.Drawing.Color.White;
-            this.lbl_TimeSpan.Location = new System.Drawing.Point(20, 51);
-            this.lbl_TimeSpan.Name = "lbl_TimeSpan";
-            this.lbl_TimeSpan.Size = new System.Drawing.Size(74, 17);
-            this.lbl_TimeSpan.TabIndex = 28;
-            this.lbl_TimeSpan.Text = "Time span : ";
-            // 
-            // lbl_Value_TimeSpan_Start
-            // 
-            this.lbl_Value_TimeSpan_Start.AutoSize = true;
-            this.lbl_Value_TimeSpan_Start.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_TimeSpan_Start.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_TimeSpan_Start.Location = new System.Drawing.Point(18, 68);
-            this.lbl_Value_TimeSpan_Start.Name = "lbl_Value_TimeSpan_Start";
-            this.lbl_Value_TimeSpan_Start.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_TimeSpan_Start.TabIndex = 29;
-            this.lbl_Value_TimeSpan_Start.Text = "label13";
-            // 
-            // lbl_Value_TimeSpan_Finish
-            // 
-            this.lbl_Value_TimeSpan_Finish.AutoSize = true;
-            this.lbl_Value_TimeSpan_Finish.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_TimeSpan_Finish.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_TimeSpan_Finish.Location = new System.Drawing.Point(18, 83);
-            this.lbl_Value_TimeSpan_Finish.Name = "lbl_Value_TimeSpan_Finish";
-            this.lbl_Value_TimeSpan_Finish.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_TimeSpan_Finish.TabIndex = 30;
-            this.lbl_Value_TimeSpan_Finish.Text = "label14";
+            this.lbl_Value_Sharp_Ratio.AutoSize = true;
+            this.lbl_Value_Sharp_Ratio.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Sharp_Ratio.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Sharp_Ratio.Location = new System.Drawing.Point(20, 605);
+            this.lbl_Value_Sharp_Ratio.Name = "lbl_Value_Sharp_Ratio";
+            this.lbl_Value_Sharp_Ratio.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_Sharp_Ratio.TabIndex = 32;
+            this.lbl_Value_Sharp_Ratio.Text = "label15";
             // 
             // GraphChartRsi
             // 
@@ -477,5 +503,7 @@
         private System.Windows.Forms.Label lbl_Value_Name_Algo;
         private System.Windows.Forms.Label lbl_Value_TimeSpan_Start;
         private System.Windows.Forms.Label lbl_Value_TimeSpan_Finish;
+        private System.Windows.Forms.Label lbl_Value_Sharp_Ratio;
+        private System.Windows.Forms.Label lbl_SharpRatio;
     }
 }

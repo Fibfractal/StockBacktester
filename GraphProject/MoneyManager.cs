@@ -12,6 +12,7 @@ namespace GraphProject
         private double _portfolioValueStart;
         private double _portfolioValue ;
         private double _valuePerPoint;
+        private double _riskFreeRate = 0.05 * 100; // 2019-11-11 ,10-åringen
 
         public MoneyManager(double portfolioValueStart, double valuePerpoint)
         {
@@ -35,6 +36,7 @@ namespace GraphProject
             get { return _portfolioValue; }
         }
 
+        // Portfoliovalue after that trade
         public double ChangePortFolValue(TradeManager tradeList, int index)
         {
             _portfolioValue += (tradeList.GetTradeList[index].ProfitTrade() / tradeList.GetTradeList[index].Sell) * _valuePerPoint ;
@@ -140,16 +142,60 @@ namespace GraphProject
             return ( Math.Pow((1 + ReturnProcent() / 100), 1/nbrYears) - 1 ) * 100;
         }
 
+        // If position only works on same amount of money, 100 000 kr initial. No ränta på ränta effekt, linear return curve.
+        public double CagrAlternative(List<DailyDataPoint> pointList)
+        {
+            double nbrYears;
+            nbrYears = (TimeTranslation(pointList[pointList.Count - 1]._MilliSeconds) - TimeTranslation(pointList[0]._MilliSeconds)).TotalDays / 365.2425;
+
+            return ReturnProcent() / nbrYears; 
+        }
+
+        public double SharpRatio(TradeManager tradeList, List<DailyDataPoint> pointList)
+        {
+            return ((CagrAlternative(pointList) - _riskFreeRate) / (StandardDeviation(tradeList) / _portfolioValueStart * 100) );
+        }
+
+        public double StandardDeviation(TradeManager tradeList)
+        {
+            double sumSquaredDevFromMean = 0;
+            foreach (var item in tradeList.GetTradeList)
+            {
+                sumSquaredDevFromMean += Math.Pow(item.ProfitTrade() / item.Sell * _valuePerPoint - AverageProfit(tradeList), 2);
+            }
+
+            return Math.Sqrt(sumSquaredDevFromMean / tradeList.NbrFinishedTrades());
+        }
+
+        public double AverageProfit(TradeManager tradeList)
+        {
+            double sumProfitInSek = 0;
+
+            foreach (var item in tradeList.GetTradeList)
+            {
+                sumProfitInSek += item.ProfitTrade() / item.Sell * _valuePerPoint;
+            }
+
+            return sumProfitInSek / tradeList.NbrFinishedTrades();
+        }
+
         public String TimespanStart(List<DailyDataPoint> pointList)
         {
-            return TimeTranslation(pointList[0]._MilliSeconds).ToShortDateString() + " - ";
+            TimeSpan oneYear = new DateTime(2019, 01, 01) - new DateTime(2018, 01, 01);
+            TimeSpan add = TimeSpan.FromMilliseconds(pointList[0]._MilliSeconds) - oneYear;
+            DateTime date = new DateTime(1971, 1, 1) + add;
+            return date.ToShortDateString() + " - ";
         }
 
         public String TimespanFinish(List<DailyDataPoint> pointList)
         {
-            return TimeTranslation(pointList[pointList.Count - 1]._MilliSeconds).ToShortDateString();
+            TimeSpan oneYear = new DateTime(2019, 01, 01) - new DateTime(2018, 01, 01);
+            TimeSpan add = TimeSpan.FromMilliseconds(pointList[pointList.Count - 1]._MilliSeconds) - oneYear;
+            DateTime date = new DateTime(1971, 1, 1) + add;
+            return date.ToShortDateString();
         }
 
+        // 1970 är det korrekta, men får inte till x-axeln, tvingas kompensera
         private DateTime TimeTranslation(double ticks)
         {
             TimeSpan time = TimeSpan.FromMilliseconds(ticks);

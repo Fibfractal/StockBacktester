@@ -10,6 +10,7 @@ namespace GraphProject
     {
         private double _buy = -1;
         private double _sell = -1;
+        private double _spread = 0.0006;
 
         public DateTime BuyDate { get; set; }
         public DateTime SellDate { get; set; }
@@ -40,7 +41,7 @@ namespace GraphProject
         public bool Finished => Bought && Sold;
         public double ProfitTrade()
         {
-            return (Finished) ? (_sell - _buy - 0.0006 * _sell) : 0.00;
+            return (Finished) ? (_sell - _buy - _spread * _sell) : 0.00;
         }
     }
 }

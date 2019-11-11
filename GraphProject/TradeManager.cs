@@ -42,7 +42,9 @@ namespace GraphProject
             return false;
         }
 
-        public bool FinishTrade()
+        
+        public bool UnFinishedTrade()
+
         {
             return (_tradeList.Count > 0 && _tradeList[_tradeList.Count - 1].Bought && (_tradeList[_tradeList.Count - 1].Sold == false)) ? true : false;
         }
@@ -72,6 +74,19 @@ namespace GraphProject
                 sum += item.ProfitTrade();
             }
             return sum;
+        }
+
+
+
+        public int NbrFinishedTrades()
+        {
+            int nbrFinishedTrades = 0;
+            foreach (var item in _tradeList)
+            {
+                if (item.Finished)
+                    nbrFinishedTrades++;
+            }
+            return nbrFinishedTrades;
         }
     }
 }

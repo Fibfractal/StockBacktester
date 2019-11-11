@@ -51,7 +51,7 @@ namespace GraphProject
         public Axis YearFormatter()
         {
             _axis.Title = "Years";
-            //_axis.LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks * 365.2425)).ToString("yyyy");
+            //_axis.LabelFormatter = value => new DateTime((long)(value * TimeSpan.FromDays(1).Ticks * 365.2425)).ToString() ;
             return _axis;
         }
     }
