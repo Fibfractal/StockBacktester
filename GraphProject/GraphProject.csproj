@@ -111,7 +111,8 @@
     <Compile Include="Graph Index Rsi Ma\RSI.cs" />
     <Compile Include="Graph Index Rsi Ma\RsiManager.cs" />
     <Compile Include="Graph Index Rsi Ma\MovingAverage.cs" />
-    <Compile Include="MoneyManager.cs" />
+    <Compile Include="Backtest.cs" />
+    <Compile Include="MaAlgo.cs" />
     <Compile Include="OneTrade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,7 +126,6 @@
     <Compile Include="RsiDummyAlgo.cs" />
     <Compile Include="TimeFrame.cs" />
     <Compile Include="TradeManager.cs" />
-    <Compile Include="TradeSignal.cs" />
     <EmbeddedResource Include="Graph Table Tutorial\GraphTable.resx">
       <DependentUpon>GraphTable.cs</DependentUpon>
     </EmbeddedResource>

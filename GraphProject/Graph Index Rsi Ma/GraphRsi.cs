@@ -22,6 +22,7 @@ namespace GraphProject
         private RsiManager _lastAverage;
         private TimeFrame _timeFrame;
         private CartesianMapper<DateModel> _dayConfig;
+        private int _lenghtRsi = 200;
 
         public GraphRsi()
         {
@@ -65,7 +66,7 @@ namespace GraphProject
 
             for ( int i = 0; i < listOfData.Count; i++)
             {
-                listOfData[i]._RSI = (new RSI(listOfData, i, _lastAverage)).CalculateRsi();
+                listOfData[i]._RSI = (new RSI(listOfData, i, _lastAverage, _lenghtRsi)).CalculateRsi();
             }
 
             //lbx_RSI.Items.AddRange(listOfData.ConvertAll(x => x.ToString()).ToArray()); 

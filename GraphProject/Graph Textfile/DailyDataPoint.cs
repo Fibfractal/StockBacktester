@@ -16,6 +16,7 @@ namespace GraphProject
         public double _MilliSeconds { get; set; }
         public double _RSI { get; set; }
         public double _MA { get; set; }
+        public double _MA2 { get; set; }
 
         // Used to visualize that the calculated RSI values in GraphRsi matches dummy RSI values from data in website 
         public override string ToString()

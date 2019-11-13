@@ -10,20 +10,28 @@ namespace GraphProject
     {
         private int _index;
         private List<DailyDataPoint> _points;
+        private int _lenghtMa;
 
-        public MovingAverage(List<DailyDataPoint> points, int index)
+        public MovingAverage(List<DailyDataPoint> points, int index, int lenghtMA)
         {
             _points = points;
             _index = index;
+            _lenghtMa = lenghtMA;
+        }
+
+
+        public int LengthMA
+        {
+            get { return _lenghtMa; }
         }
 
         public double CalculateMa()
         {
-            if (_points.Count >= 200)
+            if (_points.Count >= _lenghtMa)
             {
                 double nbr = _points[_index]._Close;
 
-                if (_index >= 200)
+                if (_index >= _lenghtMa)
                 {
                     nbr = MaFormula();
                 }
@@ -39,12 +47,12 @@ namespace GraphProject
         {
             double sum = 0;
 
-            for (int i = _index - 200; i < _index; i++)
+            for (int i = _index - _lenghtMa; i < _index; i++)
             {
                 sum += _points[i]._Close;
             }
 
-            return sum / 200;
+            return sum / _lenghtMa;
         }
 
     }
