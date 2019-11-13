@@ -14,11 +14,24 @@ namespace GraphProject
         private double _valuePerPoint;
         private double _riskFreeRate = 0.05 * 100; // 2019-11-11 ,10-åringen
 
+        // Portfolio drawdown
+        private double _max;
+        private double _min = Math.Pow(10, 9);
+        private double _maxDrawDown = 0;
+        private double _maxDrawDownPercent = 0;
+        private double _previousMaxDrawDown = 0;
+        private double _currentDrawDown = 0;
+        private bool _newHigh = false;
+        private int _indexAtPreviousDrawDown = 0;
+        private int _indexAtCurrentDrawDown = 0;
+        private int _indexAtMaxDrawdown = 0;
+
         public MoneyManager(double portfolioValueStart, double valuePerpoint)
         {
             _portfolioValueStart = portfolioValueStart;
             _portfolioValue = portfolioValueStart;
             _valuePerPoint = valuePerpoint;
+            _max = portfolioValueStart;
         }
 
         public double PortfolioValueStart
@@ -36,11 +49,26 @@ namespace GraphProject
             get { return _portfolioValue; }
         }
 
+        public bool Newhigh
+        {
+            get { return _newHigh; }
+        }
+
+        public int IndexAtMaxDrawDown
+        {
+            get { return _indexAtMaxDrawdown; }
+        }
+
         // Portfoliovalue after that trade
         public double ChangePortFolValue(TradeManager tradeList, int index)
         {
             _portfolioValue += (tradeList.GetTradeList[index].ProfitTrade() / tradeList.GetTradeList[index].Sell) * _valuePerPoint ;
             return _portfolioValue;
+        }
+
+        public double MaxDrawDownProp
+        {
+            get { return _maxDrawDownPercent ; }
         }
 
         public double ReturnSek()
@@ -178,6 +206,40 @@ namespace GraphProject
 
             return sumProfitInSek / tradeList.NbrFinishedTrades();
         }
+
+        public void MaxDrawDown(int index)
+        {
+            if (_portfolioValue > _max)
+            {
+                _newHigh = true;
+
+                if (_max - _min > _previousMaxDrawDown)
+                {
+                    _indexAtPreviousDrawDown = _indexAtCurrentDrawDown;
+                }
+                // Made a previous misstake to have this part above the if() above, then it will nerver go in in the if()
+                _previousMaxDrawDown = Math.Max(_previousMaxDrawDown, _max - _min);
+                _min = Math.Pow(10, 9);
+            }
+            else
+                _newHigh = false;
+
+            if (_portfolioValue < _min)
+            {
+                _indexAtCurrentDrawDown = index;
+            }
+
+            _max = Math.Max(_max, _portfolioValue);
+            _min = Math.Min(_min, _portfolioValue);
+            _currentDrawDown = Math.Max(_currentDrawDown, _max - _min);
+
+            _maxDrawDown = (_currentDrawDown > _previousMaxDrawDown) ? _currentDrawDown : _previousMaxDrawDown;
+            _indexAtMaxDrawdown = (_currentDrawDown > _previousMaxDrawDown) ? _indexAtCurrentDrawDown : _indexAtPreviousDrawDown;
+
+            _maxDrawDownPercent = _maxDrawDown / _portfolioValueStart * 100;
+            _maxDrawDownPercent = (_maxDrawDownPercent < 100) ? _maxDrawDownPercent : 100;
+        }
+
 
         public String TimespanStart(List<DailyDataPoint> pointList)
         {

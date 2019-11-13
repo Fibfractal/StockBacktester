@@ -55,7 +55,7 @@ namespace GraphProject
             _timeFrame2 = new TimeFrame();
 
             _tradeManager = new TradeManager();
-            _moneyManager = new MoneyManager(100000, 250000);
+            _moneyManager = new MoneyManager(100000, 125000);
         }
 
         private void ImportData()
@@ -238,7 +238,11 @@ namespace GraphProject
 
             var seriesCollection2 = new SeriesCollection(_dayConfig2);
             var lineSeries2 = new LineSeries();
+            var lineSeries8 = new LineSeries();
+            var lineSeries9 = new LineSeries();
             var chartValues2 = new ChartValues<DateModel>();
+            var chartValues8 = new ChartValues<DateModel>();
+            var chartValues9 = new ChartValues<DateModel>();
 
             // Start value for portfolio
             chartValues2.Add(new DateModel());
@@ -252,6 +256,14 @@ namespace GraphProject
                     chartValues2.Add(new DateModel());
                     chartValues2[i + 1].DateTime = _tradeManager.GetTradeList[i].SellDate;
                     chartValues2[i + 1].Value = _moneyManager.ChangePortFolValue(_tradeManager, i);
+                    _moneyManager.MaxDrawDown(i);
+
+                    if (_moneyManager.Newhigh)
+                    {
+                        chartValues8.Add(new DateModel());
+                        chartValues8[chartValues8.Count - 1].DateTime = _tradeManager.GetTradeList[i].SellDate;
+                        chartValues8[chartValues8.Count - 1].Value = chartValues2[i + 1].Value;
+                    }
                 }
             }
 
@@ -260,6 +272,18 @@ namespace GraphProject
             chartValues2[chartValues2.Count - 1].DateTime = TimeTranslation(_dataList[_dataList.Count - 1]._MilliSeconds);
             chartValues2[chartValues2.Count - 1].Value = _moneyManager.PortfolioValue;
 
+            // Give values at index for highest drawdown to chart
+            chartValues9.Add(new DateModel());
+            chartValues9[0].DateTime = _tradeManager.GetTradeList[_moneyManager.IndexAtMaxDrawDown].SellDate;
+
+            foreach (var item in chartValues2)
+            {
+                if (chartValues9[0].DateTime == item.DateTime)
+                {
+                    chartValues9[0].Value = item.Value;
+                }
+            }
+
             lineSeries2.PointGeometrySize = 5;
             //lineSeries2.Fill = Brushes.Yellow;
             lineSeries2.Stroke = Brushes.Yellow;
@@ -267,7 +291,23 @@ namespace GraphProject
             lineSeries2.LineSmoothness = 0;
             lineSeries2.StrokeThickness = 1;
             lineSeries2.PointForeground = Brushes.Red;
+            
+
+            lineSeries8.PointGeometrySize = 7;
+            lineSeries8.Fill = Brushes.Transparent;
+            lineSeries8.PointForeground = Brushes.Green;
+            lineSeries8.Values = chartValues8;
+            lineSeries8.StrokeThickness = 0;
+
+            lineSeries9.PointGeometrySize = 7;
+            lineSeries9.Fill = Brushes.Transparent;
+            lineSeries9.PointForeground = Brushes.Red;
+            lineSeries9.Values = chartValues9;
+            lineSeries9.StrokeThickness = 0;
+
             seriesCollection2.Add(lineSeries2);
+            seriesCollection2.Add(lineSeries8);
+            seriesCollection2.Add(lineSeries9);
 
             cartesianChart2.Background = Brushes.Black;
             cartesianChart2.Series = seriesCollection2;
@@ -280,9 +320,9 @@ namespace GraphProject
             lbl_ValuePortfolio_Start.Text = string.Format("{0:N0}", _moneyManager.PortfolioValueStart);
             lbl_Value_Portfolio_End.Text = string.Format("{0:N0}", _moneyManager.PortfolioValue);
             lbl_Value_Return_Sek.Text = string.Format("{0:N0}", _moneyManager.ReturnSek());
-            lbl_Value_Return_Procent.Text = string.Format("{0:N0}", _moneyManager.ReturnProcent());
+            lbl_Value_Return_Procent.Text = string.Format("{0:N1}", _moneyManager.ReturnProcent());
             lbl_Value_Nbr_Trades.Text = string.Format("{0:N0}", _moneyManager.NumberOfFinishedTrades(_tradeManager));
-            lbl_Value_Winners_Procent.Text = string.Format("{0:N0}", _moneyManager.Winners(_tradeManager));
+            lbl_Value_Winners_Procent.Text = string.Format("{0:N1}", _moneyManager.Winners(_tradeManager));
             lbl_Value_Avg_Gain.Text = string.Format("{0:N0}", _moneyManager.AverageGain(_tradeManager));
             lbl_Value_Avg_Loss.Text = string.Format("{0:N0}", _moneyManager.AverageLoss(_tradeManager));
             lbl_Value_Profit_Factor.Text = string.Format("{0:N1}", _moneyManager.ProfitFactor(_tradeManager));
@@ -291,6 +331,7 @@ namespace GraphProject
             lbl_Value_TimeSpan_Finish.Text = _moneyManager.TimespanFinish(_dataList);
             lbl_Value_Name_Algo.Text = _rsiDummyAlgo.AlgoName;
             lbl_Value_Sharp_Ratio.Text = string.Format("{0:N2}", _moneyManager.SharpRatio(_tradeManager, _dataList));
+            lbl_Value_Max_DrawDown.Text = string.Format("{0:N1}", _moneyManager.MaxDrawDownProp);
         }
 
         private DateTime TimeTranslation(double ticks)

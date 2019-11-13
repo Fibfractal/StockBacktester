@@ -40,14 +40,16 @@
             this.lbl_ReturnProcent = new System.Windows.Forms.Label();
             this.lbl_WinnerProcent = new System.Windows.Forms.Label();
             this.gbx_Backtest = new System.Windows.Forms.GroupBox();
+            this.lbl_Value_Sharp_Ratio = new System.Windows.Forms.Label();
+            this.lbl_SharpRatio = new System.Windows.Forms.Label();
             this.lbl_Value_TimeSpan_Finish = new System.Windows.Forms.Label();
             this.lbl_Value_TimeSpan_Start = new System.Windows.Forms.Label();
-            this.lbl_TimeSpan = new System.Windows.Forms.Label();
+            this.lbl_Period = new System.Windows.Forms.Label();
             this.lbl_Value_Name_Algo = new System.Windows.Forms.Label();
             this.lbl_Value_CAGR = new System.Windows.Forms.Label();
             this.lbl_Cagr = new System.Windows.Forms.Label();
             this.lbl_Value_Profit_Factor = new System.Windows.Forms.Label();
-            this.lbl_ProfitFactor = new System.Windows.Forms.Label();
+            this.lbl_Gain_Loss = new System.Windows.Forms.Label();
             this.lbl_Value_Avg_Loss = new System.Windows.Forms.Label();
             this.lbl_AverageLoss = new System.Windows.Forms.Label();
             this.lbl_Value_Avg_Gain = new System.Windows.Forms.Label();
@@ -59,8 +61,10 @@
             this.lbl_Value_Return_Sek = new System.Windows.Forms.Label();
             this.lbl_Value_Portfolio_End = new System.Windows.Forms.Label();
             this.lbl_ValuePortfolio_Start = new System.Windows.Forms.Label();
-            this.lbl_SharpRatio = new System.Windows.Forms.Label();
-            this.lbl_Value_Sharp_Ratio = new System.Windows.Forms.Label();
+            this.lbl_MaxDrawDown = new System.Windows.Forms.Label();
+            this.lbl_Value_Max_DrawDown = new System.Windows.Forms.Label();
+            this.lbl_NewHigh = new System.Windows.Forms.Label();
+            this.lbl_Show_Point_MaxDrawDown = new System.Windows.Forms.Label();
             this.gbx_Backtest.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -182,16 +186,18 @@
             // gbx_Backtest
             // 
             this.gbx_Backtest.BackColor = System.Drawing.Color.Transparent;
+            this.gbx_Backtest.Controls.Add(this.lbl_Value_Max_DrawDown);
+            this.gbx_Backtest.Controls.Add(this.lbl_MaxDrawDown);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Sharp_Ratio);
             this.gbx_Backtest.Controls.Add(this.lbl_SharpRatio);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_TimeSpan_Finish);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_TimeSpan_Start);
-            this.gbx_Backtest.Controls.Add(this.lbl_TimeSpan);
+            this.gbx_Backtest.Controls.Add(this.lbl_Period);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Name_Algo);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_CAGR);
             this.gbx_Backtest.Controls.Add(this.lbl_Cagr);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Profit_Factor);
-            this.gbx_Backtest.Controls.Add(this.lbl_ProfitFactor);
+            this.gbx_Backtest.Controls.Add(this.lbl_Gain_Loss);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Avg_Loss);
             this.gbx_Backtest.Controls.Add(this.lbl_AverageLoss);
             this.gbx_Backtest.Controls.Add(this.lbl_Value_Avg_Gain);
@@ -217,6 +223,28 @@
             this.gbx_Backtest.TabStop = false;
             this.gbx_Backtest.Text = "Backtest";
             // 
+            // lbl_Value_Sharp_Ratio
+            // 
+            this.lbl_Value_Sharp_Ratio.AutoSize = true;
+            this.lbl_Value_Sharp_Ratio.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Sharp_Ratio.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Sharp_Ratio.Location = new System.Drawing.Point(20, 605);
+            this.lbl_Value_Sharp_Ratio.Name = "lbl_Value_Sharp_Ratio";
+            this.lbl_Value_Sharp_Ratio.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_Sharp_Ratio.TabIndex = 32;
+            this.lbl_Value_Sharp_Ratio.Text = "label15";
+            // 
+            // lbl_SharpRatio
+            // 
+            this.lbl_SharpRatio.AutoSize = true;
+            this.lbl_SharpRatio.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_SharpRatio.ForeColor = System.Drawing.Color.White;
+            this.lbl_SharpRatio.Location = new System.Drawing.Point(20, 588);
+            this.lbl_SharpRatio.Name = "lbl_SharpRatio";
+            this.lbl_SharpRatio.Size = new System.Drawing.Size(120, 17);
+            this.lbl_SharpRatio.TabIndex = 31;
+            this.lbl_SharpRatio.Text = "Sharp ratio (period) :";
+            // 
             // lbl_Value_TimeSpan_Finish
             // 
             this.lbl_Value_TimeSpan_Finish.AutoSize = true;
@@ -239,16 +267,16 @@
             this.lbl_Value_TimeSpan_Start.TabIndex = 29;
             this.lbl_Value_TimeSpan_Start.Text = "label13";
             // 
-            // lbl_TimeSpan
+            // lbl_Period
             // 
-            this.lbl_TimeSpan.AutoSize = true;
-            this.lbl_TimeSpan.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_TimeSpan.ForeColor = System.Drawing.Color.White;
-            this.lbl_TimeSpan.Location = new System.Drawing.Point(20, 51);
-            this.lbl_TimeSpan.Name = "lbl_TimeSpan";
-            this.lbl_TimeSpan.Size = new System.Drawing.Size(74, 17);
-            this.lbl_TimeSpan.TabIndex = 28;
-            this.lbl_TimeSpan.Text = "Time span : ";
+            this.lbl_Period.AutoSize = true;
+            this.lbl_Period.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Period.ForeColor = System.Drawing.Color.White;
+            this.lbl_Period.Location = new System.Drawing.Point(20, 51);
+            this.lbl_Period.Name = "lbl_Period";
+            this.lbl_Period.Size = new System.Drawing.Size(53, 17);
+            this.lbl_Period.TabIndex = 28;
+            this.lbl_Period.Text = "Period : ";
             // 
             // lbl_Value_Name_Algo
             // 
@@ -279,9 +307,9 @@
             this.lbl_Cagr.ForeColor = System.Drawing.Color.White;
             this.lbl_Cagr.Location = new System.Drawing.Point(20, 542);
             this.lbl_Cagr.Name = "lbl_Cagr";
-            this.lbl_Cagr.Size = new System.Drawing.Size(64, 17);
+            this.lbl_Cagr.Size = new System.Drawing.Size(101, 17);
             this.lbl_Cagr.TabIndex = 25;
-            this.lbl_Cagr.Text = "CAGR (%):";
+            this.lbl_Cagr.Text = "Yearly return (%):";
             // 
             // lbl_Value_Profit_Factor
             // 
@@ -294,16 +322,16 @@
             this.lbl_Value_Profit_Factor.TabIndex = 24;
             this.lbl_Value_Profit_Factor.Text = "label11";
             // 
-            // lbl_ProfitFactor
+            // lbl_Gain_Loss
             // 
-            this.lbl_ProfitFactor.AutoSize = true;
-            this.lbl_ProfitFactor.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ProfitFactor.ForeColor = System.Drawing.Color.White;
-            this.lbl_ProfitFactor.Location = new System.Drawing.Point(20, 492);
-            this.lbl_ProfitFactor.Name = "lbl_ProfitFactor";
-            this.lbl_ProfitFactor.Size = new System.Drawing.Size(79, 17);
-            this.lbl_ProfitFactor.TabIndex = 23;
-            this.lbl_ProfitFactor.Text = "Profit factor :";
+            this.lbl_Gain_Loss.AutoSize = true;
+            this.lbl_Gain_Loss.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Gain_Loss.ForeColor = System.Drawing.Color.White;
+            this.lbl_Gain_Loss.Location = new System.Drawing.Point(20, 492);
+            this.lbl_Gain_Loss.Name = "lbl_Gain_Loss";
+            this.lbl_Gain_Loss.Size = new System.Drawing.Size(76, 17);
+            this.lbl_Gain_Loss.TabIndex = 23;
+            this.lbl_Gain_Loss.Text = "Gain / Loss :";
             // 
             // lbl_Value_Avg_Loss
             // 
@@ -426,27 +454,49 @@
             this.lbl_ValuePortfolio_Start.TabIndex = 12;
             this.lbl_ValuePortfolio_Start.Text = "label4";
             // 
-            // lbl_SharpRatio
+            // lbl_MaxDrawDown
             // 
-            this.lbl_SharpRatio.AutoSize = true;
-            this.lbl_SharpRatio.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_SharpRatio.ForeColor = System.Drawing.Color.White;
-            this.lbl_SharpRatio.Location = new System.Drawing.Point(20, 588);
-            this.lbl_SharpRatio.Name = "lbl_SharpRatio";
-            this.lbl_SharpRatio.Size = new System.Drawing.Size(74, 17);
-            this.lbl_SharpRatio.TabIndex = 31;
-            this.lbl_SharpRatio.Text = "Sharp ratio :";
+            this.lbl_MaxDrawDown.AutoSize = true;
+            this.lbl_MaxDrawDown.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_MaxDrawDown.ForeColor = System.Drawing.Color.White;
+            this.lbl_MaxDrawDown.Location = new System.Drawing.Point(20, 635);
+            this.lbl_MaxDrawDown.Name = "lbl_MaxDrawDown";
+            this.lbl_MaxDrawDown.Size = new System.Drawing.Size(117, 17);
+            this.lbl_MaxDrawDown.TabIndex = 33;
+            this.lbl_MaxDrawDown.Text = "Max drawdown (%) :";
             // 
-            // lbl_Value_Sharp_Ratio
+            // lbl_Value_Max_DrawDown
             // 
-            this.lbl_Value_Sharp_Ratio.AutoSize = true;
-            this.lbl_Value_Sharp_Ratio.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Value_Sharp_Ratio.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_Value_Sharp_Ratio.Location = new System.Drawing.Point(20, 605);
-            this.lbl_Value_Sharp_Ratio.Name = "lbl_Value_Sharp_Ratio";
-            this.lbl_Value_Sharp_Ratio.Size = new System.Drawing.Size(51, 17);
-            this.lbl_Value_Sharp_Ratio.TabIndex = 32;
-            this.lbl_Value_Sharp_Ratio.Text = "label15";
+            this.lbl_Value_Max_DrawDown.AutoSize = true;
+            this.lbl_Value_Max_DrawDown.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Value_Max_DrawDown.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_Value_Max_DrawDown.Location = new System.Drawing.Point(20, 652);
+            this.lbl_Value_Max_DrawDown.Name = "lbl_Value_Max_DrawDown";
+            this.lbl_Value_Max_DrawDown.Size = new System.Drawing.Size(51, 17);
+            this.lbl_Value_Max_DrawDown.TabIndex = 34;
+            this.lbl_Value_Max_DrawDown.Text = "label16";
+            // 
+            // lbl_NewHigh
+            // 
+            this.lbl_NewHigh.AutoSize = true;
+            this.lbl_NewHigh.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_NewHigh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lbl_NewHigh.Location = new System.Drawing.Point(107, 524);
+            this.lbl_NewHigh.Name = "lbl_NewHigh";
+            this.lbl_NewHigh.Size = new System.Drawing.Size(70, 17);
+            this.lbl_NewHigh.TabIndex = 13;
+            this.lbl_NewHigh.Text = "* New high";
+            // 
+            // lbl_Show_Point_MaxDrawDown
+            // 
+            this.lbl_Show_Point_MaxDrawDown.AutoSize = true;
+            this.lbl_Show_Point_MaxDrawDown.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Show_Point_MaxDrawDown.ForeColor = System.Drawing.Color.Red;
+            this.lbl_Show_Point_MaxDrawDown.Location = new System.Drawing.Point(108, 545);
+            this.lbl_Show_Point_MaxDrawDown.Name = "lbl_Show_Point_MaxDrawDown";
+            this.lbl_Show_Point_MaxDrawDown.Size = new System.Drawing.Size(101, 17);
+            this.lbl_Show_Point_MaxDrawDown.TabIndex = 14;
+            this.lbl_Show_Point_MaxDrawDown.Text = "* Max drawdown";
             // 
             // GraphChartRsi
             // 
@@ -454,6 +504,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1354, 733);
+            this.Controls.Add(this.lbl_Show_Point_MaxDrawDown);
+            this.Controls.Add(this.lbl_NewHigh);
             this.Controls.Add(this.gbx_Backtest);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -496,14 +548,18 @@
         private System.Windows.Forms.Label lbl_Value_Avg_Gain;
         private System.Windows.Forms.Label lbl_AverageGain;
         private System.Windows.Forms.Label lbl_Value_Profit_Factor;
-        private System.Windows.Forms.Label lbl_ProfitFactor;
+        private System.Windows.Forms.Label lbl_Gain_Loss;
         private System.Windows.Forms.Label lbl_Value_CAGR;
         private System.Windows.Forms.Label lbl_Cagr;
-        private System.Windows.Forms.Label lbl_TimeSpan;
+        private System.Windows.Forms.Label lbl_Period;
         private System.Windows.Forms.Label lbl_Value_Name_Algo;
         private System.Windows.Forms.Label lbl_Value_TimeSpan_Start;
         private System.Windows.Forms.Label lbl_Value_TimeSpan_Finish;
         private System.Windows.Forms.Label lbl_Value_Sharp_Ratio;
         private System.Windows.Forms.Label lbl_SharpRatio;
+        private System.Windows.Forms.Label lbl_MaxDrawDown;
+        private System.Windows.Forms.Label lbl_Value_Max_DrawDown;
+        private System.Windows.Forms.Label lbl_NewHigh;
+        private System.Windows.Forms.Label lbl_Show_Point_MaxDrawDown;
     }
 }
