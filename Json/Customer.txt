@@ -1,0 +1,24 @@
+﻿[
+  {
+    "FirstName": "Robert",
+    "LastName": "Nilsson",
+    "Age": 38,
+    "Gender": "Male",
+    "Myaddress": {
+      "City": "Höllviken",
+      "Street": "Holländarevägen 24",
+      "PostNbr": "23634"
+    }
+  },
+  {
+    "FirstName": "Fredrik",
+    "LastName": "Persson",
+    "Age": 40,
+    "Gender": "Male",
+    "Myaddress": {
+      "City": "Höllviken",
+      "Street": "Holländarevägen 30",
+      "PostNbr": "23634"
+    }
+  }
+]

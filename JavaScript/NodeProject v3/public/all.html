@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Get data from API</h1>
+
+    <script>
+
+        // I dont have to set the method to POST
+        // since the default is get
+        // I can re-use the api route name '/api'
+        // since it was a post
+        // To enter this site type localhost:3000/all.html
+
+        getData();
+
+        async function getData(){
+            const response = await fetch('/api');
+            const data = await response.json();
+
+
+            for (item of data) {
+                // Make divs for all data points
+                const root = document.createElement('div');
+                const vegetable = document.createElement('div');
+                const geo = document.createElement('div');
+                const date = document.createElement('div');
+
+                // Fill in the text content
+                // Use text content so it can not be excuted
+                vegetable.textContent = `vegetable: ${item.vegetable}`;
+                geo.textContent = `${item.lat}°,${item.long}°`;
+                // Coverts milliseconds to a real date string
+                const dateString = new Date(item.timestamp).toLocaleString();
+                date.textContent = dateString;
+
+                // A container for the divs
+                root.append(vegetable,geo,date);
+                document.body.append(root);
+            }
+            console.log(data);
+
+        }
+        
+    
+    
+    </script>
+    
+</body>
+</html>
