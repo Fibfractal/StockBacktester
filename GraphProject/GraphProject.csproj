@@ -67,6 +67,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Indicators\BollingerBands.cs" />
+    <Compile Include="LowVolBB.cs" />
     <Compile Include="Trading algos\AlgoPicker.cs" />
     <Compile Include="GUIs\For Gui\Gui multiple backtest\BacktestPeriodPicker.cs" />
     <Compile Include="GUIs\For Gui\Gui graph\DatePickerManager.cs" />

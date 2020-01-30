@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphProject
 {
     /// <summary>
     /// This class has properties that describes the stock price.
     /// Open, Close, High and Low are properties of the price it self.
-    /// While RSI, MA are calculations derrived from this price.
+    /// While RSI, MA, UBB, LBB are calculations derrived from this price.
     /// Date is the date that the other properties occur.
     /// </summary>
     public class DailyDataPoint
@@ -24,10 +20,13 @@ namespace GraphProject
         public double MA200 { get; set; }
         public double MA50 { get; set; }
         public double MA20 { get; set; }
+        public double UpperBollingerBand { get; set; }
+        public double LowerBollingerBand { get; set; }
 
         public override string ToString()
         {
-            return string.Format("{0} {1} {2} {3} {4} {5}", Date, Close, RSI, MA200, MA50, MA20);
+            return string.Format("{0} {1} {2} {3} {4} {5} {6} {7}", Date, Close, RSI, MA200, MA50,
+                MA20, UpperBollingerBand, LowerBollingerBand);
         }
     }
 }

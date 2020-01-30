@@ -1,19 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
-using GraphProject.Graph_Textfile;
-using LiveCharts;
-using LiveCharts.Configurations;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Brushes = System.Windows.Media.Brushes;
 
 namespace GraphProject
 {
@@ -295,11 +284,14 @@ namespace GraphProject
         /// <param name="i">one index position of that stock data</param>
         private void CalcIndicators(List<DailyDataPoint> listOfData, int i)
         {
-            // Calculate Rsi and Ma
+            // Calculate Rsi, Ma and Bollingerbands
             listOfData[i].RSI = (new RSI(listOfData, i, _lastAverage, _lenghtRsi)).CalculateRsi();
             listOfData[i].MA200 = (new MovingAverage(listOfData, i, _lenghtMa200)).CalculateMa();
             listOfData[i].MA50 = (new MovingAverage(listOfData, i, _lenghtMa50)).CalculateMa();
             listOfData[i].MA20 = (new MovingAverage(listOfData, i, _lenghtMa20)).CalculateMa();
+
+            // These takes long time to calculate
+            listOfData[i].UpperBollingerBand = (new BollingerBands(listOfData, i, _lenghtMa200)).UpperBollingerBand();
         }
 
         /// <summary>
@@ -351,7 +343,7 @@ namespace GraphProject
             {
                 if (_tradeManager.GetTradeList[i].Finished)
                 {
-                     _backtest.ChangePortFolValue(_tradeManager, i);
+                    _backtest.ChangePortFolValue(_tradeManager, i);
                     _backtest.MaxDrawDown(i);
                 }
             }
@@ -379,7 +371,7 @@ namespace GraphProject
         private void FillBackTestListBox()
         {
             // Sort after best sharp ratio, descending
-            _backTestList.Sort((x,y) => y.SharpRatio.CompareTo(x.SharpRatio));
+            _backTestList.Sort((x, y) => y.SharpRatio.CompareTo(x.SharpRatio));
 
             lbx_Multiple_Backtest_Result.Items.AddRange(_backTestList.ToArray());
         }

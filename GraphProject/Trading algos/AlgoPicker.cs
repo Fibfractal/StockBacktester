@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GraphProject
 {
@@ -55,6 +51,10 @@ namespace GraphProject
             {
                 return new NegMaImpuls(_dataList, _index, _tradeManager).AlgoBuy();
             }
+            else if (_nameOfAlgo == "LowVolBB")
+            {
+                return new LowVolBB(_dataList, _index).AlgoBuy();
+            }
             else
             {
                 return false;
@@ -78,6 +78,10 @@ namespace GraphProject
                 _nbrDays = sell.GetNbrDays();
 
                 return sellOk;
+            }
+            else if (_nameOfAlgo == "LowVolBB")
+            {
+                return new LowVolBB(_dataList, _index).AlgoSell();
             }
             else
             {

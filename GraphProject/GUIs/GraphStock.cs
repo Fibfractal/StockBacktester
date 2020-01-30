@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GraphProject.Graph_Textfile;
+﻿using GraphProject.Graph_Textfile;
 using LiveCharts;
 using LiveCharts.Configurations;
-using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace GraphProject
@@ -63,14 +57,14 @@ namespace GraphProject
         // Trades and backtest
         private TradeManager _tradeManager;
         private Backtest _backtest;
-        
+
         // Algo
         private AlgoPicker _algoPicker;
         private string _algoName;
 
         // Delagates
         public delegate void guiAndThreads();
-        guiAndThreads showUpdating; 
+        guiAndThreads showUpdating;
         guiAndThreads hideUpdating;
         guiAndThreads showLoading;
         guiAndThreads hideLoading;
@@ -266,7 +260,7 @@ namespace GraphProject
             cartesianChart2.AxisX.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Years"
-            }) ;
+            });
             cartesianChart2.AxisY.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Portfolio (SEK)",
@@ -286,7 +280,7 @@ namespace GraphProject
         {
             CalcAndPlotAlgosAndIndicators(_dataList);
             PortfolioAndBacktest();
-            if(_showChart)
+            if (_showChart)
                 MakeNewTread(LoadingThread);
         }
 
@@ -335,12 +329,12 @@ namespace GraphProject
                 chart++;
 
                 // Plot MA in graph at datetime
-                if (i >= _lenghtMa200) 
+                if (i >= _lenghtMa200)
                 {
                     chartValues5.Add(new DateModel());
                     //chartValues5[i - _lenghtMa].DateTime = TimeTranslation(listOfData[i].MilliSeconds);
-                    chartValues5[chart2].DateTime = TimeTranslation2(listOfData[i].Date); 
-                    chartValues5[chart2].Value = listOfData[i].MA200; 
+                    chartValues5[chart2].DateTime = TimeTranslation2(listOfData[i].Date);
+                    chartValues5[chart2].Value = listOfData[i].MA200;
                     chart2++;
                 }
 
@@ -357,7 +351,7 @@ namespace GraphProject
                     {
                         //_tradeManager.AddTrade(new OneTrade { Buy = listOfData[i+1].Open, BuyDate = TimeTranslation(listOfData[i+1].MilliSeconds) });
                         _tradeManager.AddTrade(new OneTrade { Buy = listOfData[i].Close, BuyDate = TimeTranslation2(listOfData[i].Date) });
-                        
+
                         chartValues6.Add(new DateModel());
                         var length = chartValues6.Count();
                         //chartValues6[length - 1].DateTime = TimeTranslation(listOfData[i+1].MilliSeconds);
@@ -371,7 +365,7 @@ namespace GraphProject
                 // the next open. But I dont have data for open, so backtes wont be 100% correct.
                 // A solution is to add i < listOfData.Count - 1 to if() and listOfData[i+1].Open to tradelist
                 // but to plot listOfData[i+1].Close in chart. And have a messenger class. 
-                
+
                 // Plot algo sell signals in graph and save trade.
                 if (_algoPicker.PickAlgoSell())
                 {
@@ -380,13 +374,13 @@ namespace GraphProject
                         _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = listOfData[i].Close;
                         //_tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[i+1].MilliSeconds);
                         _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation2(listOfData[i].Date);
-                        
+
                         chartValues7.Add(new DateModel());
                         var length = chartValues7.Count();
                         //chartValues7[length - 1].DateTime = TimeTranslation(listOfData[i+1].MilliSeconds);
                         chartValues7[length - 1].DateTime = TimeTranslation2(listOfData[i].Date);
                         chartValues7[length - 1].Value = listOfData[i].Close;
-                        
+
                     }
                 }
             }
@@ -419,8 +413,8 @@ namespace GraphProject
             lineSeries7.StrokeThickness = 0;
 
             // Entries are plotted
-            if(chartValues6.Count() > 0)
-            seriesCollection.Add(lineSeries6);
+            if (chartValues6.Count() > 0)
+                seriesCollection.Add(lineSeries6);
 
             // Trade need to be finished with exit to be plotted, else (0,0) will 
             // be wrongly plotted ie nothing in lineSeries7.
@@ -432,7 +426,7 @@ namespace GraphProject
             seriesCollection.Add(lineSeries);
 
             // If option no chart is unchecked
-            if(_showChart)
+            if (_showChart)
                 cartesianChart1.Series = seriesCollection;
         }
 
@@ -444,11 +438,14 @@ namespace GraphProject
         {
             for (int i = 0; i < _dataList.Count; i++)
             {
-                // Calculate Rsi and Ma
+                // Calculate Rsi, Ma and Bollingerbands
                 _dataList[i].RSI = (new RSI(_dataList, i, _lastAverage, _lenghtRsi)).CalculateRsi();
                 _dataList[i].MA200 = (new MovingAverage(_dataList, i, _lenghtMa200)).CalculateMa();
                 _dataList[i].MA50 = (new MovingAverage(_dataList, i, _lenghtMa50)).CalculateMa();
                 _dataList[i].MA20 = (new MovingAverage(_dataList, i, _lenghtMa20)).CalculateMa();
+
+                // These takes long time to calculate
+                _dataList[i].UpperBollingerBand = (new BollingerBands(_dataList, i, _lenghtMa200)).UpperBollingerBand();
             }
         }
 
@@ -499,7 +496,7 @@ namespace GraphProject
                 }
             }
 
-            
+
             // End value for portfolio
             chartValues2.Add(new DateModel());
             //chartValues2[chartValues2.Count - 1].DateTime = TimeTranslation(_dataList[_dataList.Count - 1].MilliSeconds);
@@ -512,7 +509,7 @@ namespace GraphProject
                 // Give values at index for highest drawdown to chart
                 chartValues9.Add(new DateModel());
                 chartValues9[0].DateTime = _tradeManager.GetTradeList[_backtest.IndexAtMaxDrawDown].SellDate;
-                
+
                 foreach (var item in chartValues2)
                 {
                     // If date matches, take that portfolio value as value for maxdrawdown point
@@ -583,8 +580,8 @@ namespace GraphProject
             lbl_Value_Avg_Gain.Text = string.Format("{0:N0}", _backtest.AverageGain(_tradeManager));
             lbl_Value_Avg_Loss.Text = string.Format("{0:N0}", _backtest.AverageLoss(_tradeManager));
             lbl_Value_Profit_Factor.Text = string.Format("{0:N2}", _backtest.ProfitFactor(_tradeManager));
-            lbl_Value_CAGR.Text = string.Format("{0:N1}", _backtest.Cagr(_dataList,_datePicker.StartDate, _datePicker.EndDate));
-            lbl_Value_TimeSpan_Start.Text = _datePicker.StartDate.ToShortDateString(); 
+            lbl_Value_CAGR.Text = string.Format("{0:N1}", _backtest.Cagr(_dataList, _datePicker.StartDate, _datePicker.EndDate));
+            lbl_Value_TimeSpan_Start.Text = _datePicker.StartDate.ToShortDateString();
             lbl_Value_TimeSpan_Finish.Text = _datePicker.EndDate.ToShortDateString();
             lbl_Value_Ticker.Text = _backtest.Ticker;
             lbl_Value_Sharp_Ratio.Text = string.Format("{0:N2}", _backtest.SharpRatio(_tradeManager, _dataList, _datePicker.StartDate, _datePicker.EndDate));
@@ -771,7 +768,7 @@ namespace GraphProject
         /// </summary>
         private void dtp_Start_Date_ValueChanged(object sender, EventArgs e)
         {
-            _datePicker.StartDate = dtp_Start_Date.Value ;
+            _datePicker.StartDate = dtp_Start_Date.Value;
             _datePicker.PickCorrectDayAndDate();
             dtp_Start_Date.Value = _datePicker.StartDate;
         }
