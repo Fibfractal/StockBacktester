@@ -291,7 +291,7 @@ namespace GraphProject
             listOfData[i].MA20 = (new MovingAverage(listOfData, i, _lenghtMa20)).CalculateMa();
 
             // These takes long time to calculate
-            listOfData[i].UpperBollingerBand = (new BollingerBands(listOfData, i, _lenghtMa200)).UpperBollingerBand();
+            //listOfData[i].UpperBollingerBand = (new BollingerBands(listOfData, i, _lenghtMa200)).UpperBollingerBand();
         }
 
         /// <summary>

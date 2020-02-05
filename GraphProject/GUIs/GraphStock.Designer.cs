@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphStocks));
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
+            this.StockChart = new LiveCharts.WinForms.CartesianChart();
+            this.BacktestChart = new LiveCharts.WinForms.CartesianChart();
             this.lbl_Stock_Ticker = new System.Windows.Forms.Label();
             this.lbl_MA200 = new System.Windows.Forms.Label();
             this.lbl_Entry = new System.Windows.Forms.Label();
@@ -90,23 +90,23 @@
             // 
             // cartesianChart1
             // 
-            this.cartesianChart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.cartesianChart1.BackColorTransparent = true;
-            this.cartesianChart1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cartesianChart1.Location = new System.Drawing.Point(252, 62);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(925, 423);
-            this.cartesianChart1.TabIndex = 0;
-            this.cartesianChart1.Text = "cartesianChart1";
+            this.StockChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.StockChart.BackColorTransparent = true;
+            this.StockChart.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.StockChart.Location = new System.Drawing.Point(252, 62);
+            this.StockChart.Name = "cartesianChart1";
+            this.StockChart.Size = new System.Drawing.Size(925, 423);
+            this.StockChart.TabIndex = 0;
+            this.StockChart.Text = "cartesianChart1";
             // 
             // cartesianChart2
             // 
-            this.cartesianChart2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.cartesianChart2.Location = new System.Drawing.Point(234, 524);
-            this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(925, 185);
-            this.cartesianChart2.TabIndex = 1;
-            this.cartesianChart2.Text = "cartesianChart2";
+            this.BacktestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BacktestChart.Location = new System.Drawing.Point(234, 524);
+            this.BacktestChart.Name = "cartesianChart2";
+            this.BacktestChart.Size = new System.Drawing.Size(925, 185);
+            this.BacktestChart.TabIndex = 1;
+            this.BacktestChart.Text = "cartesianChart2";
             // 
             // lbl_Stock_Ticker
             // 
@@ -736,8 +736,8 @@
             this.Controls.Add(this.lbl_Entry);
             this.Controls.Add(this.lbl_MA200);
             this.Controls.Add(this.lbl_Stock_Ticker);
-            this.Controls.Add(this.cartesianChart2);
-            this.Controls.Add(this.cartesianChart1);
+            this.Controls.Add(this.BacktestChart);
+            this.Controls.Add(this.StockChart);
             this.Controls.Add(this.mst_Menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mst_Menu;
@@ -755,8 +755,8 @@
 
         #endregion
 
-        private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private LiveCharts.WinForms.CartesianChart cartesianChart2;
+        private LiveCharts.WinForms.CartesianChart StockChart;
+        private LiveCharts.WinForms.CartesianChart BacktestChart;
         private System.Windows.Forms.Label lbl_Stock_Ticker;
         private System.Windows.Forms.Label lbl_MA200;
         private System.Windows.Forms.Label lbl_Entry;
