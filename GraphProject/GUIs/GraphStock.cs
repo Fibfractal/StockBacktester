@@ -28,14 +28,11 @@ namespace GraphProject
 
     public partial class GraphStocks : Form
     {
-        // Data import from API and export to SQL
         private ExportToSql _exportToSql;
 
-        // Data import from SQL to chart
         private ImportFromSql _importFromSql;
         private List<DailyDataPoint> _dataList;
 
-        // Charts
         private TimeFrame _timeFrameStock;
         private TimeFrame _timeFrameBacktest;
 
@@ -68,22 +65,18 @@ namespace GraphProject
         ChartValues<DateModel> _chartHigh;
         ChartValues<DateModel> _chartLow;
 
-        // Pre-calculated indicators
         private RsiManager _lastAverage;
         private int _lenghtMa200 = 200;
         private int _lenghtMa50 = 50;
         private int _lenghtMa20 = 20;
         private int _lenghtRsi = 5;
 
-        // Trades and backtest
         private TradeManager _tradeManager;
         private Backtest _backtest;
 
-        // Algo
         private AlgoPicker _algoPicker;
         private string _algoName;
 
-        // Delagates
         public delegate void guiAndThreads();
         guiAndThreads showUpdating;
         guiAndThreads hideUpdating;
@@ -218,15 +211,15 @@ namespace GraphProject
 
             // YearFormatter doesnt seem to work, spaces between years is not consistent
             // Works without it, and start year 1971
-            StockChart.AxisX.Add(_timeFrameStock.YearFormatter());
-            StockChart.AxisY.Add(new LiveCharts.Wpf.Axis
+            StockChartGui.AxisX.Add(_timeFrameStock.YearFormatter());
+            StockChartGui.AxisY.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Price",
                 LabelFormatter = value => Math.Pow(10, value).ToString("N0")
             });
 
-            StockChart.AxisX[0].Separator.StrokeThickness = 0;
-            StockChart.AxisY[0].Separator.StrokeThickness = 0;
+            StockChartGui.AxisX[0].Separator.StrokeThickness = 0;
+            StockChartGui.AxisY[0].Separator.StrokeThickness = 0;
         }
 
         /// <summary>
@@ -240,18 +233,18 @@ namespace GraphProject
 
             // YearFormatter doesnt seem to work, spaces between years is not consistent
             // Works without it, and start year 1971
-            BacktestChart.AxisX.Add(new LiveCharts.Wpf.Axis
+            BacktestChartGui.AxisX.Add(new Axis
             {
                 Title = "Years"
             });
-            BacktestChart.AxisY.Add(new LiveCharts.Wpf.Axis
+            BacktestChartGui.AxisY.Add(new LiveCharts.Wpf.Axis
             {
                 Title = "Portfolio (SEK)",
                 LabelFormatter = value => value.ToString("N0")
             });
 
-            BacktestChart.AxisX[0].Separator.StrokeThickness = 0;
-            BacktestChart.AxisY[0].Separator.StrokeThickness = 0;
+            BacktestChartGui.AxisX[0].Separator.StrokeThickness = 0;
+            BacktestChartGui.AxisY[0].Separator.StrokeThickness = 0;
         }
 
 
@@ -305,9 +298,10 @@ namespace GraphProject
 
         private void FillOrHideGui()
         {
-            StockChart.Hide();
-            BacktestChart.Hide();
+            StockChartGui.Hide();
+            BacktestChartGui.Hide();
             gbx_Backtest.Hide();
+
             lbl_Entry.Hide();
             lbl_Exit.Hide();
             lbl_MA200.Hide();
@@ -315,7 +309,6 @@ namespace GraphProject
             lbl_Show_Point_MaxDrawDown.Hide();
 
             _showChart = true;
-
         }
 
         /// <summary>
@@ -325,105 +318,136 @@ namespace GraphProject
         /// </summary>
         private void ChartData()
         {
-            CalcAndPlotAlgosAndIndicators(_dataList);
-            PortfolioAndBacktest();
+            StockChart();
+            BacktestChart();
             if (_showChart)
                 MakeNewTread(LoadingThread);
         }
-
 
         /// <summary>
         /// All indicators are calculated. An the stock price, MA200, entries and exits of trades
         /// from the algo is plotted in a chart.
         /// </summary>
-        /// <param name="listOfData">One stock price and datetime data</param>
-        private void CalcAndPlotAlgosAndIndicators(List<DailyDataPoint> listOfData)
+        /// <param name="_dataList">One stock price and datetime data</param>
+        private void StockChart()
         {
-            StockChart.LegendLocation = LiveCharts.LegendLocation.None;
+            StockChartGui.LegendLocation = LiveCharts.LegendLocation.None;
+            _algoPicker = new AlgoPicker(_dataList, _algoName, _tradeManager);
 
-            // All indicators are plotted
-            CalcIndicatorsForAllValues();
+            CalculateIndicators();
+            AlgoSignals();
+            PropertiesForStockChart();
+            PlotInStockChart();
+        }
 
-            // Create counter for ChartValues
-            int chart = 0;
-            int chart2 = 0;
-
-            // Create an algo picker
-            _algoPicker = new AlgoPicker(listOfData, _algoName, _tradeManager);
+        private void AlgoSignals()
+        {
+            int counterStock = 0;
+            int counterMa = 0;
 
             // Go through stock data from database
             for (int i = _startDateIndex; i < _endDateIndex + 1; i++)
             {
                 _algoPicker.Index = i;
 
-                // Plot close values at datetime in graph
-                _chartStock.Add(new DateModel());
-                //chartValues[i].DateTime = TimeTranslation(listOfData[i].MilliSeconds);
-                _chartStock[chart].DateTime = TimeTranslation2(listOfData[i].Date);
-                _chartStock[chart].Value = listOfData[i].Close;
-                // Count one up for chart
-                chart++;
+                AddStockPrice(i, counterStock);
+                counterStock++;
 
-                // Plot MA in graph at datetime
                 if (i >= _lenghtMa200)
                 {
-                    _chartMa.Add(new DateModel());
-                    //chartValues5[i - _lenghtMa].DateTime = TimeTranslation(listOfData[i].MilliSeconds);
-                    _chartMa[chart2].DateTime = TimeTranslation2(listOfData[i].Date);
-                    _chartMa[chart2].Value = listOfData[i].MA200;
-                    chart2++;
+                    AddMovingAverage(i, counterMa);
+                    counterMa++;
                 }
 
-                // Plot algo buy signals in graph and save trade.
-                // Now the buy and sell signals are at close, so your action can first be at
-                // the next open. But I dont have data for open, so backtes wont be 100% correct.
-                // A solution is to add i < listOfData.Count - 1 to if() and listOfData[i+1].Open to tradelist
-                // but to plot listOfData[i+1].Close in chart. And have a messenger class. 
+                BuySignal(i);
+                SellSignal(i);
+            }
+        }
 
-                // Plot algo buy signals in graph and save trade.
-                if (_algoPicker.PickAlgoBuy())
+        private void AddStockPrice(int index, int counterStock)
+        {
+            // Plot close values at datetime in graph
+            _chartStock.Add(new DateModel());
+            //chartValues[index].DateTime = TimeTranslation(listOfData[index].MilliSeconds);
+            _chartStock[counterStock].DateTime = TimeTranslation2(_dataList[index].Date);
+            _chartStock[counterStock].Value = _dataList[index].Close;
+        }
+
+        private void AddMovingAverage(int index, int counterMa)
+        {
+            _chartMa.Add(new DateModel());
+            //chartValues5[index - _lenghtMa].DateTime = TimeTranslation(listOfData[index].MilliSeconds);
+            _chartMa[counterMa].DateTime = TimeTranslation2(_dataList[index].Date);
+            _chartMa[counterMa].Value = _dataList[index].MA200;
+        }
+
+        private void BuySignal(int index)
+        {
+            // Plot algo buy signals in graph and save trade.
+            // Now the buy and sell signals are at close, so your action can first be at
+            // the next open. But I dont have data for open, so backtes wont be 100% correct.
+            // A solution is to add i < listOfData.Count - 1 to if() and listOfData[i+1].Open to tradelist
+            // but to plot listOfData[i+1].Close in chart. And have a messenger class. 
+
+            // Plot algo buy signals in graph and save trade.
+            if (_algoPicker.PickAlgoBuy())
+            {
+                if (_tradeManager.AddNewTradeOk())
                 {
-                    if (_tradeManager.AddNewTradeOk())
-                    {
-                        //_tradeManager.AddTrade(new OneTrade { Buy = listOfData[i+1].Open, BuyDate = TimeTranslation(listOfData[i+1].MilliSeconds) });
-                        _tradeManager.AddTrade(new OneTrade { Buy = listOfData[i].Close, BuyDate = TimeTranslation2(listOfData[i].Date) });
-
-                        _chartEntry.Add(new DateModel());
-                        var length = _chartEntry.Count();
-                        //chartValues6[length - 1].DateTime = TimeTranslation(listOfData[i+1].MilliSeconds);
-                        _chartEntry[length - 1].DateTime = TimeTranslation2(listOfData[i].Date);
-                        _chartEntry[length - 1].Value = listOfData[i].Close;
-                    }
-                }
-
-                // Plot algo sell signals in graph and save trade.
-                // Now the buy and sell signals are at close, so your action can first be at
-                // the next open. But I dont have data for open, so backtes wont be 100% correct.
-                // A solution is to add i < listOfData.Count - 1 to if() and listOfData[i+1].Open to tradelist
-                // but to plot listOfData[i+1].Close in chart. And have a messenger class. 
-
-                // Plot algo sell signals in graph and save trade.
-                if (_algoPicker.PickAlgoSell())
-                {
-                    if (_tradeManager.UnFinishedTrade())
-                    {
-                        _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = listOfData[i].Close;
-                        //_tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[i+1].MilliSeconds);
-                        _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation2(listOfData[i].Date);
-
-                        _chartExit.Add(new DateModel());
-                        var length = _chartExit.Count();
-                        //chartValues7[length - 1].DateTime = TimeTranslation(listOfData[i+1].MilliSeconds);
-                        _chartExit[length - 1].DateTime = TimeTranslation2(listOfData[i].Date);
-                        _chartExit[length - 1].Value = listOfData[i].Close;
-
-                    }
+                    AddOpenedTrade(index);
+                    EntryValuesToPlot(index);
                 }
             }
-            // StockChart.Background = Brushes.Black;
+        }
 
-            PropertiesForStockChart();
-            PlotInStockChart();
+        private void SellSignal(int index)
+        {
+            // Plot algo sell signals in graph and save trade.
+            // Now the buy and sell signals are at close, so your action can first be at
+            // the next open. But I dont have data for open, so backtes wont be 100% correct.
+            // A solution is to add i < listOfData.Count - 1 to if() and listOfData[i+1].Open to tradelist
+            // but to plot listOfData[i+1].Close in chart. And have a messenger class. 
+
+            // Plot algo sell signals in graph and save trade.
+            if (_algoPicker.PickAlgoSell())
+            {
+                if (_tradeManager.UnFinishedTrade())
+                {
+                    AddFinishedTrade(index);
+                    ExitValuesToPlot(index);
+                }
+            }
+        }
+
+        private void AddOpenedTrade(int index)
+        {
+            //_tradeManager.AddTrade(new OneTrade { Buy = listOfData[i+1].Open, BuyDate = TimeTranslation(listOfData[index +1].MilliSeconds) });
+            _tradeManager.AddTrade(new OneTrade { Buy = _dataList[index].Close, BuyDate = TimeTranslation2(_dataList[index].Date) });
+        }
+
+        private void EntryValuesToPlot(int index)
+        {
+            _chartEntry.Add(new DateModel());
+            var length = _chartEntry.Count();
+            //chartValues6[length - 1].DateTime = TimeTranslation(listOfData[index +1].MilliSeconds);
+            _chartEntry[length - 1].DateTime = TimeTranslation2(_dataList[index].Date);
+            _chartEntry[length - 1].Value = _dataList[index].Close;
+        }
+
+        private void AddFinishedTrade(int index)
+        {
+            _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = _dataList[index].Close;
+            //_tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[index + 1].MilliSeconds);
+            _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation2(_dataList[index].Date);
+        }
+
+        private void ExitValuesToPlot(int index)
+        {
+            _chartExit.Add(new DateModel());
+            var length = _chartExit.Count();
+            //chartValues7[length - 1].DateTime = TimeTranslation(listOfData[index +1].MilliSeconds);
+            _chartExit[length - 1].DateTime = TimeTranslation2(_dataList[index].Date);
+            _chartExit[length - 1].Value = _dataList[index].Close;
         }
 
         private void PropertiesForStockChart()
@@ -480,7 +504,7 @@ namespace GraphProject
                 _seriesCollectionStock.Add(_seriesExit);
 
             if (_showChart)
-                StockChart.Series = _seriesCollectionStock;
+                StockChartGui.Series = _seriesCollectionStock;
         }
 
         /// <summary>
@@ -545,7 +569,7 @@ namespace GraphProject
         /// All available indicator values are calculated for each price in time
         /// for that stock.
         /// </summary>
-        private void CalcIndicatorsForAllValues()
+        private void CalculateIndicators()
         {
             for (int i = 0; i < _dataList.Count; i++)
             {
@@ -564,71 +588,87 @@ namespace GraphProject
         /// The portfolio graph is plotted depending on the trades.
         /// The backtest is calculated and shown in Gui.
         /// </summary>
-        private void PortfolioAndBacktest()
+        private void BacktestChart()
         {
-            BacktestChart.LegendLocation = LiveCharts.LegendLocation.None;
+            BacktestChartGui.LegendLocation = LiveCharts.LegendLocation.None;
+            Portfolio();
+            PropertiesForBacktest();
+            PlotInBacktestChart();
+            BacktestDataOneStock();
+        }
 
-
-
-            // Start value for portfolio
-            _chartEquityCurve.Add(new DateModel());
-            //chartValues2[0].DateTime = TimeTranslation(_dataList[0].MilliSeconds);
-            _chartEquityCurve[0].DateTime = TimeTranslation2(_datePicker.StartDate);
-            _chartEquityCurve[0].Value = 100000;
-
-            // Count highs
-            int nbrHighs = 0;
+        private void Portfolio()
+        {
+            AddStartValuePortfolio();
+            int highsCounter = 0;
 
             for (int i = 0; i < _tradeManager.GetTradeList.Count; i++)
             {
                 if (_tradeManager.GetTradeList[i].Finished)
                 {
-                    // Plot eq curve according to the list of saved trades
-                    _chartEquityCurve.Add(new DateModel());
-                    _chartEquityCurve[_chartEquityCurve.Count - 1].DateTime = _tradeManager.GetTradeList[i].SellDate; // Allready adjusted for x-axel
-                    _chartEquityCurve[_chartEquityCurve.Count - 1].Value = _backtest.ChangePortFolValue(_tradeManager, i);
+                    AddEquityCurveValue(i);
                     _backtest.MaxDrawDown(i);
-
-                    // Plot new highs
-                    if (_backtest.Newhigh)
-                    {
-                        _chartHigh.Add(new DateModel());
-                        _chartHigh[_chartHigh.Count - 1].DateTime = _tradeManager.GetTradeList[i].SellDate;
-                        _chartHigh[_chartHigh.Count - 1].Value = _chartEquityCurve[_chartEquityCurve.Count - 1].Value;
-                        nbrHighs++;
-                    }
+                    AddNewHigh(i);
+                    highsCounter++;
                 }
             }
 
+            AddEndValuePortfolio();
+            AddMaxDrawDown();
+        }
 
-            // End value for portfolio
+        private void AddEquityCurveValue(int index)
+        {
+            _chartEquityCurve.Add(new DateModel());
+            _chartEquityCurve[_chartEquityCurve.Count - 1].DateTime = _tradeManager.GetTradeList[index].SellDate;
+            _chartEquityCurve[_chartEquityCurve.Count - 1].Value = _backtest.ChangePortFolValue(_tradeManager, index);
+        }
+
+        private void AddNewHigh(int index)
+        {
+            if (_backtest.Newhigh)
+            {
+                _chartHigh.Add(new DateModel());
+                _chartHigh[_chartHigh.Count - 1].DateTime = _tradeManager.GetTradeList[index].SellDate;
+                _chartHigh[_chartHigh.Count - 1].Value = _chartEquityCurve[_chartEquityCurve.Count - 1].Value;
+            }
+        }
+
+        private void AddStartValuePortfolio()
+        {
+            _chartEquityCurve.Add(new DateModel());
+            //chartValues2[0].DateTime = TimeTranslation(_dataList[0].MilliSeconds);
+            _chartEquityCurve[0].DateTime = TimeTranslation2(_datePicker.StartDate);
+            _chartEquityCurve[0].Value = 100000;
+        }
+
+        private void AddEndValuePortfolio()
+        {
             _chartEquityCurve.Add(new DateModel());
             //chartValues2[chartValues2.Count - 1].DateTime = TimeTranslation(_dataList[_dataList.Count - 1].MilliSeconds);
             _chartEquityCurve[_chartEquityCurve.Count - 1].DateTime = TimeTranslation2(_datePicker.EndDate);
             _chartEquityCurve[_chartEquityCurve.Count - 1].Value = _backtest.PortfolioValue;
+        }
 
-            // Trade list must contain losing trades, to plot max drawdown
+        private void AddMaxDrawDown()
+        {
             if (_backtest.MaxDrawDownProp > 0)
             {
-                // Give values at index for highest drawdown to chart
                 _chartLow.Add(new DateModel());
                 _chartLow[0].DateTime = _tradeManager.GetTradeList[_backtest.IndexAtMaxDrawDown].SellDate;
-
-                foreach (var item in _chartEquityCurve)
-                {
-                    // If date matches, take that portfolio value as value for maxdrawdown point
-                    if (_chartLow[0].DateTime == item.DateTime)
-                    {
-                        _chartLow[0].Value = item.Value;
-                    }
-                }
-
+                FindPortfolioValueForMaxDrawDown();
             }
+        }
 
-            //BacktestChart.Background = Brushes.Black;
-            PropertiesForBacktest();
-            PlotInBacktestChart();
-            BacktestDataOneStock();
+        private void FindPortfolioValueForMaxDrawDown()
+        {
+            foreach (var item in _chartEquityCurve)
+            {
+                if (_chartLow[0].DateTime == item.DateTime)
+                {
+                    _chartLow[0].Value = item.Value;
+                }
+            }
         }
 
         private void PropertiesForBacktest()
@@ -678,7 +718,7 @@ namespace GraphProject
                 _seriesCollectionBacktest.Add(_seriesLow);
 
             if (_showChart)
-                BacktestChart.Series = _seriesCollectionBacktest;
+                BacktestChartGui.Series = _seriesCollectionBacktest;
         }
 
         /// <summary>
@@ -755,10 +795,10 @@ namespace GraphProject
         /// </summary>
         private void SecondFillGUI()
         {
-            StockChart.Show();
-            BacktestChart.Show();
-            StockChart.Series.Clear();
-            BacktestChart.Series.Clear();
+            StockChartGui.Show();
+            BacktestChartGui.Show();
+            StockChartGui.Series.Clear();
+            BacktestChartGui.Series.Clear();
 
             gbx_Backtest.Show();
             lbl_Entry.Show();
@@ -905,58 +945,29 @@ namespace GraphProject
         /// </summary>
         private void ShowUpdating()
         {
-            // Updating sequence
-            lbl_Updating.Text = "Updating ...";
-            lbl_Updating.Visible = true;
-            pcbx_Loading_Sequence.Visible = true;
-
-            // Left GUI
-            lbx_StockList.Enabled = false;
-            cbx_Pick_Algo.Enabled = false;
-            btn_Backtest_Multiple_Stocks.Enabled = false;
-
-            // Right GUI
-            gbx_Backtest.Visible = false;
-
+            UpdatingSequenceShow();
+            LeftGuiShow();
+            RightGuiShow();
             HideMiddleGui();
         }
 
-        /// <summary>
-        /// When the stock list is updated, only some parts
-        /// in the Gui is shown and some is disabled.
-        /// </summary>
-        private void HideUpdating()
+        private void UpdatingSequenceShow()
         {
-            // Updating sequence
-            lbl_Updating.Visible = false;
-            pcbx_Loading_Sequence.Visible = false;
-
-            // Left GUI
-            lbx_StockList.Enabled = true;
-            cbx_Pick_Algo.Enabled = true;
-            btn_Backtest_Multiple_Stocks.Enabled = true;
-
-            // Update gui after stock update
-            FillDatePickerGui();
+            lbl_Updating.Text = "Updating ...";
+            lbl_Updating.Visible = true;
+            pcbx_Loading_Sequence.Visible = true;
         }
 
-        /// <summary>
-        /// Method shows the middle part of the Gui.
-        /// Including both graphs and labels
-        /// </summary>
-        private void ShowMiddleGui()
+        private void LeftGuiShow()
         {
-            // Charts
-            StockChart.Show();
-            BacktestChart.Show();
+            lbx_StockList.Enabled = false;
+            cbx_Pick_Algo.Enabled = false;
+            btn_Backtest_Multiple_Stocks.Enabled = false;
+        }
 
-            // Middle labels
-            lbl_MA200.Visible = true;
-            lbl_Entry.Visible = true;
-            lbl_Exit.Visible = true;
-            lbl_Stock_Ticker.Visible = true;
-            lbl_NewHigh.Visible = true;
-            lbl_Show_Point_MaxDrawDown.Visible = true;
+        private void RightGuiShow()
+        {
+            gbx_Backtest.Visible = false;
         }
 
         /// <summary>
@@ -965,11 +976,13 @@ namespace GraphProject
         /// </summary>
         private void HideMiddleGui()
         {
-            // Charts
-            StockChart.Hide();
-            BacktestChart.Hide();
+            StockChartGui.Hide();
+            BacktestChartGui.Hide();
+            HideMiddleLabels();
+        }
 
-            // Middle labels
+        private void HideMiddleLabels()
+        {
             lbl_MA200.Visible = false;
             lbl_Entry.Visible = false;
             lbl_Exit.Visible = false;
@@ -977,6 +990,49 @@ namespace GraphProject
             lbl_NewHigh.Visible = false;
             lbl_Show_Point_MaxDrawDown.Visible = false;
         }
+
+        /// <summary>
+        /// When the stock list is updated, only some parts
+        /// in the Gui is shown and some is disabled.
+        /// </summary>
+        private void HideUpdating()
+        {
+            UpdatingSequenceHide();
+            LeftGuiHide();
+            FillDatePickerGui();
+        }
+
+        private void UpdatingSequenceHide()
+        {
+            lbl_Updating.Visible = false;
+            pcbx_Loading_Sequence.Visible = false;
+        }
+
+        private void LeftGuiHide()
+        {
+            lbx_StockList.Enabled = true;
+            cbx_Pick_Algo.Enabled = true;
+            btn_Backtest_Multiple_Stocks.Enabled = true;
+        }
+
+        /// <summary>
+        /// Method shows the middle part of the Gui.
+        /// Including both graphs and labels
+        /// </summary>
+        //private void ShowMiddleGui()
+        //{
+        //    // Charts
+        //    StockChartGui.Show();
+        //    BacktestChartGui.Show();
+
+        //    // Middle labels
+        //    lbl_MA200.Visible = true;
+        //    lbl_Entry.Visible = true;
+        //    lbl_Exit.Visible = true;
+        //    lbl_Stock_Ticker.Visible = true;
+        //    lbl_NewHigh.Visible = true;
+        //    lbl_Show_Point_MaxDrawDown.Visible = true;
+        //}
 
         /// <summary>
         /// Shows the text "Loading ..." int the Gui.

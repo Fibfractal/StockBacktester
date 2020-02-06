@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphStocks));
-            this.StockChart = new LiveCharts.WinForms.CartesianChart();
-            this.BacktestChart = new LiveCharts.WinForms.CartesianChart();
+            this.StockChartGui = new LiveCharts.WinForms.CartesianChart();
+            this.BacktestChartGui = new LiveCharts.WinForms.CartesianChart();
             this.lbl_Stock_Ticker = new System.Windows.Forms.Label();
             this.lbl_MA200 = new System.Windows.Forms.Label();
             this.lbl_Entry = new System.Windows.Forms.Label();
@@ -90,23 +90,23 @@
             // 
             // cartesianChart1
             // 
-            this.StockChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.StockChart.BackColorTransparent = true;
-            this.StockChart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.StockChart.Location = new System.Drawing.Point(252, 62);
-            this.StockChart.Name = "cartesianChart1";
-            this.StockChart.Size = new System.Drawing.Size(925, 423);
-            this.StockChart.TabIndex = 0;
-            this.StockChart.Text = "cartesianChart1";
+            this.StockChartGui.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.StockChartGui.BackColorTransparent = true;
+            this.StockChartGui.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.StockChartGui.Location = new System.Drawing.Point(252, 62);
+            this.StockChartGui.Name = "cartesianChart1";
+            this.StockChartGui.Size = new System.Drawing.Size(925, 423);
+            this.StockChartGui.TabIndex = 0;
+            this.StockChartGui.Text = "cartesianChart1";
             // 
             // cartesianChart2
             // 
-            this.BacktestChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.BacktestChart.Location = new System.Drawing.Point(234, 524);
-            this.BacktestChart.Name = "cartesianChart2";
-            this.BacktestChart.Size = new System.Drawing.Size(925, 185);
-            this.BacktestChart.TabIndex = 1;
-            this.BacktestChart.Text = "cartesianChart2";
+            this.BacktestChartGui.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BacktestChartGui.Location = new System.Drawing.Point(234, 524);
+            this.BacktestChartGui.Name = "cartesianChart2";
+            this.BacktestChartGui.Size = new System.Drawing.Size(925, 185);
+            this.BacktestChartGui.TabIndex = 1;
+            this.BacktestChartGui.Text = "cartesianChart2";
             // 
             // lbl_Stock_Ticker
             // 
@@ -736,8 +736,8 @@
             this.Controls.Add(this.lbl_Entry);
             this.Controls.Add(this.lbl_MA200);
             this.Controls.Add(this.lbl_Stock_Ticker);
-            this.Controls.Add(this.BacktestChart);
-            this.Controls.Add(this.StockChart);
+            this.Controls.Add(this.BacktestChartGui);
+            this.Controls.Add(this.StockChartGui);
             this.Controls.Add(this.mst_Menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mst_Menu;
@@ -755,8 +755,8 @@
 
         #endregion
 
-        private LiveCharts.WinForms.CartesianChart StockChart;
-        private LiveCharts.WinForms.CartesianChart BacktestChart;
+        private LiveCharts.WinForms.CartesianChart StockChartGui;
+        private LiveCharts.WinForms.CartesianChart BacktestChartGui;
         private System.Windows.Forms.Label lbl_Stock_Ticker;
         private System.Windows.Forms.Label lbl_MA200;
         private System.Windows.Forms.Label lbl_Entry;
