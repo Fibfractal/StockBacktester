@@ -41,7 +41,6 @@ namespace GraphProject
 
             if (_index > _lenghtMa20)
             {
-
                 if (_dataList[_index].MA20 < _dataList[_index].UpperBollingerBand)
                     closeUnderBB = true;
             }
