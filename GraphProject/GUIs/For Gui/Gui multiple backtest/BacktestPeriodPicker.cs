@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GraphProject
@@ -56,14 +53,12 @@ namespace GraphProject
             {
                 // Casted downward ex.  0.9 to 0
                 nbr = (int)(_dataList.Count * periodFraction);
-
                 EndIndex = nbr;
 
                 double treshold = 1.0 / _dataList.Count;
 
                 if (nbr < treshold)
                     MessageBox.Show(string.Format("Cant pick that small fraction with this little data! Pick {0} or bigger!", treshold));
-
             }
             else
                 MessageBox.Show("Fraction needs to be > 0.0 and < 1.0!");
@@ -88,7 +83,6 @@ namespace GraphProject
             }
             else
                 MessageBox.Show("Fraction needs to be > 0.0 and < 1.0!");
-
         }
 
         public DateTime GetStartDate()

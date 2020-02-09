@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GraphProject
@@ -18,8 +16,8 @@ namespace GraphProject
     /// </summary>
     public class DatePickerManager
     {
-        private List<DailyDataPoint> _dataList;
-        private int _nbrDaysBefore = 60;
+        private readonly List<DailyDataPoint> _dataList;
+        private readonly int _nbrDaysBefore = 60;
 
         public DatePickerManager(List<DailyDataPoint> dataList)
         {
@@ -36,17 +34,13 @@ namespace GraphProject
             CheckChangeDates();
             InformAboutDates();
 
-            var datesOk = VerifyDataListLenght() && VerifyDateOrder() && VerifyStartDate() && VerifyEndDate() && 
+            var datesOk = VerifyDataListLenght() && VerifyDateOrder() && VerifyStartDate() && VerifyEndDate() &&
                FindIndexStartDate() && FindIndexEndDate();
 
             if (!datesOk)
                 MessageBox.Show("Verification of dates failed!");
         }
 
-        /// <summary>
-        /// If the choice of dates is not valid the first and the last
-        /// dates are chosen, as start and end dates.
-        /// </summary>
         private void CheckChangeDates()
         {
             if (!VerifyStartDate())
@@ -66,11 +60,6 @@ namespace GraphProject
             }
         }
 
-        /// <summary>
-        /// The standard start date is preselected, and nbr of days before end date
-        /// is chosen to be the start date. That date have to be verified so there
-        /// is enough data in the price list, to be able to be picked.
-        /// </summary>
         public DateTime StandardStartDate()
         {
             if (!VerifyStandardStartDate())
@@ -79,21 +68,15 @@ namespace GraphProject
                 return StartDate = _dataList[_dataList.Count() - 1 - _nbrDaysBefore].Date;
         }
 
-        /// <summary>
-        /// The preselected end date is always the last date in the price list.
-        /// </summary>
         public DateTime StandardEndDate() => _dataList[_dataList.Count() - 1].Date;
 
-        /// <summary>
-        ///  When a start date is chosen, the corresponding index (for that date) in the price list must be found.
-        /// </summary>
         public bool FindIndexStartDate()
         {
             var startIndex = 0;
             bool foundIndex = false;
             for (int i = 0; i < _dataList.Count; i++)
             {
-                if(_dataList[i].Date == StartDate)
+                if (_dataList[i].Date == StartDate)
                 {
                     startIndex = i;
                     foundIndex = true;
@@ -106,9 +89,6 @@ namespace GraphProject
             return foundIndex;
         }
 
-        /// <summary>
-        ///  When a end date is chosen, the corresponding index (for that date) in the price list must be found.
-        /// </summary>
         public bool FindIndexEndDate()
         {
             var endIndex = _dataList.Count - 1;
@@ -128,11 +108,27 @@ namespace GraphProject
             return foundIndex;
         }
 
-        /// <summary>
-        /// When a date is picked in a Gui, it can not be a saturday or sunday.
-        /// </summary>
-        /// <returns></returns>
+        private bool VerifyDataListLenght() => _dataList.Count() > 0;
+        private bool VerifyDateOrder() => (EndDate - StartDate).TotalDays > 0;
+        private void CorrectDateOrder()
+        {
+            if (!VerifyDateOrder())
+            {
+                StartDate = StandardStartDate();
+                EndDate = StandardEndDate();
+            }
+        }
+
+        private bool VerifyStartDate() => (StartDate - _dataList[0].Date).TotalDays >= 0;
+        private bool VerifyEndDate() => (_dataList[_dataList.Count() - 1].Date - EndDate).TotalDays >= 0;
+        private bool VerifyStandardStartDate() => _dataList.Count() > _nbrDaysBefore;
+
         public bool PickCorrectDayAndDate()
+        {
+            return WeekendNotAsStartdate() && WeekendNotAsEnddate();
+        }
+
+        private bool WeekendNotAsStartdate()
         {
             if (StartDate.DayOfWeek == System.DayOfWeek.Saturday)
             {
@@ -146,7 +142,11 @@ namespace GraphProject
                 StartDate = StandardStartDate();
                 return false;
             }
+            return true;
+        }
 
+        private bool WeekendNotAsEnddate()
+        {
             if (EndDate.DayOfWeek == System.DayOfWeek.Saturday)
             {
                 MessageBox.Show("You can't pick a Saturday as end date!");
@@ -161,19 +161,5 @@ namespace GraphProject
             }
             return true;
         }
-
-        private bool VerifyDataListLenght() => _dataList.Count() > 0 ? true : false;
-        private bool VerifyDateOrder() => (EndDate - StartDate).TotalDays > 0 ? true : false;
-        private void CorrectDateOrder()
-        {
-            if (!VerifyDateOrder())
-            {
-                StartDate = StandardStartDate();
-                EndDate = StandardEndDate();
-            }
-        }
-        private bool VerifyStartDate() => (StartDate - _dataList[0].Date).TotalDays >= 0 ? true : false;
-        private bool VerifyEndDate() => (_dataList[_dataList.Count() - 1].Date - EndDate).TotalDays >= 0 ? true : false;
-        private bool VerifyStandardStartDate() => _dataList.Count()  > _nbrDaysBefore ? true : false;
     }
 }

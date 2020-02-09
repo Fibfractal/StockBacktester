@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
 using System.Windows.Forms;
 
 namespace GraphProject
@@ -15,10 +13,6 @@ namespace GraphProject
     /// </summary>
     public class ImportFromSql
     {
-        /// <summary>
-        /// Opens up a new connection to the data base, and gets a table depending on the stock ticker
-        /// name. The data is returned as a list of a class.
-        /// </summary>
         public List<DailyDataPoint> ImportStockData(string stockTicker)
         {
             try
@@ -26,9 +20,8 @@ namespace GraphProject
                 using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DBName")))
                 {
                     if (connection.State == ConnectionState.Closed)
-                    {
                         connection.Open();
-                    }
+
                     return connection.Query<DailyDataPoint>("select date,[close] from " + stockTicker + "1").ToList();
                 }
             }
@@ -39,22 +32,15 @@ namespace GraphProject
             }
         }
 
-        /// <summary>
-        /// Verifies so the price list contains a correct close and datetime for each object.
-        /// </summary>
         public bool VerifyData(List<DailyDataPoint> dataList)
         {
             if (dataList.Count == 0)
-            {
                 throw new ArgumentNullException("The list is empty!");
-            }
 
-            bool flag = false;
-            int nbrPoints = 0;
             int nbrClose = 0;
             int nbrDateTime = 0;
+            int nbrPoints = dataList.Count;
 
-            nbrPoints = dataList.Count;
             foreach (var item in dataList)
             {
                 if (item.Close > 0)
@@ -63,7 +49,7 @@ namespace GraphProject
                     nbrDateTime++;
             }
 
-            return flag = (nbrPoints == nbrClose) && (nbrPoints == nbrDateTime);
+            return (nbrPoints == nbrClose) && (nbrPoints == nbrDateTime);
         }
     }
 }

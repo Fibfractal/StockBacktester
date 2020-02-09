@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphProject
 {
@@ -13,7 +9,7 @@ namespace GraphProject
     /// it was a win or loss. Spread and courtage
     /// is considered.
     /// </summary>
-    public  class OneTrade
+    public class OneTrade
     {
         private double _buy = -1;
         private double _sell = -1;
@@ -26,26 +22,23 @@ namespace GraphProject
         public double Buy
         {
             get { return _buy; }
-            set 
+            set
             {
-                if(value >=0)
-                _buy = value; 
+                if (value >= 0)
+                    _buy = value;
             }
         }
 
         public double Sell
         {
             get { return _sell; }
-            set 
+            set
             {
-                if(value >= 0)
-                _sell = value; 
+                if (value >= 0)
+                    _sell = value;
             }
         }
 
-        /// <summary>
-        /// Ways to see if trade is active or finished
-        /// </summary>
         public bool Bought => _buy >= 0;
         public bool Sold => _sell >= 0;
         public bool Finished => Bought && Sold;

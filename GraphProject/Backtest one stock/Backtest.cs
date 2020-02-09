@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace GraphProject
 {
@@ -21,17 +17,16 @@ namespace GraphProject
 
         // Portfolio values
         private double _portfolioValueStart;
-        private double _portfolioValue ;
+        private double _portfolioValue;
         private double _valuePerPoint;
         private double _riskFreeRate = 0.0005 * 100; // Date 2019-11-11 , 10-year intrest
 
         // Portfolio max drawdown and that index (datetime), also new high
-        private double _max;
-        private double _min = Math.Pow(10, 9);
+        private double _maxPortfolioValue;
+        private double _currentMinPortfolioValue = Math.Pow(10, 9);
         private double _maxDrawDown = 0;
         private double _maxDrawDownPercent = 0;
-        private double _previousMaxDrawDown = 0;
-        private double _currentDrawDown = 0;
+        private double _previousMaxPortfolioDrawDown = 0;
         private bool _newHigh = false;
         private int _indexAtPreviousDrawDown = 0;
         private int _indexAtCurrentDrawDown = 0;
@@ -42,7 +37,7 @@ namespace GraphProject
             _portfolioValueStart = portfolioValueStart;
             _portfolioValue = portfolioValueStart;
             _valuePerPoint = valuePerpoint;
-            _max = portfolioValueStart;
+            _maxPortfolioValue = portfolioValueStart;
         }
 
         public double PortfolioValueStart
@@ -78,7 +73,7 @@ namespace GraphProject
 
         public double MaxDrawDownProp
         {
-            get { return _maxDrawDownPercent ; }
+            get { return _maxDrawDownPercent; }
         }
 
         public double ReturnSek()
@@ -128,7 +123,7 @@ namespace GraphProject
                 if (item.ProfitTrade() > 0 && item.Finished)
                     nbrWinners++;
             }
-            return nbrWinners; 
+            return nbrWinners;
         }
 
         public double AverageGain(TradeManager tradeList)
@@ -274,7 +269,7 @@ namespace GraphProject
             if (ReturnProcent() <= -100)
                 return -100;
             else
-                return ReturnProcent() / nbrYears; 
+                return ReturnProcent() / nbrYears;
         }
 
         /// <summary>
@@ -353,31 +348,66 @@ namespace GraphProject
         /// </summary>
         public void MaxDrawDown(int index)
         {
-            if (_portfolioValue > _max)
+            NewPortfolioHigh();
+            CheckIndexAtCurrentDrawDown(index);
+            MaxAndMinPortfolioValues();
+
+            SetMaxDrawDown();
+            SetIndexAtMaxDrawDown();
+            SetMaxDrawDownPercent();
+        }
+
+        private void NewPortfolioHigh()
+        {
+            if (_portfolioValue > _maxPortfolioValue)
             {
                 _newHigh = true;
 
-                if (_max - _min > _previousMaxDrawDown)
+                if (_maxPortfolioValue - _currentMinPortfolioValue > _previousMaxPortfolioDrawDown)
                     _indexAtPreviousDrawDown = _indexAtCurrentDrawDown;
 
-                _previousMaxDrawDown = Math.Max(_previousMaxDrawDown, _max - _min);
-                _min = Math.Pow(10, 9);
+                _previousMaxPortfolioDrawDown = Math.Max(_previousMaxPortfolioDrawDown, CurrentMaxPortfolioDrawdown());
+                // When a new high is set, _currenMinPortfolioValue is set to default, a very low value
+                _currentMinPortfolioValue = Math.Pow(10, 9);
             }
             else
                 _newHigh = false;
+        }
 
-            if (_portfolioValue < _min)
+        private void CheckIndexAtCurrentDrawDown(int index)
+        {
+            if (_portfolioValue < _currentMinPortfolioValue)
                 _indexAtCurrentDrawDown = index;
+        }
 
-            _max = Math.Max(_max, _portfolioValue);
-            _min = Math.Min(_min, _portfolioValue);
-            _currentDrawDown = Math.Max(_currentDrawDown, _max - _min);
+        private void MaxAndMinPortfolioValues()
+        {
+            _maxPortfolioValue = Math.Max(_maxPortfolioValue, _portfolioValue);
+            //When a new high is set _portfolioValue will always be _currentMinPortfolioValue
+            _currentMinPortfolioValue = Math.Min(_currentMinPortfolioValue, _portfolioValue);
+        }
 
-            _maxDrawDown = (_currentDrawDown > _previousMaxDrawDown) ? _currentDrawDown : _previousMaxDrawDown;
-            _indexAtMaxDrawdown = (_currentDrawDown > _previousMaxDrawDown) ? _indexAtCurrentDrawDown : _indexAtPreviousDrawDown;
+        private void SetMaxDrawDown()
+        {
+            _maxDrawDown = (CurrentMaxPortfolioDrawdown() > _previousMaxPortfolioDrawDown) ? CurrentMaxPortfolioDrawdown() : _previousMaxPortfolioDrawDown;
 
+        }
+
+        private void SetIndexAtMaxDrawDown()
+        {
+            _indexAtMaxDrawdown = (CurrentMaxPortfolioDrawdown() > _previousMaxPortfolioDrawDown) ? _indexAtCurrentDrawDown : _indexAtPreviousDrawDown;
+
+        }
+
+        private void SetMaxDrawDownPercent()
+        {
             _maxDrawDownPercent = _maxDrawDown / _portfolioValueStart * 100;
+            // Maxdrawdown percent can only be max 100
             _maxDrawDownPercent = (_maxDrawDownPercent < 100) ? _maxDrawDownPercent : 100;
+        }
+        private double CurrentMaxPortfolioDrawdown()
+        {
+            return _maxPortfolioValue - _currentMinPortfolioValue;
         }
 
         public OneStockBackTestData GetOneStockBacktest(TradeManager _tradeManager, List<DailyDataPoint> _dataList, string algoName, string stockName, DateTime startDate, DateTime endDate)
@@ -398,7 +428,7 @@ namespace GraphProject
             backTestData.AverageGain = AverageGain(_tradeManager);
             backTestData.AverageLoss = AverageLoss(_tradeManager);
             backTestData.ProfitFactor = ProfitFactor(_tradeManager);
-            backTestData.Cagr = Cagr(_dataList, startDate,endDate);
+            backTestData.Cagr = Cagr(_dataList, startDate, endDate);
             backTestData.SharpRatio = SharpRatio(_tradeManager, _dataList, startDate, endDate);
             backTestData.MaxDrawDownPercent = MaxDrawDownProp;
             return backTestData;
