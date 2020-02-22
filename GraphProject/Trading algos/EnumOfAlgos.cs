@@ -7,7 +7,6 @@
     {
         InclineMaAlgo,
         MaAlgo,
-        NegMaImpuls,
-        LowVolBB
+        NegMaImpuls
     }
 }

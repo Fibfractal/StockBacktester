@@ -68,8 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Import and export\Api.cs" />
-    <Compile Include="Indicators\BollingerBands.cs" />
-    <Compile Include="Trading algos\LowVolBB.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Trading algos\AlgoPicker.cs" />
     <Compile Include="GUIs\For Gui\Gui multiple backtest\BacktestPeriodPicker.cs" />
     <Compile Include="GUIs\For Gui\Gui graph\DatePickerManager.cs" />
@@ -107,7 +110,6 @@
     <Compile Include="Trades\OneTrade.cs" />
     <Compile Include="BacktestingProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trading algos\RsiDummyAlgo.cs" />
     <Compile Include="GUIs\For Gui\Gui graph\TimeFrame.cs" />
     <Compile Include="Trades\TradeManager.cs" />
     <EmbeddedResource Include="GUIs\GraphStock.resx">
@@ -118,14 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Revenue.datasource" />
     <None Include="Properties\Settings.settings">
@@ -168,6 +165,11 @@
   <ItemGroup>
     <None Include="bin\Debug\tetris.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Properties\tetris.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\greyScale.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,13 +15,11 @@ namespace GraphProject
     {
         private string _ticker;
 
-        // Portfolio values
         private double _portfolioValueStart;
         private double _portfolioValue;
         private double _valuePerPoint;
         private double _riskFreeRate = 0.0005 * 100; // Date 2019-11-11 , 10-year intrest
 
-        // Portfolio max drawdown and that index (datetime), also new high
         private double _maxPortfolioValue;
         private double _currentMinPortfolioValue = Math.Pow(10, 9);
         private double _maxDrawDown = 0;
@@ -222,6 +220,12 @@ namespace GraphProject
             double lossLosingTrades = 0;
             double gainWinningTrades = 0;
 
+            SummerizeProfit(ref lossLosingTrades, ref gainWinningTrades, tradeList);
+            return ReturnProfitfactorFromRules(lossLosingTrades, gainWinningTrades);
+        }
+
+        private void SummerizeProfit(ref double lossLosingTrades, ref double gainWinningTrades, TradeManager tradeList)
+        {
             foreach (var item in tradeList.GetTradeList)
             {
                 if (item.ProfitTrade() > 0 && item.Finished)
@@ -233,7 +237,10 @@ namespace GraphProject
                     lossLosingTrades += item.ProfitTrade() / item.Sell * _valuePerPoint;
                 }
             }
+        }
 
+        private double ReturnProfitfactorFromRules(double lossLosingTrades, double gainWinningTrades)
+        {
             if (lossLosingTrades == 0 && gainWinningTrades == 0)
                 return 0;
             else if (lossLosingTrades == 0 && gainWinningTrades != 0)
@@ -286,6 +293,11 @@ namespace GraphProject
             var top = Cagr(pointList, startDate, endDate) - _riskFreeRate;
             var bottom = StandardDeviation(tradeList) / _portfolioValueStart * 100;
 
+            return SharpRatioFromRules(top, bottom, tradeList);
+        }
+
+        private double SharpRatioFromRules(double top, double bottom, TradeManager tradeList)
+        {
             // If only one trade there is no variance and sharp ratio is useless, ie bottom is 0.
             if (top > 0 && bottom == 0)
                 return 100;
@@ -307,16 +319,7 @@ namespace GraphProject
             var top = CagrAlternative(pointList, startDate, endDate) - _riskFreeRate;
             var bottom = StandardDeviation(tradeList) / _portfolioValueStart * 100;
 
-            if (top > 0 && bottom == 0)
-                return 100;
-            else if (top < 0 && bottom == 0)
-                return -100;
-            else if (NumberOfFinishedTrades(tradeList) == 0)
-                return 0;
-            else if (top <= -100)
-                return -100;
-            else
-                return top / bottom;
+            return SharpRatioFromRules(top, bottom, tradeList);
         }
 
         public double StandardDeviation(TradeManager tradeList)
@@ -326,7 +329,11 @@ namespace GraphProject
             {
                 sumSquaredDevFromMean += Math.Pow(item.ProfitTrade() / item.Sell * _valuePerPoint - AverageProfit(tradeList), 2);
             }
-            return Math.Sqrt(sumSquaredDevFromMean / tradeList.NbrFinishedTrades());
+
+            if (tradeList.NbrFinishedTrades() == 0)
+                return 0;
+            else
+                return Math.Sqrt(sumSquaredDevFromMean / tradeList.NbrFinishedTrades());
         }
 
         public double AverageProfit(TradeManager tradeList)
@@ -337,7 +344,11 @@ namespace GraphProject
             {
                 sumProfitInSek += item.ProfitTrade() / item.Sell * _valuePerPoint;
             }
-            return sumProfitInSek / tradeList.NbrFinishedTrades();
+
+            if (tradeList.NbrFinishedTrades() == 0)
+                return 0;
+            else
+                return sumProfitInSek / tradeList.NbrFinishedTrades();
         }
 
         /// <summary>

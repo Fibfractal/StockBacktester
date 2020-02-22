@@ -25,15 +25,17 @@ namespace GraphProject
 
         public bool AddNewTradeOk()
         {
-            if (_tradeList.Count > 0)
-            {
-                if (_tradeList[_tradeList.Count - 1].Finished)
-                    return true;
-            }
-            else if (_tradeList.Count == 0)
-                return true;
+            return TradeFinished() || NoTrades();
+        }
 
-            return false;
+        private bool TradeFinished()
+        {
+            return _tradeList.Count > 0 && _tradeList[_tradeList.Count - 1].Finished;
+        }
+
+        private bool NoTrades()
+        {
+            return _tradeList.Count == 0;
         }
 
         public bool UnFinishedTrade()

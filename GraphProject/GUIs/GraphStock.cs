@@ -90,6 +90,7 @@ namespace GraphProject
             InitializeFields();
             CreateAxels();
             FillGui();
+            FillDataBaseFirstTime();
         }
 
         private void InitializeFields()
@@ -268,10 +269,18 @@ namespace GraphProject
         /// </summary>
         private void FillDatePickerGui()
         {
-            _dataList = _importFromSql.ImportStockData("AAPL");
-            _datePicker = new DatePickerManager(_dataList);
-            dtp_Start_Date.Value = _datePicker.StandardStartDate();
-            dtp_End_date.Value = _datePicker.StandardEndDate();
+            if (DataInFirstTable())
+            {
+                _dataList = _importFromSql.ImportStockData("AAPL");
+                _datePicker = new DatePickerManager(_dataList);
+                dtp_Start_Date.Value = _datePicker.StandardStartDate();
+                dtp_End_date.Value = _datePicker.StandardEndDate();
+            }
+        }
+
+        private bool DataInFirstTable()
+        {
+            return _importFromSql.ImportStockData("AAPL").Count > 0;
         }
 
         private void FillOrHideGui()
@@ -287,6 +296,12 @@ namespace GraphProject
             lbl_Show_Point_MaxDrawDown.Hide();
 
             _showChart = true;
+        }
+
+        private void FillDataBaseFirstTime()
+        {
+            if (!DataInFirstTable())
+                MakeNewTread(UpdatingThread);
         }
 
         private void ChartData()
@@ -334,7 +349,6 @@ namespace GraphProject
         private void AddStockPrice(int index, int counterStock)
         {
             _chartStock.Add(new DateModel());
-            //chartValues[index].DateTime = TimeTranslation(listOfData[index].MilliSeconds);
             _chartStock[counterStock].DateTime = TimeTranslation2(_dataList[index].Date);
             _chartStock[counterStock].Value = _dataList[index].Close;
         }
@@ -342,7 +356,6 @@ namespace GraphProject
         private void AddMovingAverage(int index, int counterMa)
         {
             _chartMa.Add(new DateModel());
-            //chartValues5[index - _lenghtMa].DateTime = TimeTranslation(listOfData[index].MilliSeconds);
             _chartMa[counterMa].DateTime = TimeTranslation2(_dataList[index].Date);
             _chartMa[counterMa].Value = _dataList[index].MA200;
         }
@@ -380,7 +393,6 @@ namespace GraphProject
 
         private void AddOpenedTrade(int index)
         {
-            //_tradeManager.AddTrade(new OneTrade { Buy = listOfData[i+1].Open, BuyDate = TimeTranslation(listOfData[index +1].MilliSeconds) });
             _tradeManager.AddTrade(new OneTrade { Buy = _dataList[index].Close, BuyDate = TimeTranslation2(_dataList[index].Date) });
         }
 
@@ -388,7 +400,6 @@ namespace GraphProject
         {
             _chartEntry.Add(new DateModel());
             var length = _chartEntry.Count();
-            //chartValues6[length - 1].DateTime = TimeTranslation(listOfData[index +1].MilliSeconds);
             _chartEntry[length - 1].DateTime = TimeTranslation2(_dataList[index].Date);
             _chartEntry[length - 1].Value = _dataList[index].Close;
         }
@@ -396,7 +407,6 @@ namespace GraphProject
         private void AddFinishedTrade(int index)
         {
             _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].Sell = _dataList[index].Close;
-            //_tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation(listOfData[index + 1].MilliSeconds);
             _tradeManager.GetTradeList[_tradeManager.GetTradeList.Count - 1].SellDate = TimeTranslation2(_dataList[index].Date);
         }
 
@@ -404,7 +414,6 @@ namespace GraphProject
         {
             _chartExit.Add(new DateModel());
             var length = _chartExit.Count();
-            //chartValues7[length - 1].DateTime = TimeTranslation(listOfData[index +1].MilliSeconds);
             _chartExit[length - 1].DateTime = TimeTranslation2(_dataList[index].Date);
             _chartExit[length - 1].Value = _dataList[index].Close;
         }
@@ -519,9 +528,6 @@ namespace GraphProject
                 _dataList[i].MA200 = (new MovingAverage(_dataList, i, _lenghtMa200)).CalculateMa();
                 _dataList[i].MA50 = (new MovingAverage(_dataList, i, _lenghtMa50)).CalculateMa();
                 _dataList[i].MA20 = (new MovingAverage(_dataList, i, _lenghtMa20)).CalculateMa();
-
-                // This takes long time to calculate
-                //_dataList[i].UpperBollingerBand = (new BollingerBands(_dataList, i, _lenghtMa200)).UpperBollingerBand();
             }
         }
 
@@ -574,7 +580,6 @@ namespace GraphProject
         private void AddStartValuePortfolio()
         {
             _chartEquityCurve.Add(new DateModel());
-            //chartValues2[0].DateTime = TimeTranslation(_dataList[0].MilliSeconds);
             _chartEquityCurve[0].DateTime = TimeTranslation2(_datePicker.StartDate);
             _chartEquityCurve[0].Value = 100000;
         }
@@ -582,7 +587,6 @@ namespace GraphProject
         private void AddEndValuePortfolio()
         {
             _chartEquityCurve.Add(new DateModel());
-            //chartValues2[chartValues2.Count - 1].DateTime = TimeTranslation(_dataList[_dataList.Count - 1].MilliSeconds);
             _chartEquityCurve[_chartEquityCurve.Count - 1].DateTime = TimeTranslation2(_datePicker.EndDate);
             _chartEquityCurve[_chartEquityCurve.Count - 1].Value = _backtest.PortfolioValue;
         }
@@ -816,7 +820,6 @@ namespace GraphProject
         /// </summary>
         private void mst_Update_Pick_Click(object sender, EventArgs e)
         {
-            //_exportToSql.GetAllStockData();
             MakeNewTread(UpdatingThread);
         }
 

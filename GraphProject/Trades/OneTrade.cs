@@ -13,8 +13,8 @@ namespace GraphProject
     {
         private double _buy = -1;
         private double _sell = -1;
-        private double _spread = 0.0006;   // 0.06 %
-        private double _courtage = 0.0000; // 0.00 % I am courtage free
+        private double _spread = 0.0006;
+        private double _courtage = 0.0000;
 
         public DateTime BuyDate { get; set; }
         public DateTime SellDate { get; set; }

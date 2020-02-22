@@ -23,7 +23,6 @@ namespace GraphProject
                     // Small or capital letters dont have to match between
                     // class properties and json properties
                     return JsonConvert.DeserializeObject<Stock>(json);
-
                 }
             }
         }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphProject
 {
@@ -16,7 +14,7 @@ namespace GraphProject
     {
         private int _index;
         private List<DailyDataPoint> _points;
-        private List<double> _advance ;
+        private List<double> _advance;
         private List<double> _decline;
         private RsiManager _lastAverage;
         private int _lenghtRsi;
@@ -42,20 +40,16 @@ namespace GraphProject
                 double nbr = 50;
 
                 if (_index > _lenghtRsi)
-                {
-                    nbr =  rsiFormula(SmoothedRS());
-                }
+                    nbr = rsiFormula(SmoothedRS());
                 else if (_index == _lenghtRsi)
                 {
                     CalcAdvanceOrDecline();
-                    nbr =  rsiFormula(FirstRS());
+                    nbr = rsiFormula(FirstRS());
                 }
                 return nbr;
             }
             else
-            {
                 return 0;
-            }
         }
 
         private void CalcAdvanceOrDecline()
@@ -65,13 +59,9 @@ namespace GraphProject
                 double diff = _points[i + 1].Close - _points[i].Close;
 
                 if (diff > 0)
-                {
                     _advance.Add(diff);
-                }
                 else if (diff < 0)
-                {
                     _decline.Add(diff);
-                }
             }
             _lastAverage.LastAverageGain = Average(_advance);
             _lastAverage.LastAverageLoss = Average(_decline);
@@ -85,21 +75,19 @@ namespace GraphProject
             double todaysDiff = _points[_index].Close - _points[_index - 1].Close;
 
             if (todaysDiff > 0)
-            {
                 todaysGain = todaysDiff;
-            }
             else if (todaysDiff < 0)
-            {
                 todaysLoss = Math.Abs(todaysDiff);
-            }
 
-            var advanceAverageYesterDay = (_lastAverage.LastAverageGain * (_lenghtRsi-1) + todaysGain) / _lenghtRsi;
-            var declineAverageYesterDay = (_lastAverage.LastAverageLoss * (_lenghtRsi-1) + todaysLoss) / _lenghtRsi;
+            return SmoothedRSRatio(todaysGain, todaysLoss);
+        }
 
-            _lastAverage.LastAverageGain = advanceAverageYesterDay;
-            _lastAverage.LastAverageLoss = declineAverageYesterDay;
+        private double SmoothedRSRatio(double todaysGain, double todaysLoss)
+        {
+            _lastAverage.LastAverageGain = (_lastAverage.LastAverageGain * (_lenghtRsi - 1) + todaysGain) / _lenghtRsi;
+            _lastAverage.LastAverageLoss = (_lastAverage.LastAverageLoss * (_lenghtRsi - 1) + todaysLoss) / _lenghtRsi;
 
-            return (advanceAverageYesterDay / declineAverageYesterDay);
+            return _lastAverage.LastAverageGain / _lastAverage.LastAverageLoss;
         }
 
         private double FirstRS() => Average(_advance) / Average(_decline);

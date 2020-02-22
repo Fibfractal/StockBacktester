@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphProject
 {
@@ -15,6 +12,12 @@ namespace GraphProject
     /// </summary>
     public class MultipleBacktestAnalyser
     {
+        public MultipleBacktestAnalyser(List<OneStockBackTestData> _backTestList, string algoName)
+        {
+            _BackTestList = _backTestList;
+            _AlgoName = algoName;
+        }
+
         public string _AlgoName { get; set; }
         public List<OneStockBackTestData> _BackTestList { get; set; }
         public double _AveragePortfolioFinishValue { get; set; }
@@ -34,15 +37,9 @@ namespace GraphProject
         public double _PercentGoodProfitfactors { get; set; }
         public double _AverageProfitPerTrade { get; set; }
 
-        public MultipleBacktestAnalyser(List<OneStockBackTestData> _backTestList, string algoName)
-        {
-            _BackTestList = _backTestList;
-            _AlgoName = algoName;
-        }
-
         public void CalculateAllAverageBackTestValues()
         {
-            if(_BackTestList.Count > 0)
+            if (_BackTestList.Count > 0)
             {
                 _AveragePortfolioFinishValue = AveragePortfolioFinishValue();
                 _AverageReturnSek = AverageReturnSek();
@@ -87,7 +84,7 @@ namespace GraphProject
         public double AverageAverageGainAverageLoss() => _BackTestList.Sum(x => x.AverageGain) / _BackTestList.Sum(x => x.AverageLoss);
         // Does not work when there is no losses or wins, get Inf or NaN
         public double AverageAverageGainAverageLoss2() => _BackTestList.Sum(x => (x.AverageGain / x.AverageLoss)) / _BackTestList.Count();
-        
+
 
         public double PercentProfitableBackTests() => _BackTestList.Sum(x => x.ReturnSek > 0 ? 1 : 0) / NumberOfActiveBacktest() * 100;
 
@@ -100,7 +97,7 @@ namespace GraphProject
 
         public override string ToString()
         {
-            if(_BackTestList.Count() > 0)
+            if (_BackTestList.Count() > 0)
             {
                 return string.Format("{0,-21} {1,-14:N1} {2,-15:N1} {3,-14:N0} {4,-17:N1} {5,-13:N2} {6,-14:N2} {7,-18:N2} {8,-18:N1} {9,-15:N1} {10,-20:N1} {11,-18:N1}",
                 _AlgoName,
@@ -118,9 +115,7 @@ namespace GraphProject
                 );
             }
             else
-            {
                 return "There were no backtests";
-            }
         }
     }
 }

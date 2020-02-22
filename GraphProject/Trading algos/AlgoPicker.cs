@@ -51,14 +51,8 @@ namespace GraphProject
             {
                 return new NegMaImpuls(_dataList, _index, _tradeManager).AlgoBuy();
             }
-            else if (_nameOfAlgo == "LowVolBB")
-            {
-                return new LowVolBB(_dataList, _index).AlgoBuy();
-            }
             else
-            {
                 return false;
-            }
         }
 
         public bool PickAlgoSell()
@@ -79,14 +73,8 @@ namespace GraphProject
 
                 return sellOk;
             }
-            else if (_nameOfAlgo == "LowVolBB")
-            {
-                return new LowVolBB(_dataList, _index).AlgoSell();
-            }
             else
-            {
                 return false;
-            }
         }
     }
 }

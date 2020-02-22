@@ -17,7 +17,7 @@ namespace GraphProject
         {
             try
             {
-                using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DBName")))
+                using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SqlDataBase")))
                 {
                     if (connection.State == ConnectionState.Closed)
                         connection.Open();

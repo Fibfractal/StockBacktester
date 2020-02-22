@@ -244,9 +244,6 @@ namespace GraphProject
             listOfData[i].MA200 = (new MovingAverage(listOfData, i, _lenghtMa200)).CalculateMa();
             listOfData[i].MA50 = (new MovingAverage(listOfData, i, _lenghtMa50)).CalculateMa();
             listOfData[i].MA20 = (new MovingAverage(listOfData, i, _lenghtMa20)).CalculateMa();
-
-            // This takes long time to calculate
-            //listOfData[i].UpperBollingerBand = (new BollingerBands(listOfData, i, _lenghtMa200)).UpperBollingerBand();
         }
 
         private void AlgoBuy(List<DailyDataPoint> listOfData, int i, AlgoPicker _algoPicker)
@@ -294,7 +291,6 @@ namespace GraphProject
 
             if (_tradeManager.GetTradeList.Count > 0)
             {
-                //TODO: ctrl + w + b
                 _backTestList.Add(_backtest.GetOneStockBacktest(_tradeManager, _dataList, _algoName, stockName, _backtestPeriodPicker.GetStartDate(), _backtestPeriodPicker.GetEndDate()));
             }
         }

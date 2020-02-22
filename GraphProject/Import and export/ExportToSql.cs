@@ -23,7 +23,7 @@ namespace GraphProject
         public void ExportChangeOneStockData()
         {
 
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DBName")))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SqlDataBase")))
             {
                 if (GetOneStockFromServer.historical != null)
                 {

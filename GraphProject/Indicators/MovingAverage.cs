@@ -38,9 +38,7 @@ namespace GraphProject
                 return nbr;
             }
             else
-            {
                 return _points[_index].Close;
-            }
         }
 
         private double MaFormula()

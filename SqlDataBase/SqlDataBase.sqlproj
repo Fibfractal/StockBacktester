@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SqlDataBase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{5c256d68-e431-4865-9bb3-5917d5cbfabf}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SqlDataBase</RootNamespace>
+    <AssemblyName>SqlDataBase</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Published profiles\" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Published profiles\SqlDataBase.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\AAL1.sql" />
+    <Build Include="dbo\Tables\AAPL1.sql" />
+    <Build Include="dbo\Tables\ADBE1.sql" />
+    <Build Include="dbo\Tables\ADI1.sql" />
+    <Build Include="dbo\Tables\ADP1.sql" />
+    <Build Include="dbo\Tables\ADSK1.sql" />
+    <Build Include="dbo\Tables\ALGN1.sql" />
+    <Build Include="dbo\Tables\ALXN1.sql" />
+    <Build Include="dbo\Tables\AMAT1.sql" />
+    <Build Include="dbo\Tables\AMD1.sql" />
+    <Build Include="dbo\Tables\AMGN1.sql" />
+    <Build Include="dbo\Tables\AMZN1.sql" />
+    <Build Include="dbo\Tables\ASML1.sql" />
+    <Build Include="dbo\Tables\ATVI1.sql" />
+    <Build Include="dbo\Tables\AVGO1.sql" />
+    <Build Include="dbo\Tables\BIDU1.sql" />
+    <Build Include="dbo\Tables\BIIB1.sql" />
+    <Build Include="dbo\Tables\BKNG1.sql" />
+    <Build Include="dbo\Tables\BMRN1.sql" />
+    <Build Include="dbo\Tables\CDNS1.sql" />
+    <Build Include="dbo\Tables\CERN1.sql" />
+    <Build Include="dbo\Tables\CHKP1.sql" />
+    <Build Include="dbo\Tables\CHTR1.sql" />
+    <Build Include="dbo\Tables\CMCSA1.sql" />
+    <Build Include="dbo\Tables\COST1.sql" />
+    <Build Include="dbo\Tables\CSCO1.sql" />
+    <Build Include="dbo\Tables\CSX1.sql" />
+    <Build Include="dbo\Tables\CTAS1.sql" />
+    <Build Include="dbo\Tables\CTSH1.sql" />
+    <Build Include="dbo\Tables\CTXS1.sql" />
+    <Build Include="dbo\Tables\DLTR1.sql" />
+    <Build Include="dbo\Tables\EA1.sql" />
+    <Build Include="dbo\Tables\EBAY1.sql" />
+    <Build Include="dbo\Tables\EXC1.sql" />
+    <Build Include="dbo\Tables\EXPE1.sql" />
+    <Build Include="dbo\Tables\FAST1.sql" />
+    <Build Include="dbo\Tables\FB1.sql" />
+    <Build Include="dbo\Tables\FISV1.sql" />
+    <Build Include="dbo\Tables\FOX1.sql" />
+    <Build Include="dbo\Tables\GILD1.sql" />
+    <Build Include="dbo\Tables\GOOG1.sql" />
+    <Build Include="dbo\Tables\HAS1.sql" />
+    <Build Include="dbo\Tables\HSIC1.sql" />
+    <Build Include="dbo\Tables\IDXX1.sql" />
+    <Build Include="dbo\Tables\ILMN1.sql" />
+    <Build Include="dbo\Tables\INCY1.sql" />
+    <Build Include="dbo\Tables\INTC1.sql" />
+    <Build Include="dbo\Tables\INTU1.sql" />
+    <Build Include="dbo\Tables\ISRG1.sql" />
+    <Build Include="dbo\Tables\JBHT1.sql" />
+    <Build Include="dbo\Tables\JD1.sql" />
+    <Build Include="dbo\Tables\KHC1.sql" />
+    <Build Include="dbo\Tables\KLAC1.sql" />
+    <Build Include="dbo\Tables\LBTYK1.sql" />
+    <Build Include="dbo\Tables\LRCX1.sql" />
+    <Build Include="dbo\Tables\LULU1.sql" />
+    <Build Include="dbo\Tables\MAR1.sql" />
+    <Build Include="dbo\Tables\MCHP1.sql" />
+    <Build Include="dbo\Tables\MDLZ1.sql" />
+    <Build Include="dbo\Tables\MELI1.sql" />
+    <Build Include="dbo\Tables\MNST1.sql" />
+    <Build Include="dbo\Tables\MSFT1.sql" />
+    <Build Include="dbo\Tables\MU1.sql" />
+    <Build Include="dbo\Tables\MXIM1.sql" />
+    <Build Include="dbo\Tables\MYL1.sql" />
+    <Build Include="dbo\Tables\NFLX1.sql" />
+    <Build Include="dbo\Tables\NTAP1.sql" />
+    <Build Include="dbo\Tables\NTES1.sql" />
+    <Build Include="dbo\Tables\NVDA1.sql" />
+    <Build Include="dbo\Tables\NXPI1.sql" />
+    <Build Include="dbo\Tables\ORLY1.sql" />
+    <Build Include="dbo\Tables\PAYX1.sql" />
+    <Build Include="dbo\Tables\PCAR1.sql" />
+    <Build Include="dbo\Tables\PEP1.sql" />
+    <Build Include="dbo\Tables\PYPL1.sql" />
+    <Build Include="dbo\Tables\QCOM1.sql" />
+    <Build Include="dbo\Tables\REGN1.sql" />
+    <Build Include="dbo\Tables\ROST1.sql" />
+    <Build Include="dbo\Tables\SBUX1.sql" />
+    <Build Include="dbo\Tables\SIRI1.sql" />
+    <Build Include="dbo\Tables\SNPS1.sql" />
+    <Build Include="dbo\Tables\SWKS1.sql" />
+    <Build Include="dbo\Tables\TMUS1.sql" />
+    <Build Include="dbo\Tables\TSLA1.sql" />
+    <Build Include="dbo\Tables\TTWO1.sql" />
+    <Build Include="dbo\Tables\TXN1.sql" />
+    <Build Include="dbo\Tables\UAL1.sql" />
+    <Build Include="dbo\Tables\ULTA1.sql" />
+    <Build Include="dbo\Tables\VRSK1.sql" />
+    <Build Include="dbo\Tables\VRSN1.sql" />
+    <Build Include="dbo\Tables\VRTX1.sql" />
+    <Build Include="dbo\Tables\WBA1.sql" />
+    <Build Include="dbo\Tables\WDAY1.sql" />
+    <Build Include="dbo\Tables\WDC1.sql" />
+    <Build Include="dbo\Tables\WLTW1.sql" />
+    <Build Include="dbo\Tables\WYNN1.sql" />
+    <Build Include="dbo\Tables\XEL1.sql" />
+    <Build Include="dbo\Tables\XLNX1.sql" />
+  </ItemGroup>
+</Project>

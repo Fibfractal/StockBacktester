@@ -63,26 +63,6 @@ namespace GraphProject.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bar_to_dots_gray {
-            get {
-                object obj = ResourceManager.GetObject("bar_to_dots_gray", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap google_spinner_white {
-            get {
-                object obj = ResourceManager.GetObject("google_spinner_white", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap greyScale {
             get {
                 object obj = ResourceManager.GetObject("greyScale", resourceCulture);
@@ -93,59 +73,9 @@ namespace GraphProject.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap infinity_preloader {
-            get {
-                object obj = ResourceManager.GetObject("infinity_preloader", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap loading_spinner {
-            get {
-                object obj = ResourceManager.GetObject("loading_spinner", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap moving_dots_light_green {
-            get {
-                object obj = ResourceManager.GetObject("moving_dots_light_green", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap spinner {
-            get {
-                object obj = ResourceManager.GetObject("spinner", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap tetris {
             get {
                 object obj = ResourceManager.GetObject("tetris", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap white_bars {
-            get {
-                object obj = ResourceManager.GetObject("white_bars", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
