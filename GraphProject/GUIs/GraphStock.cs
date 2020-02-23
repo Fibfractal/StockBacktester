@@ -90,7 +90,7 @@ namespace GraphProject
             InitializeFields();
             CreateAxels();
             FillGui();
-            FillDataBaseFirstTime();
+            FillGuiFirstTime();
         }
 
         private void InitializeFields()
@@ -271,7 +271,7 @@ namespace GraphProject
         {
             if (DataInFirstTable())
             {
-                _dataList = _importFromSql.ImportStockData("AAPL");
+                _dataList = _importFromSql.ImportStockData("AAL");
                 _datePicker = new DatePickerManager(_dataList);
                 dtp_Start_Date.Value = _datePicker.StandardStartDate();
                 dtp_End_date.Value = _datePicker.StandardEndDate();
@@ -280,7 +280,7 @@ namespace GraphProject
 
         private bool DataInFirstTable()
         {
-            return _importFromSql.ImportStockData("AAPL").Count > 0;
+            return _importFromSql.ImportStockData("AAL").Count > 0;
         }
 
         private void FillOrHideGui()
@@ -298,10 +298,14 @@ namespace GraphProject
             _showChart = true;
         }
 
-        private void FillDataBaseFirstTime()
+        private void FillGuiFirstTime()
         {
             if (!DataInFirstTable())
-                MakeNewTread(UpdatingThread);
+            {
+                lbl_Updating.Visible = true;
+                lbl_Updating.Text = "Update the stock database, by pressing Update and Update stocks in the menu ...";
+                LeftGuiShow();
+            }
         }
 
         private void ChartData()
@@ -866,6 +870,8 @@ namespace GraphProject
             lbx_StockList.Enabled = false;
             cbx_Pick_Algo.Enabled = false;
             btn_Backtest_Multiple_Stocks.Enabled = false;
+            dtp_Start_Date.Enabled = false;
+            dtp_End_date.Enabled = false;
         }
 
         private void RightGuiShow()
@@ -912,6 +918,8 @@ namespace GraphProject
             lbx_StockList.Enabled = true;
             cbx_Pick_Algo.Enabled = true;
             btn_Backtest_Multiple_Stocks.Enabled = true;
+            dtp_Start_Date.Enabled = true;
+            dtp_End_date.Enabled = true;
         }
 
         private void ShowLoading()
