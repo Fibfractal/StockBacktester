@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GraphProject
@@ -17,23 +19,27 @@ namespace GraphProject
     /// </summary>
     public class ExportToSql
     {
-        public Stock GetOneStockFromServer { get; set; }
+        public List<Task<Stock>> _stockList = new List<Task<Stock>>();
+
         public string StockName { get; set; }
 
-        public void ExportChangeOneStockData()
+        public void ExportChangeOneStockData(Stock[] stockData)
         {
 
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("SqlDataBase")))
             {
-                if (GetOneStockFromServer.historical != null)
+                foreach (var item in stockData)
                 {
-                    DeleteAndCreateTable(connection);
-                    connection.Execute("INSERT INTO " + StockName + "1" + " VALUES (@Date, @Close) ", GetOneStockFromServer.historical);
-                }
-                else
-                {
-                    MessageBox.Show(string.Format("The API didn't return any value for the stock {0}  at {1}"
-                        , StockName, DateTime.Now.TimeOfDay));
+                    if (item.historical != null)
+                    {
+                        DeleteAndCreateTable(connection);
+                        connection.Execute("INSERT INTO " + StockName + "1" + " VALUES (@Date, @Close) ", item.historical);
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Format("The API didn't return any value for the stock {0}  at {1}"
+                            , StockName, DateTime.Now.TimeOfDay));
+                    }
                 }
             }
         }
@@ -46,24 +52,28 @@ namespace GraphProject
             connection.Execute(sqlString2);
         }
 
-        public async void ExportToDatabase()
+        public async Task ExportToDatabase()
         {
-            int i;
-
-            for (i = 0; i < ArrayEnumLenght(); i++)
+            for (int i = 0; i < ArrayEnumLenght(); i++)
             {
                 try
                 {
                     StockName = ArrayTickers()[i].ToString();
-                    GetOneStockFromServer = await new Api().OneStockDataFromApi(StockName);
-                    ExportChangeOneStockData();
+                    _stockList.Add(new Api().OneStockDataFromApi(StockName));
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, string.Format("Stock: {0} and nbr: {1} in array failed the request", StockName, i));
                 }
             }
+
+            var results = await Task.WhenAll(_stockList);
+
+            ExportChangeOneStockData(results);
+
             MessageBox.Show("The entire stocklist was downloaded!");
+
+            _stockList.Clear();
         }
 
         private int ArrayEnumLenght()

@@ -137,6 +137,44 @@ namespace GraphProject
             hideLoadingBacktest = new guiAndThreads(HideLoadingBacktest);
         }
 
+        private void ShowLoading()
+        {
+            lbl_Updating.Text = "Loading ...";
+            lbl_Updating.Visible = true;
+        }
+
+        private void HideLoading()
+        {
+            lbl_Updating.Visible = false;
+        }
+
+        /// <summary>
+        /// When opening the multiple backtest Gui, the text
+        /// "Loading ..." is shown and some parts of the Gui
+        /// is disabled.
+        /// </summary>
+        private void ShowLoadingBacktest()
+        {
+            lbl_Updating.Text = "Loading ...";
+            lbl_Updating.Visible = true;
+
+            lbx_StockList.Enabled = false;
+            cbx_Pick_Algo.Enabled = false;
+        }
+
+        /// <summary>
+        /// When the multiple backtest Gui has opened, the text
+        /// "Loading ..." is hidden and some parts of the Gui
+        /// is enabled.
+        /// </summary>
+        private void HideLoadingBacktest()
+        {
+            lbl_Updating.Visible = false;
+
+            lbx_StockList.Enabled = true;
+            cbx_Pick_Algo.Enabled = true;
+        }
+
         private void InitializeLineSeries()
         {
             LineSeriesGraph();
@@ -308,6 +346,74 @@ namespace GraphProject
             }
         }
 
+        /// <summary>
+        /// Pick a stock in the list, and view the stockchart and backtest of that stock.
+        /// </summary>
+        private void lbx_StockList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitializeFields();
+            SecondFillGUI();
+            ImportAndVerifyData();
+            GetDatesGui();
+            ChartData();
+            OtherGuiChanges();
+        }
+
+        private void SecondFillGUI()
+        {
+            StockChartGui.Show();
+            BacktestChartGui.Show();
+            StockChartGui.Series.Clear();
+            BacktestChartGui.Series.Clear();
+
+            gbx_Backtest.Show();
+            lbl_Entry.Show();
+            lbl_Exit.Show();
+            lbl_MA200.Show();
+            lbl_NewHigh.Show();
+            lbl_Show_Point_MaxDrawDown.Show();
+        }
+
+        private void ImportAndVerifyData()
+        {
+            try
+            {
+                ImportSqlData();
+                _importFromSql.VerifyData(_dataList);
+
+                if (!_importFromSql.VerifyData(_dataList))
+                    MessageBox.Show("Import of sql stock data is not complete!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Import of sql stock data failed!");
+            }
+        }
+
+        private void ImportSqlData()
+        {
+            int index = lbx_StockList.SelectedIndex;
+
+            if (index >= 0)
+            {
+                var stockArray = (NasdaqStockTickers[])Enum.GetValues(typeof(NasdaqStockTickers));
+                string stockName = stockArray[index].ToString();
+                lbl_Stock_Ticker.Text = stockName;
+                _backtest.Ticker = stockName;
+                _dataList = _importFromSql.ImportStockData(stockName);
+            }
+        }
+
+        private void GetDatesGui()
+        {
+            _datePicker = new DatePickerManager(_dataList);
+            _datePicker.StartDate = dtp_Start_Date.Value;
+            _datePicker.EndDate = dtp_End_date.Value;
+            _datePicker.VerifyDates();
+            _startDateIndex = _datePicker.StartDateIndex;
+            _endDateIndex = _datePicker.EndDateIndex;
+        }
+
         private void ChartData()
         {
             StockChart();
@@ -325,6 +431,17 @@ namespace GraphProject
             AlgoSignals();
             PropertiesForStockChart();
             PlotInStockChart();
+        }
+
+        private void CalculateIndicators()
+        {
+            for (int i = 0; i < _dataList.Count; i++)
+            {
+                _dataList[i].RSI = (new RSI(_dataList, i, _lastAverage, _lenghtRsi)).CalculateRsi();
+                _dataList[i].MA200 = (new MovingAverage(_dataList, i, _lenghtMa200)).CalculateMa();
+                _dataList[i].MA50 = (new MovingAverage(_dataList, i, _lenghtMa50)).CalculateMa();
+                _dataList[i].MA20 = (new MovingAverage(_dataList, i, _lenghtMa20)).CalculateMa();
+            }
         }
 
         private void AlgoSignals()
@@ -362,6 +479,21 @@ namespace GraphProject
             _chartMa.Add(new DateModel());
             _chartMa[counterMa].DateTime = TimeTranslation2(_dataList[index].Date);
             _chartMa[counterMa].Value = _dataList[index].MA200;
+        }
+
+        /// <summary>
+        /// The date from API is correct, but have to add one year for 
+        /// adjust for the incorrect x-axel. So both match up.
+        /// </summary>
+        private DateTime TimeTranslation2(DateTime datePrice)
+        {
+
+            DateTime date = new DateTime(1971, 1, 1);
+            DateTime date2 = new DateTime(1972, 1, 1);
+            TimeSpan oneYear = date2 - date;
+            DateTime newDate = datePrice + oneYear;
+
+            return newDate;
         }
 
         /// <summary>
@@ -477,62 +609,6 @@ namespace GraphProject
 
             if (_showChart)
                 StockChartGui.Series = _seriesCollectionStock;
-        }
-
-        private void AlgoInComboBox()
-        {
-            _algoName = cbx_Pick_Algo.SelectedItem.ToString();
-        }
-
-        private void GetDatesGui()
-        {
-            _datePicker = new DatePickerManager(_dataList);
-            _datePicker.StartDate = dtp_Start_Date.Value;
-            _datePicker.EndDate = dtp_End_date.Value;
-            _datePicker.VerifyDates();
-            _startDateIndex = _datePicker.StartDateIndex;
-            _endDateIndex = _datePicker.EndDateIndex;
-        }
-
-        private void ImportAndVerifyData()
-        {
-            try
-            {
-                ImportSqlData();
-                _importFromSql.VerifyData(_dataList);
-
-                if (!_importFromSql.VerifyData(_dataList))
-                    MessageBox.Show("Import of sql stock data is not complete!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Import of sql stock data failed!");
-            }
-        }
-
-        private void ImportSqlData()
-        {
-            int index = lbx_StockList.SelectedIndex;
-
-            if (index >= 0)
-            {
-                var stockArray = (NasdaqStockTickers[])Enum.GetValues(typeof(NasdaqStockTickers));
-                string stockName = stockArray[index].ToString();
-                lbl_Stock_Ticker.Text = stockName;
-                _backtest.Ticker = stockName;
-                _dataList = _importFromSql.ImportStockData(stockName);
-            }
-        }
-
-        private void CalculateIndicators()
-        {
-            for (int i = 0; i < _dataList.Count; i++)
-            {
-                _dataList[i].RSI = (new RSI(_dataList, i, _lastAverage, _lenghtRsi)).CalculateRsi();
-                _dataList[i].MA200 = (new MovingAverage(_dataList, i, _lenghtMa200)).CalculateMa();
-                _dataList[i].MA50 = (new MovingAverage(_dataList, i, _lenghtMa50)).CalculateMa();
-                _dataList[i].MA20 = (new MovingAverage(_dataList, i, _lenghtMa20)).CalculateMa();
-            }
         }
 
         private void BacktestChart()
@@ -686,49 +762,14 @@ namespace GraphProject
         }
 
         /// <summary>
-        /// The date from API is correct, but have to add one year for 
-        /// adjust for the incorrect x-axel. So both match up.
+        /// When a new stock i picked in the list, it takes som time to 
+        /// plot this. It's illustrated with "Loading ..." in the Gui.
         /// </summary>
-        private DateTime TimeTranslation2(DateTime datePrice)
+        private void LoadingThread()
         {
-
-            DateTime date = new DateTime(1971, 1, 1);
-            DateTime date2 = new DateTime(1972, 1, 1);
-            TimeSpan oneYear = date2 - date;
-            DateTime newDate = datePrice + oneYear;
-
-            return newDate;
-        }
-
-        private void cbx_Pick_Algo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AlgoInComboBox();
-        }
-
-        private void lbx_StockList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            InitializeFields();
-            SecondFillGUI();
-            ImportAndVerifyData();
-            GetDatesGui();
-            ChartData();
-
-            OtherGuiChanges();
-        }
-
-        private void SecondFillGUI()
-        {
-            StockChartGui.Show();
-            BacktestChartGui.Show();
-            StockChartGui.Series.Clear();
-            BacktestChartGui.Series.Clear();
-
-            gbx_Backtest.Show();
-            lbl_Entry.Show();
-            lbl_Exit.Show();
-            lbl_MA200.Show();
-            lbl_NewHigh.Show();
-            lbl_Show_Point_MaxDrawDown.Show();
+            this.Invoke(this.showLoading);
+            System.Threading.Thread.Sleep(1500);
+            this.Invoke(this.hideLoading);
         }
 
         private void OtherGuiChanges()
@@ -742,6 +783,16 @@ namespace GraphProject
             dtp_End_date.Value = _datePicker.EndDate;
         }
 
+        private void cbx_Pick_Algo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AlgoInComboBox();
+        }
+
+        private void AlgoInComboBox()
+        {
+            _algoName = cbx_Pick_Algo.SelectedItem.ToString();
+        }
+
         /// <summary>
         /// when the "Backtest multiple stock" button is pressed,
         /// another Gui is opened up.
@@ -751,29 +802,6 @@ namespace GraphProject
             MakeNewTread(MultipleBacktestTread);
         }
 
-        /// <summary>
-        /// When "Update" is chosen in the menu; all stock data gets updated. To 
-        /// illustrate that this process is active, a GIF is shown. If it's done
-        /// in a new thread the Gui doesn't lock it self.
-        /// </summary>
-        private void UpdatingThread()
-        {
-            this.Invoke(this.showUpdating);
-            _exportToSql.ExportToDatabase();
-            System.Threading.Thread.Sleep(400000);
-            this.Invoke(this.hideUpdating);
-        }
-
-        /// <summary>
-        /// When a new stock i picked in the list, it takes som time to 
-        /// plot this. It's illustrated with "Loading ..." in the Gui.
-        /// </summary>
-        private void LoadingThread()
-        {
-            this.Invoke(this.showLoading);
-            System.Threading.Thread.Sleep(1500);
-            this.Invoke(this.hideLoading);
-        }
         /// <summary>
         /// "Loading ..." is showed in Gui.
         ///  A new Gui is opened, to do multiple backtests.
@@ -787,17 +815,6 @@ namespace GraphProject
 
             System.Threading.Thread.Sleep(1000);
             this.Invoke(this.hideLoadingBacktest);
-        }
-
-        /// <summary>
-        /// A method that starts a new thread, running a certain method.
-        /// </summary>
-        /// <param name="methodName">The method to run</param>
-        private void MakeNewTread(Action methodName)
-        {
-            ThreadStart myThreadStart = new ThreadStart(methodName);
-            Thread myThread = new Thread(myThreadStart);
-            myThread.Start();
         }
 
         /// <summary>
@@ -827,23 +844,28 @@ namespace GraphProject
             MakeNewTread(UpdatingThread);
         }
 
-        private void mst_File_Exit_Click(object sender, EventArgs e)
+        /// <summary>
+        /// A method that starts a new thread, running a certain method.
+        /// </summary>
+        /// <param name="methodName">The method to run</param>
+        private void MakeNewTread(Action methodName)
         {
-            Close();
+            ThreadStart myThreadStart = new ThreadStart(methodName);
+            Thread myThread = new Thread(myThreadStart);
+            myThread.Start();
         }
 
-        private void dtp_Start_Date_ValueChanged(object sender, EventArgs e)
+        /// <summary>
+        /// When "Update" is chosen in the menu; all stock data gets updated. To 
+        /// illustrate that this process is active, a GIF is shown. If it's done
+        /// in a new thread the Gui doesn't lock it self.
+        /// </summary>
+        private void UpdatingThread()
         {
-            _datePicker.StartDate = dtp_Start_Date.Value;
-            _datePicker.PickCorrectDayAndDate();
-            dtp_Start_Date.Value = _datePicker.StartDate;
-        }
-
-        private void dtp_End_date_ValueChanged(object sender, EventArgs e)
-        {
-            _datePicker.EndDate = dtp_End_date.Value;
-            _datePicker.PickCorrectDayAndDate();
-            dtp_End_date.Value = _datePicker.EndDate;
+            this.Invoke(this.showUpdating);
+            _exportToSql.ExportToDatabase();
+            System.Threading.Thread.Sleep(250000);
+            this.Invoke(this.hideUpdating);
         }
 
         /// <summary>
@@ -922,42 +944,23 @@ namespace GraphProject
             dtp_End_date.Enabled = true;
         }
 
-        private void ShowLoading()
+        private void mst_File_Exit_Click(object sender, EventArgs e)
         {
-            lbl_Updating.Text = "Loading ...";
-            lbl_Updating.Visible = true;
+            Close();
         }
 
-        private void HideLoading()
+        private void dtp_Start_Date_ValueChanged(object sender, EventArgs e)
         {
-            lbl_Updating.Visible = false;
+            _datePicker.StartDate = dtp_Start_Date.Value;
+            _datePicker.PickCorrectDayAndDate();
+            dtp_Start_Date.Value = _datePicker.StartDate;
         }
 
-        /// <summary>
-        /// When opening the multiple backtest Gui, the text
-        /// "Loading ..." is shown and some parts of the Gui
-        /// is disabled.
-        /// </summary>
-        private void ShowLoadingBacktest()
+        private void dtp_End_date_ValueChanged(object sender, EventArgs e)
         {
-            lbl_Updating.Text = "Loading ...";
-            lbl_Updating.Visible = true;
-
-            lbx_StockList.Enabled = false;
-            cbx_Pick_Algo.Enabled = false;
-        }
-
-        /// <summary>
-        /// When the multiple backtest Gui has opened, the text
-        /// "Loading ..." is hidden and some parts of the Gui
-        /// is enabled.
-        /// </summary>
-        private void HideLoadingBacktest()
-        {
-            lbl_Updating.Visible = false;
-
-            lbx_StockList.Enabled = true;
-            cbx_Pick_Algo.Enabled = true;
+            _datePicker.EndDate = dtp_End_date.Value;
+            _datePicker.PickCorrectDayAndDate();
+            dtp_End_date.Value = _datePicker.EndDate;
         }
     }
 }
