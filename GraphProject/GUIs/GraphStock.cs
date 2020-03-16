@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Brushes = System.Windows.Media.Brushes;
 
@@ -77,8 +78,6 @@ namespace GraphProject
         private string _algoName;
 
         public delegate void guiAndThreads();
-        guiAndThreads showUpdating;
-        guiAndThreads hideUpdating;
         guiAndThreads showLoading;
         guiAndThreads hideLoading;
         guiAndThreads showLoadingBacktest;
@@ -129,8 +128,6 @@ namespace GraphProject
 
         private void InitializeGuiAndTreads()
         {
-            showUpdating = new guiAndThreads(ShowUpdating);
-            hideUpdating = new guiAndThreads(HideUpdating);
             showLoading = new guiAndThreads(ShowLoading);
             hideLoading = new guiAndThreads(HideLoading);
             showLoadingBacktest = new guiAndThreads(ShowLoadingBacktest);
@@ -183,14 +180,11 @@ namespace GraphProject
 
         private void LineSeriesGraph()
         {
-
             _seriesCollectionStock = new SeriesCollection(_dayConfigStock);
             _seriesStock = new LineSeries();
             _seriesMa = new LineSeries();
             _seriesEntry = new LineSeries();
             _seriesExit = new LineSeries();
-
-
         }
 
         private void LineSeriesBacktest()
@@ -309,7 +303,7 @@ namespace GraphProject
         {
             if (DataInFirstTable())
             {
-                _dataList = _importFromSql.ImportStockData("AAL");
+                _dataList = _importFromSql.ImportStockData("ATVI");
                 _datePicker = new DatePickerManager(_dataList);
                 dtp_Start_Date.Value = _datePicker.StandardStartDate();
                 dtp_End_date.Value = _datePicker.StandardEndDate();
@@ -318,7 +312,7 @@ namespace GraphProject
 
         private bool DataInFirstTable()
         {
-            return _importFromSql.ImportStockData("AAL").Count > 0;
+            return _importFromSql.ImportStockData("ATVI").Count > 0;
         }
 
         private void FillOrHideGui()
@@ -341,7 +335,7 @@ namespace GraphProject
             if (!DataInFirstTable())
             {
                 lbl_Updating.Visible = true;
-                lbl_Updating.Text = "Update the stock database, by pressing Update and Update stocks in the menu ...";
+                lbl_Updating.Text = "Press \"Update\" to update stocks in the menu.";
                 LeftGuiShow();
             }
         }
@@ -839,9 +833,11 @@ namespace GraphProject
         /// When pressing the "Update chart" in the menu, the
         /// process of updating the stocklist starts.
         /// </summary>
-        private void mst_Update_Pick_Click(object sender, EventArgs e)
+        private async void mst_Update_Pick_Click(object sender, EventArgs e)
         {
-            MakeNewTread(UpdatingThread);
+            UpdatingSequenceShow();
+            await Task.Run(() => _exportToSql.ExportToDatabase());
+            HideUpdating();
         }
 
         /// <summary>
@@ -853,19 +849,6 @@ namespace GraphProject
             ThreadStart myThreadStart = new ThreadStart(methodName);
             Thread myThread = new Thread(myThreadStart);
             myThread.Start();
-        }
-
-        /// <summary>
-        /// When "Update" is chosen in the menu; all stock data gets updated. To 
-        /// illustrate that this process is active, a GIF is shown. If it's done
-        /// in a new thread the Gui doesn't lock it self.
-        /// </summary>
-        private void UpdatingThread()
-        {
-            this.Invoke(this.showUpdating);
-            _exportToSql.ExportToDatabase();
-            System.Threading.Thread.Sleep(250000);
-            this.Invoke(this.hideUpdating);
         }
 
         /// <summary>

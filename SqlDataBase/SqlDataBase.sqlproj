@@ -61,9 +61,6 @@
     <Folder Include="dbo\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Published profiles\SqlDataBase.publish.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Build Include="dbo\Tables\AAL1.sql" />
     <Build Include="dbo\Tables\AAPL1.sql" />
     <Build Include="dbo\Tables\ADBE1.sql" />
@@ -162,5 +159,8 @@
     <Build Include="dbo\Tables\WYNN1.sql" />
     <Build Include="dbo\Tables\XEL1.sql" />
     <Build Include="dbo\Tables\XLNX1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Published profiles\SqlDataBase.publish.xml" />
   </ItemGroup>
 </Project>

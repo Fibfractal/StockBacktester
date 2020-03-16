@@ -1,1 +1,0 @@
-1. Here we learn to get data from a database NeDb

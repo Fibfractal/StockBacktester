@@ -1,0 +1,20 @@
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\bin\Debug\SqlDataBase.dacpac
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\bin\Debug\SqlDataBase.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\bin\Debug\SqlDataBase.pdb
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\SqlDataBase.sqlprojAssemblyReference.cache
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\Model.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\refactor.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\postdeploy.sql
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\predeploy.sql
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\SqlDataBase.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final\GraphProject\SqlDataBase\obj\Debug\SqlDataBase.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\bin\Debug\SqlDataBase.dacpac
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\bin\Debug\SqlDataBase.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\bin\Debug\SqlDataBase.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\SqlDataBase.sqlprojAssemblyReference.cache
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\SqlDataBase.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\SqlDataBase.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\Model.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\refactor.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\postdeploy.sql
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\SqlDataBase\obj\Debug\predeploy.sql

@@ -169,3 +169,75 @@ C:\Users\bande_000\Desktop\Testing\GraphProject v26 Final 1.5\GraphProject\Graph
 C:\Users\bande_000\Desktop\Testing\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.CopyComplete
 C:\Users\bande_000\Desktop\Testing\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.exe
 C:\Users\bande_000\Desktop\Testing\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\GraphProject.exe.config
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\GraphProject.exe
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\GraphProject.pdb
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\Dapper.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\Dapper.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.pdb
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.csprojAssemblyReference.cache
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.GraphStocks.resources
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.MultipleBacktests.resources
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.Properties.Resources.resources
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.GenerateResource.cache
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.CopyComplete
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.exe
+C:\Users\bande_000\Desktop\GraphProject v26 Final 1.4\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\GraphProject.exe.config
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\GraphProject.exe
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\GraphProject.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Dapper.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Dapper.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csprojAssemblyReference.cache
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.GraphStocks.resources
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.MultipleBacktests.resources
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.Properties.Resources.resources
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.GenerateResource.cache
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.CopyComplete
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.exe
+C:\Users\bande_000\Desktop\Test\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\GraphProject.exe.config
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\GraphProject.exe
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\GraphProject.pdb
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Dapper.dll
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.dll
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Dapper.xml
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.pdb
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.xml
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csprojAssemblyReference.cache
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.GraphStocks.resources
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.MultipleBacktests.resources
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.Properties.Resources.resources
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.GenerateResource.cache
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.csproj.CopyComplete
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.exe
+C:\Users\bande_000\Desktop\Test\Version 1.5\GraphProject v26 Final 1.5\GraphProject\GraphProject\obj\Debug\GraphProject.pdb
