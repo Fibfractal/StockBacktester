@@ -19,11 +19,7 @@ The second GUI let you perform a strategy an all stocks at the same time, to see
 Do so by open the "Published profiles" folder under "SqlDataBase" project in the solution.
 There, right click on the "SqlDataBase.publish.xml" and publish, now the the DB and stock tables are created.
 
-3. You could get problem with your antivirus program, ie Norton Antivirus, when you run the solution downloaded from internet.
-If so it complains on the "GraphStock.resx" and "MultipleBacktest.resx"  files, right click on those and chose properties and click in the box that the file is trusted. Also be aware that .dll and .exe can automaticly deleted by Norton the when running the program.
-Restore this if so.
-
-4. Now you can run the solution, and start with updating the stockdata, it will take 5-10 min depending on how busy the API is.
+3. Now you can run the solution, and start with updating the stockdata, it will take 5-10 min depending on how busy the API is.
 
 
 # Creation of a new algo
@@ -57,7 +53,7 @@ under tools, and only see the backtest for that stock, when you want to test lon
 
 # The next step
 
-1. To create a new form and a filter for the stocks that have given resent buy or sell signals. A stock screener.
+1. The next step is to create a stock screener for the current stocks signals.
 
 
 
