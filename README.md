@@ -1,5 +1,9 @@
 # -- StockBacktester --
 
+--Note--
+Before 2020-05-01 the data provider, used in the application, offered 30 years of free daily data with unlimited requests, without any 'paid' api-keys.
+Now, they have limited the data to 5 years and offers one free key which lasts for only 250 requests in total (2 updates for Nasdaq100). So the application
+has to be modified for the api-keys and som other changes to the dataformat from the api. Consider that if you use it. I will commit a change when I have time.
 
 # Purpose
 
